@@ -9,6 +9,7 @@ import { postSelector } from "store/slices/postsSlices";
 import { useSelector } from "react-redux";
 import Modal from "components/modal/modal";
 import Map from "components/map/map";
+import Container from "@mui/material/Container";
 
 const PostPage = () => {
   const dispatch = useDispatch();
@@ -34,29 +35,31 @@ const PostPage = () => {
 
   return (
     <Suspense>
-      <Grid>
-        <Post
-          data={post}
-          isPostPage
-          showLocationOnMap
-          handleOpenModal={handleOpenModal}
-          handleClosePostsList={handleClose}
-        />
-        <Modal open={open} onClose={handleClose} sx={{ outline: "none" }}>
-          <Grid
-            container
-            justifyContent={"center"}
-            sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 330px )" }}
-          >
-            <Map
-              // myCordinate={post.address?.locations.coordinates}
-              locations={[locations]}
-              center={post.address?.location.coordinates}
-              zoom={15}
-            />
-          </Grid>
-        </Modal>
-      </Grid>
+      <Container maxWidth="md">
+        <Grid>
+          <Post
+            data={post}
+            isPostPage
+            showLocationOnMap
+            handleOpenModal={handleOpenModal}
+            handleClosePostsList={handleClose}
+          />
+          <Modal open={open} onClose={handleClose} sx={{ outline: "none" }}>
+            <Grid
+              container
+              justifyContent={"center"}
+              sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 330px )" }}
+            >
+              <Map
+                // myCordinate={post.address?.locations.coordinates}
+                locations={[locations]}
+                center={post.address?.location.coordinates}
+                zoom={15}
+              />
+            </Grid>
+          </Modal>
+        </Grid>
+      </Container>
     </Suspense>
   );
 };
