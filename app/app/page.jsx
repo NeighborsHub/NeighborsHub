@@ -57,44 +57,53 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (mainAddress)
-      dispatch(
-        getPosts({
-          user_latitude: initialCordinate[1] || undefined,
-          user_longitude: initialCordinate[0] || undefined,
-          offset: 0,
-          limit: 30,
-          from_distance: dialogFilters?.filters?.distance
-            ? dialogFilters?.distance?.[0]
-            : undefined,
-          to_distance: dialogFilters?.filters?.distance
-            ? dialogFilters?.distance?.[1]
-            : undefined,
-          category: dialogFilters.filters?.categories
-            ? dialogFilters.selectedCategories.toString()
-            : undefined,
-        })
-      );
+    if (mainAddress) getPostsFun();
   }, [mainAddress, dialogFilters]);
 
   useEffect(() => {
     if (latBounds[0]) {
-      controller = new AbortController();
-      dispatch(
-        getUniqueLocation(
-          {
-            in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
-            offset: 0,
-            limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 15,
-            category: dialogFilters.filters?.categories
-              ? dialogFilters.selectedCategories.toString()
-              : undefined,
-          },
-          controller.signal
-        )
-      );
+      getUniqueLocationFun();
     }
   }, [latBounds[0], latBounds[1], longBounds[0], longBounds[1], dialogFilters]);
+
+  function getPostsFun() {
+    dispatch(
+      getPosts({
+        user_latitude: initialCordinate[1] || undefined,
+        user_longitude: initialCordinate[0] || undefined,
+        offset: 0,
+        limit: 30,
+        from_distance: dialogFilters?.filters?.distance
+          ? dialogFilters?.distance?.[0]
+          : undefined,
+        to_distance: dialogFilters?.filters?.distance
+          ? dialogFilters?.distance?.[1]
+          : undefined,
+        category: dialogFilters.filters?.categories
+          ? dialogFilters.selectedCategories.toString()
+          : undefined,
+        search: search.value || undefined,
+      })
+    );
+  }
+
+  function getUniqueLocationFun() {
+    controller = new AbortController();
+    dispatch(
+      getUniqueLocation(
+        {
+          in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
+          offset: 0,
+          limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 15,
+          category: dialogFilters.filters?.categories
+            ? dialogFilters.selectedCategories.toString()
+            : undefined,
+          search: search.value || undefined,
+        },
+        controller.signal
+      )
+    );
+  }
 
   const handleChange = (e, value) => {
     setTabValue(value);
@@ -154,7 +163,9 @@ const App = () => {
     controller?.abort();
   }
 
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    getPostsFun();
+  };
 
   return (
     <Grid
