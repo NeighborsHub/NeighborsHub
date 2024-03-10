@@ -93,7 +93,9 @@ const Post = ({
     }
   };
 
-  const handleRirectToUserProfile = (id) => {
+  const handleRirectToUserProfile = (e, id) => {
+    e.preventDefault();
+    e.stopPropagation();
     router.push(`/app/user?id=${id}`);
   };
 
@@ -103,58 +105,73 @@ const Post = ({
 
   return (
     <Suspense>
-      <Grid container direction={"column"} sx={{ pb: 3 }}>
-        <Grid
-          container
-          sx={{ backgroundColor: "lightGray" }}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          {data.media?.length >= 1 ? (
-            <Carousel
-              showArrows
-              showThumbs={false}
-              showStatus={false}
-              width={"100%"}
-            >
-              {data.media.map((item, index) => (
-                <div key={index}>
-                  {["jpg", "jpeg", "png", "gif"].includes(
-                    item.file.split(".").pop()
-                  ) ? (
-                    <img
-                      src={item?.file}
-                      style={{
-                        width: "100%",
-                        height: "300px",
-                        objectFit: "contain",
-                      }}
-                      key={index}
-                    />
-                  ) : (
-                    <video
-                      src={item?.file}
-                      width={"90%"}
-                      height={"300px"}
-                      style={{ objectFit: "contain" }}
-                      controls
-                    />
-                  )}
-                </div>
-              ))}
-            </Carousel>
-          ) : (
-            // <LandscapeIcon sx={{ fontSize: 300, color: "gray" }} />
-            <img
-              src={SamplePostImage.src}
-              style={{
-                width: "100%",
-                height: "300px",
-                objectFit: "contain",
-              }}
-            />
-          )}
-        </Grid>
+      <Grid
+        container
+        direction={"column"}
+        sx={{
+          p: { sm: 3, xs: 1 },
+          border: "1px solid lightGray",
+          "&:hover": !isPostPage
+            ? {
+                backgroundColor: "#f0f5fc",
+                cursor: "pointer",
+              }
+            : {},
+        }}
+      >
+        {Boolean(data.media?.length) && (
+          <Grid
+            container
+            sx={{ backgroundColor: "#ebf3ff" }}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            {data.media?.length >= 1 ? (
+              <Carousel
+                showArrows
+                showThumbs={false}
+                showStatus={false}
+                width={"100%"}
+              >
+                {data.media.map((item, index) => (
+                  <div key={index}>
+                    {["jpg", "jpeg", "png", "gif"].includes(
+                      item.file.split(".").pop()
+                    ) ? (
+                      <img
+                        src={item?.file}
+                        style={{
+                          width: "100%",
+                          height: "300px",
+                          objectFit: "contain",
+                        }}
+                        key={index}
+                      />
+                    ) : (
+                      <video
+                        src={item?.file}
+                        width={"90%"}
+                        height={"300px"}
+                        style={{ objectFit: "contain" }}
+                        controls
+                      />
+                    )}
+                  </div>
+                ))}
+              </Carousel>
+            ) : (
+              // <LandscapeIcon sx={{ fontSize: 300, color: "gray" }} />
+              <img
+                src={SamplePostImage.src}
+                style={{
+                  width: "100%",
+                  height: "300px",
+                  objectFit: "contain",
+                }}
+              />
+            )}
+          </Grid>
+        )}
 
         <Grid container justifyContent={"space-between"}>
           <Grid
@@ -168,12 +185,8 @@ const Post = ({
                 fontWeight: "bold",
                 px: 2,
                 wordBreak: "break-word",
-                cursor: isPostPage ? "" : "pointer",
-                "&:hover": {
-                  color: !isPostPage ? "gray" : "",
-                },
               }}
-              variant="h5"
+              variant="h6"
               onClick={() => handleRedirectToPostPage(data.id)}
             >
               {data.title}
@@ -204,7 +217,9 @@ const Post = ({
                   item
                   container
                   alignItems={"center"}
-                  onClick={() => handleRirectToUserProfile(data.created_by.id)}
+                  onClick={(e) =>
+                    handleRirectToUserProfile(e, data.created_by.id)
+                  }
                   sx={{ cursor: "pointer" }}
                 >
                   <Avatar
@@ -222,15 +237,12 @@ const Post = ({
               <Grid container justifyContent={"flex-end"} alignItems={"center"}>
                 {!isMyPost && isAuth && (
                   <Chip
+                    onClick={data.is_user_liked ? handleRemoveLike : handleLike}
                     label={
                       data.is_user_liked ? (
-                        <IconButton onClick={handleRemoveLike}>
-                          <ThumbUpAltIcon sx={{ fill: "red" }} />
-                        </IconButton>
+                        <ThumbUpAltIcon sx={{ fill: "red" }} />
                       ) : (
-                        <IconButton onClick={handleLike}>
-                          <ThumbUpOffAltIcon />
-                        </IconButton>
+                        <ThumbUpOffAltIcon sx={{ fill: "gray" }} />
                       )
                     }
                   />
@@ -238,15 +250,19 @@ const Post = ({
                 <Chip
                   onClick={(e) => setContactOpen(e.currentTarget)}
                   label="Contact"
-                  sx={{ bgcolor: "#0298E8", color: "white", ml: 1 }}
+                  sx={{
+                    bgcolor: "#0298E8",
+                    color: "white",
+                    ml: 1,
+                    "&:hover": {
+                      backgroundColor: "#0284c9",
+                    },
+                  }}
                 />
                 {(showLocationOnMap || isMyPost) && (
                   <Chip
-                    label={
-                      <IconButton onClick={handleOpenMenu}>
-                        <MoreVertIcon sx={{ fill: "darkGray" }} />
-                      </IconButton>
-                    }
+                    onClick={handleOpenMenu}
+                    label={<MoreVertIcon sx={{ fill: "darkGray" }} />}
                     sx={{ px: 0, ml: 1 }}
                   />
                 )}
