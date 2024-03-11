@@ -11,11 +11,12 @@ const authSlices = createSlice({
     authenticated: (state, { payload }) => {
       state.isAuthenticated = payload;
     },
+    clearAuth: () => initialState,
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { authenticated } = authSlices.actions;
+export const { authenticated, clearAuth } = authSlices.actions;
 
 export const authSelector = (state) => state.auth.isAuthenticated;
 

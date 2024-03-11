@@ -11,7 +11,7 @@ import Modal from "components/modal/modal";
 import Map from "components/map/map";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
-
+import { clearPost } from "store/slices/postsSlices";
 const PostPage = () => {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
@@ -19,12 +19,20 @@ const PostPage = () => {
   const post = useSelector(postSelector);
   const [open, setOpen] = useState(false);
   const locations = post.address?.location.coordinates || [0, 0];
+  const [postLoading, setPostLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(getPost({ id: postId }));
+      setPostLoading(true);
+      dispatch(getPost({ id: postId })).finally(() => setPostLoading(false));
     }, 500);
   }, [postId]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearPost());
+    };
+  }, []);
 
   const handleClose = () => {
     setOpen(false);
@@ -39,14 +47,16 @@ const PostPage = () => {
       <Container maxWidth="md">
         <Card sx={{ my: 1 }}>
           <Grid>
-            <Post
-              data={post}
-              isPostPage
-              showLocationOnMap
-              handleOpenModal={handleOpenModal}
-              handleClosePostsList={handleClose}
-            />
-            <Modal open={open} onClose={handleClose} sx={{ outline: "none" }}>
+            {!postLoading && (
+              <Post
+                data={post}
+                isPostPage
+                showLocationOnMap
+                handleOpenModal={handleOpenModal}
+                handleClosePostsList={handleClose}
+              />
+            )}
+            <Modal open={open} onClose={handleClose}>
               <Grid
                 container
                 justifyContent={"center"}

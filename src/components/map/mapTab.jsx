@@ -75,12 +75,6 @@ const MapTab = ({ filters, handleBounds }) => {
     setOpen(null);
   };
 
-  const handleCenterChanged = (center) => {
-    // console.log(center.lng, "addedCordinates");
-    // setCurrentCenter([center.lng, center.lat]);
-    // controller?.abort();
-  };
-
   return (
     <Grid container alignContent={"flex-start"}>
       <Map
@@ -90,7 +84,6 @@ const MapTab = ({ filters, handleBounds }) => {
         myCordinate={myCordinate}
         handleMarkerClicked={handleMarkerClicked}
         handleMyMarkerClicked={handleMyMarkerClicked}
-        handleCenterChanged={handleCenterChanged}
         handleBounds={handleBounds}
       />
       <Modal open={open} onClose={handleClose}>

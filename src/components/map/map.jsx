@@ -119,9 +119,9 @@ export default function Map({
     }
   }, [myCordinate[0]]);
 
-  useEffect(() => {
-    map.current.flyTo({ center, zoom: 14 });
-  }, [center[0], center[1]]);
+  // useEffect(() => {
+  //   map.current.flyTo({ center, zoom: 14 });
+  // }, [center[0], center[1]]);
 
   useEffect(() => {
     addedCordinates.forEach((item) => {

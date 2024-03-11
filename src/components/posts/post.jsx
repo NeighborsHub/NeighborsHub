@@ -113,7 +113,7 @@ const Post = ({
           border: "1px solid lightGray",
           "&:hover": !isPostPage
             ? {
-                backgroundColor: "#f0f5fc",
+                backgroundColor: "#f7f7f7",
                 cursor: "pointer",
               }
             : {},
@@ -201,7 +201,7 @@ const Post = ({
                 fontStyle: "italic",
               }}
             >
-              {moment(data.created_by).format("YY/MM/DD HH:mm")}
+              {moment(data.created_by).format("HH:mm YY/MM/DD")}
             </Typography>
           </Grid>
           {!isMyPost && (
@@ -227,9 +227,9 @@ const Post = ({
                     src={BASE_URL + data.created_by?.avatar.avatar_thumbnail}
                   />
                   <Typography sx={{ ml: 1, fontWeight: "bold" }}>
-                    {data.created_by?.first_name +
+                    {(data.created_by?.first_name || "") +
                       " " +
-                      data.created_by?.last_name}
+                      (data.created_by?.last_name || "")}
                   </Typography>
                 </Grid>
               </Grid>

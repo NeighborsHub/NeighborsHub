@@ -2,6 +2,8 @@ import Apis from "services/apis";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { snackActions } from "utils/SnackbarUtils";
 import { getMyAddresses } from "store/actions/userActions";
+import { authenticated } from "store/slices/authSlices";
+import { clearStore } from "store/actions/appActions";
 export const googleAuth = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.auth
@@ -20,15 +22,18 @@ export const setGooglePassword = (data) => async (dispatch) => {
     .setGooglePassword(data)
     .then((res) => {
       localStorage.setItem("token", res.access_token);
+      dispatch(authenticated(true));
+
       return res;
     })
     .finally(() => dispatch(endLoading()));
 };
 
-export const logoutAction = () => () => {
+export const logoutAction = () => (dispatch) => {
   return Apis.auth.logout().then(() => {
     localStorage.removeItem("token");
     snackActions.info("Log Out Successful");
+    dispatch(clearStore());
   });
 };
 
@@ -46,6 +51,7 @@ export const passwordLoginAction = (data) => (dispatch) => {
 
 function loginActions(res, dispatch) {
   localStorage.setItem("token", res.access_token);
+  dispatch(authenticated(true));
   dispatch(getMyAddresses({ token: res.access_token }));
   snackActions.success("Successful");
 }

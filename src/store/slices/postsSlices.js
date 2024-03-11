@@ -81,6 +81,9 @@ const postsSlices = createSlice({
     setPost: (state, { payload }) => {
       state.post = payload;
     },
+    clearPost: (state) => {
+      state.post = {};
+    },
   },
 });
 
@@ -100,6 +103,7 @@ export const {
   setCategories,
   setUserPosts,
   setPost,
+  clearPost,
 } = postsSlices.actions;
 
 export const postsSelector = (state) => state.posts.posts;
