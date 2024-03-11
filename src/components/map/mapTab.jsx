@@ -13,7 +13,7 @@ import {
 import { getLocationPosts } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 
-const MapTab = ({ filters, handleBounds }) => {
+const MapTab = ({ filters, handleBounds, search }) => {
   const myPosts = useSelector(myPostsSelector);
   const locationPosts = useSelector(locationPostSelector);
   const myAddressCordinate = useSelector(myAddressesSelector);
@@ -27,27 +27,6 @@ const MapTab = ({ filters, handleBounds }) => {
   const [isMyPosts, setIsMyPosts] = useState(false);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   console.log(currentCenter, currentDistance);
-  //   // dispatch(
-  //   //   getUniqueLocation({
-  //   //     offset: 0,
-  //   //     limit: 1000,
-  //   //     count: 1000,
-  //   //   })
-  //   // );
-  //   if (currentCenter && currentDistance)
-  //     dispatch(
-  //       getPosts({
-  //         lat: currentCenter.lat,
-  //         long: currentCenter.lng,
-  //         distance: currentDistance * 1000,
-  //         offset: "0",
-  //         limit: 30,
-  //       })
-  //     );
-  // }, [currentCenter, currentDistance]);
-
   const handleMarkerClicked = async (item) => {
     dispatch(
       getLocationPosts({
@@ -58,6 +37,7 @@ const MapTab = ({ filters, handleBounds }) => {
         category: filters.filters?.categories
           ? filters.selectedCategories.toString()
           : undefined,
+        search: search || undefined,
       })
     ).then(() => {
       setIsMyPosts(false);

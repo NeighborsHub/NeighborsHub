@@ -104,7 +104,11 @@ const App = () => {
   const Content = useMemo(
     () => ({
       0: !loading && (
-        <MapTab filters={dialogFilters} handleBounds={handleBounds} />
+        <MapTab
+          filters={dialogFilters}
+          handleBounds={handleBounds}
+          search={search}
+        />
       ),
       1: <PostsTab posts={posts} />,
       2: <></>,
@@ -122,8 +126,8 @@ const App = () => {
     controller?.abort();
   }
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
+  const handleSearch = (value) => {
+    setSearch(value);
   };
 
   return (
@@ -172,7 +176,11 @@ const App = () => {
                 md={6}
               >
                 {!loading && (
-                  <MapTab filters={dialogFilters} handleBounds={handleBounds} />
+                  <MapTab
+                    filters={dialogFilters}
+                    handleBounds={handleBounds}
+                    search={search}
+                  />
                 )}
               </Grid>
               <Grid
@@ -193,7 +201,11 @@ const App = () => {
               xs={12}
             >
               {!loading && (
-                <MapTab filters={dialogFilters} handleBounds={handleBounds} />
+                <MapTab
+                  filters={dialogFilters}
+                  handleBounds={handleBounds}
+                  search={search}
+                />
               )}
             </Grid>
           )}

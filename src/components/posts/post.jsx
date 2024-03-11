@@ -365,7 +365,7 @@ const Post = ({
           <Button
             variant="text"
             // sx={{ mt: 1, px: 3, color: "gray" }}
-            onClick={handleRedirectToPostPage}
+            onClick={() => handleRedirectToPostPage(data.id)}
           >
             More Details
           </Button>

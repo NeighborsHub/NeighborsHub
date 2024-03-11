@@ -14,6 +14,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CloseIcon from "@mui/icons-material/Close";
 
 const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
@@ -35,6 +36,11 @@ const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
   };
   const handleCreatePostModalClose = () => {
     setCreatePostModalOpen(false);
+  };
+
+  const handleClearSearch = () => {
+    handleSearch("");
+    search.onChange({ target: { value: "" } });
   };
 
   return (
@@ -78,12 +84,25 @@ const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={handleSearch}
+                  onClick={() => handleSearch(search.value)}
                   edge="end"
                 >
                   <SearchIcon sx={{ fill: "gray" }} />
                 </IconButton>
               </InputAdornment>
+            ),
+            startAdornment: search.value ? (
+              <InputAdornment position="start">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClearSearch}
+                  edge="end"
+                >
+                  <CloseIcon sx={{ fill: "gray" }} />
+                </IconButton>
+              </InputAdornment>
+            ) : (
+              <Grid sx={{ width: "36px" }} />
             ),
           }}
         />

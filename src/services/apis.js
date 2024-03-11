@@ -97,6 +97,7 @@ const Apis = {
           offset: data.offset,
           limit: data.limit,
           category: data.category,
+          search: data.search,
         },
         withoutLoading: true,
         signal,
