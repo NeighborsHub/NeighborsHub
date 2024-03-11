@@ -149,8 +149,8 @@ const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
       <FiltersDialog
         open={openFilterDialog}
         handleClose={handleFilterDialogClose}
-        handleSubmitFilters={() => {
-          handleSubmitFilters();
+        handleSubmitFilters={(state) => {
+          handleSubmitFilters(state);
           handleFilterDialogClose();
         }}
       />
