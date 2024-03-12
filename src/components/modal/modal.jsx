@@ -26,7 +26,7 @@ const CustomModal = ({ open, onClose, children, width = "md" }) => {
         <Card
           container
           direction={"column"}
-          sx={{ p: 2, maxHeight: "calc( 100vh - 300px )", overflowY: "auto" }}
+          sx={{ p: 2, maxHeight: "calc( 100vh - 100px )", overflowY: "auto" }}
         >
           {children}
         </Card>

@@ -84,7 +84,7 @@ const Apis = {
         url: `/post/${data.id}`,
         method: "get",
       }),
-    getMyPosts: (data) => apiConfig({ url: "/me/post/", method: "get", data }),
+    getMyPosts: (data) => apiConfig({ url: "/me/post/", method: "get", params: data }),
     getUniqueLocation: (data, signal) =>
       apiConfig({
         url: `/post/location-count`,

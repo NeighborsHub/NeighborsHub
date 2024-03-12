@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  posts: [],
-  locationPosts: [],
-  myPosts: [],
+  posts: {},
+  locationPosts: {},
+  myPosts: {},
   uniqueLocation: [],
   categories: [],
-  userPosts: [],
+  userPosts: {},
   post: {},
 };
 
@@ -84,6 +84,21 @@ const postsSlices = createSlice({
     clearPost: (state) => {
       state.post = {};
     },
+    addUserPosts: (state, { payload }) => {
+      state.userPosts.results = [...state.userPosts.results, ...payload];
+    },
+    addPosts: (state, { payload }) => {
+      state.posts.results = [...state.posts.results, ...payload];
+    },
+    addMyPosts: (state, { payload }) => {
+      state.myPosts.results = [...state.myPosts.results, ...payload];
+    },
+    addLocationPosts: (state, { payload }) => {
+      state.locationPosts.results = [
+        ...state.locationPosts.results,
+        ...payload,
+      ];
+    },
   },
 });
 
@@ -104,6 +119,10 @@ export const {
   setUserPosts,
   setPost,
   clearPost,
+  addUserPosts,
+  addPosts,
+  addMyPosts,
+  addLocationPosts,
 } = postsSlices.actions;
 
 export const postsSelector = (state) => state.posts.posts;

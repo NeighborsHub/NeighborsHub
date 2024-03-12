@@ -8,13 +8,23 @@ import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import { myAddressesSelector } from "store/slices/userSlices";
 import LandscapeIcon from "@mui/icons-material/Landscape";
-const PostsList = ({ posts = [], showLocationOnMap = false }) => {
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useEffect } from "react";
+
+const PostsList = ({
+  posts = {},
+  showLocationOnMap = false,
+  handleGetMorePosts,
+  scrollParentId = Math.random(),
+}) => {
   const [open, setOpen] = useState(false);
   const [locations, setLocations] = useState([]);
   const myAddressCordinate = useSelector(myAddressesSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const initialCordinate = mainAddress?.location.coordinates || [0, 0];
-
+  const [postsLenght, setPostsLenght] = useState(0);
+  const [page, setPage] = useState(0);
+  const limit = 10;
   const handleClose = () => {
     setOpen(false);
   };
@@ -24,20 +34,49 @@ const PostsList = ({ posts = [], showLocationOnMap = false }) => {
     setOpen(true);
   };
 
+  useEffect(() => {
+    if (postsLenght > posts.results?.length) {
+      setPage(0);
+      setPostsLenght(0);
+    } else {
+      setPostsLenght(posts.results?.length);
+    }
+  }, [posts]);
+
   return (
     <>
-      {posts.length > 0 ? (
+      {posts.results?.length > 0 ? (
         <Grid container direction="column">
-          {posts.map((item, index) => (
-            <Card key={index} sx={{ my: 1 }}>
-              <Post
-                showLocationOnMap={showLocationOnMap}
-                handleOpenModal={() => handleOpenModal(item)}
-                data={item}
-                handleClosePostsList={handleClose}
-              />
-            </Card>
-          ))}
+          <InfiniteScroll
+            dataLength={posts.results.length}
+            next={() => {
+              handleGetMorePosts(page + 1, limit);
+              setPage((prevState) => prevState + 1);
+            }}
+            hasMore={page * limit + limit <= posts.count}
+            loader={
+              <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                sx={{ py: 2, my: 2 }}
+              >
+                <Typography>Wait For More Posts ...</Typography>
+              </Grid>
+            }
+            scrollableTarget={scrollParentId}
+          >
+            {posts.results.map((item, index) => (
+              <Card key={index} sx={{ my: 1 }}>
+                <Post
+                  showLocationOnMap={showLocationOnMap}
+                  handleOpenModal={() => handleOpenModal(item)}
+                  data={item}
+                  handleClosePostsList={handleClose}
+                />
+              </Card>
+            ))}
+          </InfiniteScroll>
         </Grid>
       ) : (
         <Grid

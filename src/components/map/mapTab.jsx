@@ -1,5 +1,5 @@
 import Map from "components/map/map";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import { useSelector } from "react-redux";
 import { myAddressesSelector } from "store/slices/userSlices";
@@ -10,10 +10,15 @@ import {
   uniqueLocationSelector,
   locationPostSelector,
 } from "store/slices/postsSlices";
-import { getLocationPosts } from "store/actions/postsActions";
+import {
+  getLocationPosts,
+  getMyPosts,
+  addMyPostsAction,
+  addLocationPostsAction,
+} from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 
-const MapTab = ({ filters, handleBounds, search }) => {
+const MapTab = ({ filters, handleBounds, search, resetPage }) => {
   const myPosts = useSelector(myPostsSelector);
   const locationPosts = useSelector(locationPostSelector);
   const myAddressCordinate = useSelector(myAddressesSelector);
@@ -23,7 +28,6 @@ const MapTab = ({ filters, handleBounds, search }) => {
   const zoom = mainAddress ? 14 : 0;
   const myCordinate = mainAddress?.location?.coordinates;
   const [open, setOpen] = useState(null);
-  const [selectedPosts, setSelectedPosts] = useState();
   const [isMyPosts, setIsMyPosts] = useState(false);
   const dispatch = useDispatch();
 
@@ -46,13 +50,33 @@ const MapTab = ({ filters, handleBounds, search }) => {
   };
 
   const handleMyMarkerClicked = async () => {
-    setIsMyPosts(true);
-    setOpen(true);
+    dispatch(getMyPosts()).then(() => {
+      setIsMyPosts(true);
+      setOpen(true);
+    });
   };
 
   const handleClose = () => {
-    setSelectedPosts([]);
     setOpen(null);
+  };
+
+  const handleGetMorePosts = (page, limit) => {
+    isMyPosts
+      ? dispatch(addMyPostsAction({ offset: page * limit, limit }))
+      : dispatch(
+          addLocationPostsAction({
+            post_longitude: item[0],
+            post_latitude: item[1],
+            user_longitude: initialCordinate[0] || undefined,
+            user_latitude: initialCordinate[1] || undefined,
+            category: filters.filters?.categories
+              ? filters.selectedCategories.toString()
+              : undefined,
+            search: search || undefined,
+            offset: page * limit,
+            limit,
+          })
+        );
   };
 
   return (
@@ -67,7 +91,18 @@ const MapTab = ({ filters, handleBounds, search }) => {
         handleBounds={handleBounds}
       />
       <Modal open={open} onClose={handleClose}>
-        <PostsList posts={isMyPosts ? myPosts : locationPosts} />
+        <Grid
+          container
+          sx={{ height: "calc( 100vh - 300px )", overflowY: "auto" }}
+          id="mapTabPostList"
+        >
+          <PostsList
+            posts={isMyPosts ? myPosts : locationPosts}
+            handleGetMorePosts={handleGetMorePosts}
+            scrollParentId="mapTabPostList"
+            resetPage={resetPage}
+          />
+        </Grid>
       </Modal>
     </Grid>
   );

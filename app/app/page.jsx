@@ -11,10 +11,13 @@ import Hidden from "@mui/material/Hidden";
 import { myAddressesSelector } from "store/slices/userSlices";
 import { useSelector } from "react-redux";
 import { getMyAddresses } from "store/actions/userActions";
-import { getPosts, getCategories } from "store/actions/postsActions";
+import {
+  getPosts,
+  getCategories,
+  addPostsAction,
+} from "store/actions/postsActions";
 import { postsSelector } from "store/slices/postsSlices";
 
-import { getMyPosts } from "store/actions/postsActions";
 import { getUniqueLocation } from "store/actions/postsActions";
 import AppHeader from "components/header/appHeader";
 
@@ -37,7 +40,6 @@ const App = () => {
     setLoading(true);
     setTimeout(() => {
       dispatch(getMyAddresses()).finally(() => setLoading(false));
-      dispatch(getMyPosts());
       dispatch(getCategories());
     }, 500);
   }, []);
@@ -64,8 +66,6 @@ const App = () => {
       getPosts({
         user_latitude: initialCordinate[1] || undefined,
         user_longitude: initialCordinate[0] || undefined,
-        offset: 0,
-        limit: 30,
         from_distance: dialogFilters?.filters?.distance
           ? dialogFilters?.distance?.[0]
           : undefined,
@@ -79,6 +79,27 @@ const App = () => {
       })
     );
   }
+
+  const handleGetMorePosts = (page, limit) => {
+    dispatch(
+      addPostsAction({
+        user_latitude: initialCordinate[1] || undefined,
+        user_longitude: initialCordinate[0] || undefined,
+        offset: page * limit,
+        limit,
+        from_distance: dialogFilters?.filters?.distance
+          ? dialogFilters?.distance?.[0]
+          : undefined,
+        to_distance: dialogFilters?.filters?.distance
+          ? dialogFilters?.distance?.[1]
+          : undefined,
+        category: dialogFilters.filters?.categories
+          ? dialogFilters.selectedCategories.toString()
+          : undefined,
+        search: search || undefined,
+      })
+    );
+  };
 
   function getUniqueLocationFun() {
     controller = new AbortController();
@@ -101,20 +122,6 @@ const App = () => {
   const handleChange = (e, value) => {
     setTabValue(value);
   };
-  const Content = useMemo(
-    () => ({
-      0: !loading && (
-        <MapTab
-          filters={dialogFilters}
-          handleBounds={handleBounds}
-          search={search}
-        />
-      ),
-      1: <PostsTab posts={posts} />,
-      2: <></>,
-    }),
-    [loading, dialogFilters, posts]
-  );
 
   const handleSubmitFilters = (state) => {
     setDialogFilters(state);
@@ -132,7 +139,6 @@ const App = () => {
 
   return (
     <Grid
-      // maxWidth="md"
       container
       item
       xs={12}
@@ -189,8 +195,14 @@ const App = () => {
                 item
                 lg={4}
                 md={6}
+                id="appPostLists"
               >
-                <PostsTab filters={dialogFilters} posts={posts} />
+                <PostsTab
+                  filters={dialogFilters}
+                  posts={posts}
+                  handleGetMorePosts={handleGetMorePosts}
+                  scrollParentId="appPostLists"
+                />
               </Grid>
             </>
           ) : (
@@ -216,8 +228,21 @@ const App = () => {
           container
           justifyContent={"center"}
           sx={{ mt: 1, height: "calc( 100vh - 210px )", overflowY: "auto" }}
+          id="appPostLists"
         >
-          {Content[tabValue]}
+          {tabValue === 0 ? (
+            <MapTab
+              filters={dialogFilters}
+              handleBounds={handleBounds}
+              search={search}
+            />
+          ) : (
+            <PostsTab
+              posts={posts}
+              handleGetMorePosts={handleGetMorePosts}
+              scrollParentId="appPostLists"
+            />
+          )}
         </Grid>
       </Hidden>
     </Grid>

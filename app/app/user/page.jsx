@@ -14,7 +14,7 @@ import { snackActions } from "utils/SnackbarUtils";
 import { useState } from "react";
 import PostsList from "components/posts/postsList";
 import { postsSelector, userPostsSelector } from "store/slices/postsSlices";
-import { getUserPosts } from "store/actions/postsActions";
+import { getUserPosts, addUserPostsAction } from "store/actions/postsActions";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Map from "components/map/map";
@@ -29,6 +29,7 @@ import { myAddressesSelector } from "store/slices/userSlices";
 
 function Page() {
   const posts = useSelector(userPostsSelector);
+
   const userInfo = useSelector(userInfoSelector);
   const isAuth = useSelector(authSelector);
 
@@ -81,6 +82,20 @@ function Page() {
 
   const handleOpenContactMenu = (e) => {
     setContactOpen(e.currentTarget);
+  };
+
+  const handleGetMorePosts = (page, limit) => {
+    dispatch(
+      addUserPostsAction({
+        id: userId,
+        params: {
+          user_longitude: initialCordinate[0],
+          user_latitude: initialCordinate[1],
+          offset: page * limit,
+          limit,
+        },
+      })
+    );
   };
 
   return (
@@ -185,7 +200,7 @@ function Page() {
           </Tabs>
         </Grid> */}
           <Grid sx={{ mt: 4 }}>
-            <PostsList posts={posts} />
+            <PostsList posts={posts} handleGetMorePosts={handleGetMorePosts} />
           </Grid>
         </Grid>
         <Modal open={open} onClose={handleClose}>

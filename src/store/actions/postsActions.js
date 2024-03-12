@@ -13,6 +13,10 @@ import {
   setCategories,
   setUserPosts,
   setPost,
+  addUserPosts,
+  addPosts,
+  addMyPosts,
+  addLocationPosts,
 } from "store/slices/postsSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { snackActions } from "utils/SnackbarUtils";
@@ -21,7 +25,7 @@ export const getPosts = (data) => async (dispatch) => {
   // dispatch(startLoading());
   return Apis.posts.getPosts(data).then((res) => {
     console.log(res, "test");
-    dispatch(setPosts(res.posts?.results || []));
+    dispatch(setPosts(res.posts || {}));
   });
   // .finally(() => dispatch(endLoading()));
 };
@@ -42,7 +46,7 @@ export const getLocationPosts = (data) => async (dispatch) => {
   return Apis.posts
     .getLocationPosts(data)
     .then((res) => {
-      dispatch(setLocationPosts(res?.posts?.results || []));
+      dispatch(setLocationPosts(res?.posts || {}));
       console.log(res, "test");
       return res;
     })
@@ -62,7 +66,7 @@ export const getMyPosts = () => async (dispatch) => {
   // dispatch(startLoading());
   return Apis.posts.getMyPosts().then((res) => {
     console.log(res, "test");
-    dispatch(setMyPosts(res.posts?.results || []));
+    dispatch(setMyPosts(res.posts || {}));
     return res;
   });
   // .finally(() => dispatch(endLoading()));
@@ -113,14 +117,37 @@ export const getCategories = () => async (dispatch) => {
   });
 };
 
-export const getUserPosts = (data) => async (dispatch) =>
-  Apis.posts.getUserPosts(data).then((res) => {
-    dispatch(setUserPosts(res.posts.results));
-    return res;
-  });
-
 export const getPost = (data) => async (dispatch) =>
   Apis.posts.getDetailsPost(data).then((res) => {
     dispatch(setPost(res.post));
+    return res;
+  });
+
+export const getUserPosts = (data) => async (dispatch) =>
+  Apis.posts.getUserPosts(data).then((res) => {
+    dispatch(setUserPosts(res.posts || {}));
+    return res;
+  });
+
+export const addUserPostsAction = (data) => async (dispatch) =>
+  Apis.posts.getUserPosts(data).then((res) => {
+    dispatch(addUserPosts(res.posts.results || []));
+    return res;
+  });
+
+export const addMyPostsAction = (data) => async (dispatch) =>
+  Apis.posts.getMyPosts(data).then((res) => {
+    dispatch(addMyPosts(res.posts.results || []));
+    return res;
+  });
+
+export const addLocationPostsAction = (data) => async (dispatch) =>
+  Apis.posts.getLocationPosts(data).then((res) => {
+    dispatch(addLocationPosts(res.posts.results || []));
+    return res;
+  });
+export const addPostsAction = (data) => async (dispatch) =>
+  Apis.posts.getPosts(data).then((res) => {
+    dispatch(addPosts(res.posts.results || []));
     return res;
   });
