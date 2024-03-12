@@ -8,6 +8,7 @@ const initialState = {
   categories: [],
   userPosts: {},
   post: {},
+  postComments: [],
 };
 
 const postsSlices = createSlice({
@@ -99,6 +100,15 @@ const postsSlices = createSlice({
         ...payload,
       ];
     },
+    setPostComments: (state, { payload }) => {
+      state.postComments = payload;
+    },
+    addPostComments: (state, { payload }) => {
+      state.postComments.results = [...state.postComments.results, ...payload];
+    },
+    addComment: (state, { payload }) => {
+      state.postComments.results = [payload, ...state.postComments.results];
+    },
   },
 });
 
@@ -123,6 +133,9 @@ export const {
   addPosts,
   addMyPosts,
   addLocationPosts,
+  setPostComments,
+  addPostComments,
+  addComment,
 } = postsSlices.actions;
 
 export const postsSelector = (state) => state.posts.posts;
@@ -132,5 +145,6 @@ export const locationPostSelector = (state) => state.posts.locationPosts;
 export const categoriesSelector = (state) => state.posts.categories;
 export const userPostsSelector = (state) => state.posts.userPosts;
 export const postSelector = (state) => state.posts.post;
+export const postCommentsSelector = (state) => state.posts.postComments;
 
 export default postsSlices.reducer;

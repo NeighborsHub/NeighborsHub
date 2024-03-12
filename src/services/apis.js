@@ -84,7 +84,8 @@ const Apis = {
         url: `/post/${data.id}`,
         method: "get",
       }),
-    getMyPosts: (data) => apiConfig({ url: "/me/post/", method: "get", params: data }),
+    getMyPosts: (data) =>
+      apiConfig({ url: "/me/post/", method: "get", params: data }),
     getUniqueLocation: (data, signal) =>
       apiConfig({
         url: `/post/location-count`,
@@ -111,6 +112,14 @@ const Apis = {
     getCategories: () => apiConfig({ url: `/post/category/`, method: "get" }),
     getUserPosts: ({ id, params }) =>
       apiConfig({ url: `/user/${id}/post/`, method: "get", params }),
+    createComment: (data) =>
+      apiConfig({ url: `/post/${data.id}/comment`, method: "post", data }),
+    getPostComments: (data) =>
+      apiConfig({
+        url: `/post/${data.id}/comments`,
+        method: "get",
+        params: data,
+      }),
   },
 };
 

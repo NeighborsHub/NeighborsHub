@@ -12,6 +12,8 @@ import Map from "components/map/map";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import { clearPost } from "store/slices/postsSlices";
+import Comments from "components/comments/comments";
+
 const PostPage = () => {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
@@ -44,18 +46,39 @@ const PostPage = () => {
 
   return (
     <Suspense>
-      <Container maxWidth="md">
+      <Container
+        maxWidth="md"
+        sx={{
+          maxHeight: "calc( 100vh - 90px )",
+          overflowY: "auto",
+          px: "0!important",
+        }}
+        id="postContainer"
+      >
         <Card sx={{ my: 1 }}>
           <Grid>
             {!postLoading && (
-              <Post
-                data={post}
-                isPostPage
-                showLocationOnMap
-                handleOpenModal={handleOpenModal}
-                handleClosePostsList={handleClose}
-              />
+              <>
+                <Post
+                  data={post}
+                  isPostPage
+                  showLocationOnMap
+                  handleOpenModal={handleOpenModal}
+                  handleClosePostsList={handleClose}
+                />
+                <Grid
+                  container
+                  sx={{
+                    border: "1px solid lightGray",
+                    borderTop: "none",
+                    py: 2,
+                  }}
+                >
+                  <Comments postId={post.id} />
+                </Grid>
+              </>
             )}
+
             <Modal open={open} onClose={handleClose}>
               <Grid
                 container

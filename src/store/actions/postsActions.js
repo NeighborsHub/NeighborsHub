@@ -17,6 +17,9 @@ import {
   addPosts,
   addMyPosts,
   addLocationPosts,
+  setPostComments,
+  addPostComments,
+  addComment,
 } from "store/slices/postsSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { snackActions } from "utils/SnackbarUtils";
@@ -149,5 +152,23 @@ export const addLocationPostsAction = (data) => async (dispatch) =>
 export const addPostsAction = (data) => async (dispatch) =>
   Apis.posts.getPosts(data).then((res) => {
     dispatch(addPosts(res.posts.results || []));
+    return res;
+  });
+
+export const getPostComments = (data) => async (dispatch) =>
+  Apis.posts.getPostComments(data).then((res) => {
+    dispatch(setPostComments(res.comments || []));
+    return res;
+  });
+
+export const addPostCommentsAction = (data) => async (dispatch) =>
+  Apis.posts.getPostComments(data).then((res) => {
+    dispatch(addPostComments(res.comments.results || []));
+    return res;
+  });
+
+export const createCommentAction = (data) => async (dispatch) =>
+  Apis.posts.createComment(data).then((res) => {
+    dispatch(addComment(res.comment));
     return res;
   });
