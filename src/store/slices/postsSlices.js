@@ -57,18 +57,18 @@ const postsSlices = createSlice({
       }
     },
     like: (state, { payload }) => {
-      state.posts = state.posts.map((item) =>
+      state.posts.results = state.posts.results?.map((item) =>
         item.id === payload.id ? { ...item, is_user_liked: true } : item
       );
-      state.locationPosts = state.locationPosts.map((item) =>
+      state.locationPosts.results = state.locationPosts.results?.map((item) =>
         item.id === payload.id ? { ...item, is_user_liked: true } : item
       );
     },
     deleteLike: (state, { payload }) => {
-      state.posts = state.posts.map((item) =>
+      state.posts.results = state.posts.results?.map((item) =>
         item.id === payload.id ? { ...item, is_user_liked: false } : item
       );
-      state.locationPosts = state.locationPosts.map((item) =>
+      state.locationPosts.results = state.locationPosts.results?.map((item) =>
         item.id === payload.id ? { ...item, is_user_liked: false } : item
       );
     },
