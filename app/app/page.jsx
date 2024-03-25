@@ -76,6 +76,12 @@ const App = () => {
           ? dialogFilters.selectedCategories.toString()
           : undefined,
         search: search || undefined,
+        is_seen:
+          dialogFilters.is_seen === true
+            ? "True"
+            : dialogFilters.is_seen === false
+            ? "False"
+            : undefined,
       })
     );
   }

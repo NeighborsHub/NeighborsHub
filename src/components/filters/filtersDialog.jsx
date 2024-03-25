@@ -89,6 +89,13 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
     }
   };
 
+  const handleSeenMessage = (bool) => {
+    setState((prevState) => ({
+      ...prevState,
+      is_seen: prevState.is_seen === bool ? undefined : bool,
+    }));
+  };
+
   return (
     <Modal open={open} onClose={handleClose} width="sm">
       <Grid container direction={"column"}>
@@ -134,7 +141,7 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
               label="Categories"
             />
           </Grid>
-          <Grid container>
+          <Grid container sx={{ px: 4 }}>
             {categories.map((item) => {
               const isSelected = state.selectedCategories.find(
                 (item2) => item2 === item.internal_code
@@ -185,6 +192,50 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
               </IconButton>
             </Grid>
           </Grid> */}
+        </Grid>
+        <Grid container direction={"column"} sx={{ px: 1 }}>
+          <Grid container justifyContent={"flex-start"}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={state.filters.is_seen}
+                  onChange={handleCheckbox}
+                  name="is_seen"
+                />
+              }
+              label="Seen/Unseen Posts"
+            />
+          </Grid>
+          <Grid sx={{ px: 4 }}>
+            <Chip
+              label={"Seen Posts"}
+              sx={{
+                mr: 1,
+                mb: 1,
+                backgroundColor: state.is_seen ? "#4c34eb" : "",
+                color: state.is_seen ? "white" : "",
+                "&:hover": {
+                  backgroundColor: state.is_seen ? "#6652eb" : "",
+                },
+              }}
+              onClick={(e) => handleSeenMessage(true)}
+              disabled={!state.filters.is_seen}
+            />
+            <Chip
+              label={"Unseen Posts"}
+              sx={{
+                mr: 1,
+                mb: 1,
+                backgroundColor: state.is_seen === false ? "#4c34eb" : "",
+                color: state.is_seen === false ? "white" : "",
+                "&:hover": {
+                  backgroundColor: state.is_seen === false ? "#6652eb" : "",
+                },
+              }}
+              onClick={() => handleSeenMessage(false)}
+              disabled={!state.filters.is_seen}
+            />
+          </Grid>
         </Grid>
         <Grid container sx={{ mt: 3 }}>
           <Grid container xs={6} sx={{ px: 0.5 }}>
