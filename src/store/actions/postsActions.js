@@ -100,7 +100,13 @@ export const deletePost = (data) => async (dispatch) => {
 export const likeAction = (data) => async (dispatch) => {
   return Apis.posts.like(data).then((res) => {
     console.log(res, "test");
-    snackActions.success("Liked!");
+    snackActions.success(
+      data.type === "like"
+        ? "Liked!"
+        : data.type === "dislike"
+        ? "Disliked!"
+        : ""
+    );
     dispatch(like(data));
   });
 };
@@ -108,7 +114,7 @@ export const likeAction = (data) => async (dispatch) => {
 export const deleteLikeAction = (data) => async (dispatch) => {
   return Apis.posts.deleteLike(data).then((res) => {
     console.log(res, "test");
-    snackActions.info("Like Removed!");
+    snackActions.info("Removed!");
 
     dispatch(deleteLike(data));
   });

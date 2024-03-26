@@ -29,7 +29,9 @@ import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import SocialDistanceIcon from "@mui/icons-material/SocialDistance";
 import { useRouter } from "next/navigation";
 import moment from "moment";
-
+import Divider from "@mui/material/Divider";
+import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
+import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 const Post = ({
   handleOpenModal,
   showLocationOnMap,
@@ -46,6 +48,13 @@ const Post = ({
   const isMyPost = myInfo.id === data.created_by?.id;
   const [contactOpen, setContactOpen] = useState(false);
   const router = useRouter();
+  const [likesCount, setLikesCount] = useState(
+    data.likes?.find((item) => item.type === "like")?.count || 0
+  );
+  const [dislikesCount, setdislikesCount] = useState(
+    data.likes?.find((item) => item.type === "dislike")?.count || 0
+  );
+  const [lastClicked, setLastClicked] = useState(data.user_liked);
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -70,10 +79,25 @@ const Post = ({
   };
 
   const handleLike = () => {
-    dispatch(likeAction({ id: data.id }));
+    dispatch(likeAction({ id: data.id, type: "like" }));
+    if (lastClicked === "like") {
+      setLikesCount((prevState) => prevState + 1);
+    }
+    setLastClicked("like");
+  };
+  const handleDislike = () => {
+    dispatch(likeAction({ id: data.id, type: "dislike" }));
+    setdislikesCount((prevState) => prevState + 1);
+    setLastClicked("dislike");
   };
   const handleRemoveLike = () => {
     dispatch(deleteLikeAction({ id: data.id }));
+    setLikesCount((prevState) => (prevState ? prevState - 1 : 0));
+  };
+
+  const handleRemoveDislike = () => {
+    dispatch(deleteLikeAction({ id: data.id }));
+    setdislikesCount((prevState) => (prevState ? prevState - 1 : 0));
   };
 
   const handleMoreDetails = () => {
@@ -102,6 +126,8 @@ const Post = ({
   const handleRedirectToPostPage = (id) => {
     !isPostPage && router.push(`/app/post?id=${id}`);
   };
+
+  console.log(likesCount, dislikesCount, "ttttttttttt");
 
   return (
     <Suspense>
@@ -180,30 +206,20 @@ const Post = ({
             alignItems={"flex-start"}
             sx={{ mt: 2 }}
           >
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                px: 2,
-                wordBreak: "break-word",
-              }}
-              variant="h6"
-              onClick={() => handleRedirectToPostPage(data.id)}
-            >
-              {data.title}
-            </Typography>
+            <Grid item xs={12}>
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  px: 2,
+                  wordBreak: "break-word",
+                }}
+                variant="h6"
+              >
+                {data.title}
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid sx={{ mt: 1 }} contianer justifyContent={"flex-start"}>
-            <Typography
-              sx={{
-                px: 2,
-                color: "gray",
-                fontSize: "14px",
-                fontStyle: "italic",
-              }}
-            >
-              {moment(data.created_by).format("HH:mm YY/MM/DD")}
-            </Typography>
-          </Grid>
+
           {!isMyPost && (
             <Grid
               container
@@ -233,19 +249,83 @@ const Post = ({
                   </Typography>
                 </Grid>
               </Grid>
-
+            </Grid>
+          )}
+          {!isMyPost && (
+            <Grid
+              container
+              justifyContent={"flex-start"}
+              alignItems={"center"}
+              sx={{ mt: 2, px: 2 }}
+              flexWrap={"nowrap"}
+            >
               <Grid container justifyContent={"flex-end"} alignItems={"center"}>
                 {!isMyPost && isAuth && (
-                  <Chip
-                    onClick={data.is_user_liked ? handleRemoveLike : handleLike}
-                    label={
-                      data.is_user_liked ? (
-                        <ThumbUpAltIcon sx={{ fill: "red" }} />
-                      ) : (
-                        <ThumbUpOffAltIcon sx={{ fill: "gray" }} />
-                      )
-                    }
-                  />
+                  <>
+                    <Chip
+                      onClick={
+                        lastClicked === "like" ? handleRemoveLike : handleLike
+                      }
+                      sx={{
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
+                      }}
+                      label={
+                        <Grid container alignItems={"center"}>
+                          {lastClicked === "like" ? (
+                            <ThumbUpAltIcon sx={{ fill: "red" }} />
+                          ) : (
+                            <ThumbUpOffAltIcon sx={{ fill: "gray" }} />
+                          )}
+                          {likesCount && (
+                            <Typography
+                              sx={{
+                                ml: 1,
+                                fontSize: "12px",
+                                color: "#858585",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {likesCount}
+                            </Typography>
+                          )}
+                        </Grid>
+                      }
+                    />
+                    <Chip
+                      onClick={
+                        lastClicked === "dislike"
+                          ? handleRemoveDislike
+                          : handleDislike
+                      }
+                      sx={{
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0,
+                        borderLeft: "1px solid lightGray",
+                      }}
+                      label={
+                        <Grid container alignItems={"center"}>
+                          {lastClicked === "dislike" ? (
+                            <ThumbDownAltIcon sx={{ fill: "red" }} />
+                          ) : (
+                            <ThumbDownOffAltIcon sx={{ fill: "gray" }} />
+                          )}
+                          {dislikesCount && (
+                            <Typography
+                              sx={{
+                                ml: 1,
+                                fontSize: "12px",
+                                color: "#858585",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {dislikesCount}
+                            </Typography>
+                          )}
+                        </Grid>
+                      }
+                    />
+                  </>
                 )}
                 <Chip
                   onClick={(e) => setContactOpen(e.currentTarget)}
@@ -303,14 +383,46 @@ const Post = ({
               </Grid>
             </Grid>
           )}
-          {!isMyPost && data.distance && (
-            <Grid container sx={{ px: 2, mt: 1 }}>
-              <SocialDistanceIcon />
-              <Typography variant="body2" sx={{ fontWeight: "bold", ml: 1 }}>
-                {data.distance} meter away
+          <Grid
+            container
+            item
+            xs={12}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            sx={{ mt: 2 }}
+          >
+            <Grid
+              sx={{ mt: 1 }}
+              contianer
+              justifyContent={"flex-start"}
+              item
+              xs
+            >
+              <Typography
+                sx={{
+                  color: "gray",
+                  fontSize: "14px",
+                  fontStyle: "italic",
+                }}
+              >
+                {moment(data.created_by).format("HH:mm YY/MM/DD")}
               </Typography>
             </Grid>
-          )}
+            {!isMyPost && data.distance && (
+              <Grid
+                container
+                sx={{ mt: 1 }}
+                item
+                xs
+                justifyContent={"flex-end"}
+              >
+                <SocialDistanceIcon />
+                <Typography variant="body2" sx={{ fontWeight: "bold", ml: 1 }}>
+                  {data.distance} meter away
+                </Typography>
+              </Grid>
+            )}
+          </Grid>
           <Grid container justifyContent={"flex-start"} sx={{ px: 2, mt: 1 }}>
             {data.category?.map((item) => (
               <Chip

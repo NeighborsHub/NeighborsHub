@@ -59,18 +59,18 @@ const postsSlices = createSlice({
     },
     like: (state, { payload }) => {
       state.posts.results = state.posts.results?.map((item) =>
-        item.id === payload.id ? { ...item, is_user_liked: true } : item
+        item.id === payload.id ? { ...item, user_liked: payload.type } : item
       );
       state.locationPosts.results = state.locationPosts.results?.map((item) =>
-        item.id === payload.id ? { ...item, is_user_liked: true } : item
+        item.id === payload.id ? { ...item, user_liked: payload.type } : item
       );
     },
     deleteLike: (state, { payload }) => {
       state.posts.results = state.posts.results?.map((item) =>
-        item.id === payload.id ? { ...item, is_user_liked: false } : item
+        item.id === payload.id ? { ...item, user_liked: null } : item
       );
       state.locationPosts.results = state.locationPosts.results?.map((item) =>
-        item.id === payload.id ? { ...item, is_user_liked: false } : item
+        item.id === payload.id ? { ...item, user_liked: null } : item
       );
     },
     setCategories: (state, { payload }) => {
@@ -125,6 +125,8 @@ export const {
   moreDetailsPost,
   like,
   deleteLike,
+  dislike,
+  deleteDislike,
   setCategories,
   setUserPosts,
   setPost,
