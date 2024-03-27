@@ -25,7 +25,7 @@ const postsSlices = createSlice({
       state.locationPosts = [];
     },
     addPost: (state, { payload }) => {
-      state.myPosts = [...state.myPosts, payload];
+      state.myPosts.results = [...state.myPosts.results, payload];
     },
     setMyPosts: (state, { payload }) => {
       state.myPosts = payload;
@@ -44,11 +44,11 @@ const postsSlices = createSlice({
     },
     clearPosts: () => initialState,
     removePost: (state, { payload }) => {
-      state.myPosts = state.myPosts.filter((item) => item.id !== payload.id);
+      state.myPosts.results = state.myPosts.results.filter((item) => item.id !== payload.id);
     },
     moreDetailsPost: (state, { payload }) => {
       if (payload.is_owner) {
-        state.myPosts = state.myPosts.map((item) =>
+        state.myPosts.results = state.myPosts.results.map((item) =>
           item.id === payload.id ? { ...item, ...payload } : item
         );
       } else {
