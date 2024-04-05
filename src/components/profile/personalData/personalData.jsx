@@ -82,7 +82,7 @@ const PersonalData = () => {
   };
 
   return (
-    <Grid container direction="column" alignItems={"center"}>
+    <Grid container direction="column" alignItems={"center"} sx={{ px: 3 }}>
       <Grid container direction="column" alignItems={"center"} sx={{ my: 3 }}>
         <Badge
           badgeContent={<AddIcon />}
@@ -112,32 +112,38 @@ const PersonalData = () => {
           onChange={handleSetAvatarImage}
         />
       </Grid>
-      <TextField
-        fullWidth
-        sx={{ my: 1 }}
-        label="first name"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment>
-              <PersonIcon />
-            </InputAdornment>
-          ),
-        }}
-        {...firstName}
-      />
-      <TextField
-        fullWidth
-        sx={{ my: 1 }}
-        label="last name"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment>
-              <PersonIcon />
-            </InputAdornment>
-          ),
-        }}
-        {...lastName}
-      />
+      <Grid container spacing={3}>
+        <Grid item md={6} xs={12}>
+          <TextField
+            fullWidth
+            sx={{ my: 1 }}
+            label="first name"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment>
+                  <PersonIcon />
+                </InputAdornment>
+              ),
+            }}
+            {...firstName}
+          />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <TextField
+            fullWidth
+            sx={{ my: 1 }}
+            label="last name"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment>
+                  <PersonIcon />
+                </InputAdornment>
+              ),
+            }}
+            {...lastName}
+          />
+        </Grid>
+      </Grid>
       <Button
         sx={{ mt: 1 }}
         variant="contained"
@@ -147,7 +153,7 @@ const PersonalData = () => {
       >
         submit
       </Button>
-      <Divider sx={{ width: "100%", my: 2 }} />
+      <Divider sx={{ width: "100%", my: 4 }} />
       <TextField
         fullWidth
         sx={{ my: 1 }}

@@ -7,6 +7,13 @@ import Addresses from "components/profile/addresses/addresses";
 import { useState, useMemo } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import Hidden from "@mui/material/Hidden";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from "@mui/icons-material/Home";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import Typography from "@mui/material/Typography";
 
 const Profile = () => {
@@ -22,40 +29,111 @@ const Profile = () => {
 
   return (
     <Container
-      maxWidth={"sm"}
+      maxWidth={"lg"}
       sx={{
         overflowY: "auto",
-        height: "calc( 100vh - 150px )",
+        height: "calc( 100vh - 90px )",
         pb: 1,
         px: 0,
-        direction: "column",
         display: "flex",
+        direction: "column",
       }}
     >
-      <Card
-        sx={{ display: "flex", flexDirection: "column", px: 2, py: 3, flex: 1 }}
-      >
-        <Grid container sx={{ width: "100%", justifyContent: "center" }}>
-          <Tabs
-            sx={{
-              width: "100%",
-              justifyContent: "center",
-              display: "flex",
-              "& .MuiTabs-scroller": {
-                display: "flex",
-                justifyContent: "center",
-              },
-            }}
-            value={value}
-            onChange={handleChange}
+      <Card sx={{ display: "flex", py: 1, flex: 1 }}>
+        {/* ////////////////////////////////////// Responsive //////////////////////////////////////// */}
+        <Hidden smUp>
+          <Grid
+            container
+            direction={"column"}
+            alignItems={"center"}
+            sx={{ flexWrap: "nowrap" }}
           >
-            <Tab label="Personal Data" />
-            <Tab label="Address" />
-          </Tabs>
-        </Grid>
-        <Grid container justifyContent={"center"} sx={{ mt: 3 }}>
-          {status[value]}
-        </Grid>
+            <Grid sx={{ width: "100%" }}>
+              <Tabs
+                sx={{
+                  justifyContent: "center",
+                  display: "flex",
+                  borderBottom: "1px solid lightGray",
+                  "& .MuiTabs-scroller": {
+                    display: "flex",
+                    justifyContent: "center",
+                  },
+                }}
+                value={value}
+                onChange={handleChange}
+              >
+                <Tab label="Personal Data" />
+                <Tab label="Address" />
+              </Tabs>
+            </Grid>
+            <Grid
+              item
+              justifyContent={"center"}
+              sx={{ mt: 3, overflowY: "auto" }}
+            >
+              {status[value]}
+            </Grid>
+          </Grid>
+        </Hidden>
+        {/* //////////////////////////////////////  //////////////////////////////////////// */}
+        <Hidden smDown>
+          <Grid
+            item
+            container
+            direction={"column"}
+            sx={{ width: "200px", mt: 3, pl: 1 }}
+          >
+            <Button
+              onClick={() => setValue(0)}
+              sx={{
+                mb: 2,
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "flex-start",
+              }}
+            >
+              {value === 0 ? <PersonIcon /> : <PersonOutlinedIcon />}
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  fontWeight: value === 0 && "bold",
+                  ml: 1,
+                }}
+              >
+                Personal Data
+              </Typography>
+            </Button>
+            <Button
+              onClick={() => setValue(1)}
+              sx={{
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "flex-start",
+              }}
+            >
+              {value === 1 ? <HomeIcon /> : <HomeOutlinedIcon />}
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  fontWeight: value === 1 && "bold",
+                  ml: 1,
+                }}
+              >
+                Address
+              </Typography>
+            </Button>
+          </Grid>
+          <Divider orientation="vertical" />
+          <Grid
+            item
+            xs
+            container
+            justifyContent={"center"}
+            sx={{ mt: 3, overflowY: "auto", px: 1 }}
+          >
+            {status[value]}
+          </Grid>
+        </Hidden>
       </Card>
     </Container>
   );
