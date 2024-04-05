@@ -40,38 +40,49 @@ const ContactData = () => {
     setOpenEmailDialog(false);
   };
   return (
-    <Grid container direction={"column"} sx={{ mx: 2 }}>
-      <Typography sx={{ color: "gray", mb: 2 }}>
-        You can edit your contacts data here
-      </Typography>
-      <TextField
-        fullWidth
-        sx={{ my: 2 }}
-        label="phoneNumber"
-        onClick={handleOpenPhoneNumberDialog}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment>
-              <PhoneIphoneIcon />
-            </InputAdornment>
-          ),
-        }}
-        {...phoneNumber}
-      />
-      <TextField
-        fullWidth
-        sx={{ my: 2 }}
-        label="email"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment>
-              <EmailIcon />
-            </InputAdornment>
-          ),
-        }}
-        onClick={handleOpenEmailDialog}
-        {...email}
-      />
+    <Grid
+      xs
+      item
+      container
+      alignContent={"flex-start"}
+      spacing={3}
+      sx={{ mx: 2, flex: 1, width: "100%" }}
+    >
+      <Grid item xs={12}>
+        <Typography sx={{ color: "gray", mb: 2 }}>
+          You can edit your contacts data here
+        </Typography>
+      </Grid>
+      <Grid item md={6} xs={12}>
+        <TextField
+          fullWidth
+          label="phoneNumber"
+          onClick={handleOpenPhoneNumberDialog}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment>
+                <PhoneIphoneIcon />
+              </InputAdornment>
+            ),
+          }}
+          {...phoneNumber}
+        />
+      </Grid>
+      <Grid item md={6} xs={12}>
+        <TextField
+          fullWidth
+          label="email"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment>
+                <EmailIcon />
+              </InputAdornment>
+            ),
+          }}
+          onClick={handleOpenEmailDialog}
+          {...email}
+        />
+      </Grid>
       <PhoneNumberDialog
         open={openPhoneNumberDialog}
         handleClose={handleClosePhoneNumberDialog}

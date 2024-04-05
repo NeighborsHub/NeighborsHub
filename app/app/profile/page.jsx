@@ -74,6 +74,7 @@ const Profile = () => {
               item
               justifyContent={"center"}
               sx={{ mt: 3, overflowY: "auto" }}
+              container
             >
               {status[value]}
             </Grid>
@@ -124,7 +125,7 @@ const Profile = () => {
                   ml: 1,
                 }}
               >
-                Contact
+                Contact Data
               </Typography>
             </Button>
             <Button
