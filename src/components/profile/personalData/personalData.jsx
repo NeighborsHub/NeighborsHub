@@ -4,16 +4,11 @@ import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
-import EmailIcon from "@mui/icons-material/Email";
-import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import PersonIcon from "@mui/icons-material/Person";
 import { useSnackbar } from "notistack";
 import { myInfoSelector } from "store/slices/userSlices";
 import { useInputHandler } from "hooks/useInputHandler";
 import { useSelector, useDispatch } from "react-redux";
-import Divider from "@mui/material/Divider";
-import PhoneNumberDialog from "components/profile/personalData/phoneNumberDialog";
-import EmailDialog from "components/profile/personalData/emailDialog";
 import { updateMyInfo, setMyAvatarAction } from "store/actions/userActions";
 import AddIcon from "@mui/icons-material/Add";
 import Badge from "@mui/material/Badge";
@@ -25,8 +20,7 @@ const PersonalData = () => {
   const lastName = useInputHandler("");
   const phoneNumber = useInputHandler("");
   const email = useInputHandler("");
-  const [openPhoneNumberDialog, setOpenPhoneNumberDialog] = useState(false);
-  const [openEmailDialog, setOpenEmailDialog] = useState(false);
+
   const avatarInputRef = useRef();
   const dispatch = useDispatch();
 
@@ -53,22 +47,6 @@ const PersonalData = () => {
     // const result = await Apis.auth.register({
     //   email_mobile:
     // })
-  };
-
-  const handleOpenPhoneNumberDialog = () => {
-    setOpenPhoneNumberDialog(true);
-  };
-
-  const handleOpenEmailDialog = () => {
-    setOpenEmailDialog(true);
-  };
-
-  const handleClosePhoneNumberDialog = () => {
-    setOpenPhoneNumberDialog(false);
-  };
-
-  const handleClostEmailDialog = () => {
-    setOpenEmailDialog(false);
   };
 
   const handleChooseAvatarFile = () => {
@@ -153,43 +131,6 @@ const PersonalData = () => {
       >
         submit
       </Button>
-      <Divider sx={{ width: "100%", my: 4 }} />
-      <TextField
-        fullWidth
-        sx={{ my: 1 }}
-        label="phoneNumber"
-        onClick={handleOpenPhoneNumberDialog}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment>
-              <PhoneIphoneIcon />
-            </InputAdornment>
-          ),
-        }}
-        {...phoneNumber}
-      />
-      <TextField
-        fullWidth
-        sx={{ my: 1 }}
-        label="email"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment>
-              <EmailIcon />
-            </InputAdornment>
-          ),
-        }}
-        onClick={handleOpenEmailDialog}
-        {...email}
-      />
-      <PhoneNumberDialog
-        open={openPhoneNumberDialog}
-        handleClose={handleClosePhoneNumberDialog}
-      />
-      <EmailDialog
-        open={openEmailDialog}
-        handleClose={handleClostEmailDialog}
-      />
     </Grid>
   );
 };

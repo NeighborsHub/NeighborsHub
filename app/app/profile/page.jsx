@@ -15,7 +15,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import HomeIcon from "@mui/icons-material/Home";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import Typography from "@mui/material/Typography";
-
+import CallIcon from "@mui/icons-material/Call";
+import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
+import ContactData from "components/profile/contactData/contactData";
 const Profile = () => {
   const [value, setValue] = useState(0);
   const handleChange = (e, value) => {
@@ -24,7 +26,8 @@ const Profile = () => {
 
   const status = {
     0: <PersonalData />,
-    1: <Addresses />,
+    1: <ContactData />,
+    2: <Addresses />,
   };
 
   return (
@@ -63,6 +66,7 @@ const Profile = () => {
                 onChange={handleChange}
               >
                 <Tab label="Personal Data" />
+                <Tab label="Contact Data" />
                 <Tab label="Address" />
               </Tabs>
             </Grid>
@@ -106,16 +110,37 @@ const Profile = () => {
             <Button
               onClick={() => setValue(1)}
               sx={{
+                mb: 2,
                 display: "flex",
                 alignItems: "flex-end",
                 justifyContent: "flex-start",
               }}
             >
-              {value === 1 ? <HomeIcon /> : <HomeOutlinedIcon />}
+              {value === 1 ? <CallIcon /> : <CallOutlinedIcon />}
               <Typography
                 sx={{
                   fontSize: "14px",
                   fontWeight: value === 1 && "bold",
+                  ml: 1,
+                }}
+              >
+                Contact
+              </Typography>
+            </Button>
+            <Button
+              onClick={() => setValue(2)}
+              sx={{
+                mb: 2,
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "flex-start",
+              }}
+            >
+              {value === 2 ? <HomeIcon /> : <HomeOutlinedIcon />}
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  fontWeight: value === 2 && "bold",
                   ml: 1,
                 }}
               >
