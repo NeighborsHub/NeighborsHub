@@ -145,7 +145,7 @@ const PersonalData = () => {
         </Grid>
       </Grid>
       <Button
-        sx={{ mt: 1 }}
+        sx={{ mt: 2 }}
         variant="contained"
         fullWidth
         color="primary"
