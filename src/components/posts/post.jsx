@@ -16,6 +16,9 @@ import LikesDislikes from "components/posts/items/likesDislikes";
 import Contact from "components/posts/items/Contact";
 import Dots from "components/posts/items/dots";
 import User from "components/posts/items/user";
+import Tooltip from "@mui/material/Tooltip";
+import { useState } from "react";
+import { myAddressesSelector } from "store/slices/userSlices";
 
 const Post = ({
   handleOpenModal,
@@ -28,7 +31,10 @@ const Post = ({
   const isAuth = useSelector(authSelector);
   const isMyPost = myInfo.id === data.created_by?.id;
   const router = useRouter();
-
+  const [addressTooltipOpen, setAddressTooltipOpen] = useState(false);
+  const myAddressCordinate = useSelector(myAddressesSelector);
+  const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
+  console.log(mainAddress, "teeeeeeeeeest");
   const handleRedirectToPostPage = (id) => {
     !isPostPage && router.push(`/app/post?id=${id}`);
   };
@@ -124,13 +130,42 @@ const Post = ({
             alignItems={"center"}
             sx={{ mt: 2 }}
           >
-            <Grid
-              sx={{ mt: 1 }}
-              contianer
-              justifyContent={"flex-start"}
-              item
-              xs
-            >
+            {!isMyPost && data.distance && (
+              <Grid
+                container
+                sx={{ mt: 1 }}
+                item
+                xs
+                justifyContent={"flex-start"}
+                alignItems={"center"}
+              >
+                <SocialDistanceIcon />
+                <Typography variant="body2" sx={{ fontWeight: "bold", ml: 1 }}>
+                  {data.distance} meter away from your{" "}
+                </Typography>
+                <Tooltip
+                  title={mainAddress?.street}
+                  open={addressTooltipOpen}
+                  onClose={() => setAddressTooltipOpen(false)}
+                  leaveTouchDelay={5000}
+                >
+                  <Button
+                    sx={{
+                      fontSize: "14px",
+                      textTransform: "lowercase",
+                      padding: 0,
+                      width: "auto",
+                      minWidth: 'auto',
+                      pl: '5px'
+                    }}
+                    onClick={() => setAddressTooltipOpen(true)}
+                  >
+                    Address
+                  </Button>
+                </Tooltip>
+              </Grid>
+            )}
+            <Grid sx={{ mt: 1 }} contianer justifyContent={"flex-start"} item>
               <Typography
                 sx={{
                   color: "gray",
@@ -141,21 +176,6 @@ const Post = ({
                 {moment(data.created_at).fromNow()}
               </Typography>
             </Grid>
-
-            {!isMyPost && data.distance && (
-              <Grid
-                container
-                sx={{ mt: 1 }}
-                item
-                xs
-                justifyContent={"flex-end"}
-              >
-                <SocialDistanceIcon />
-                <Typography variant="body2" sx={{ fontWeight: "bold", ml: 1 }}>
-                  {data.distance} meter away
-                </Typography>
-              </Grid>
-            )}
           </Grid>
           {/* //////////////////////////////////////// User Avatar And Name ///////////////////////////////////// */}
           {!isMyPost && <User data={data} />}
