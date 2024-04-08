@@ -5,7 +5,7 @@ import MapTab from "components/map/mapTab";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PostsTab from "components/posts/postsTab";
-
+import Chat from "components/chat/chat";
 import { useDispatch } from "react-redux";
 import Hidden from "@mui/material/Hidden";
 import { myAddressesSelector } from "store/slices/userSlices";
@@ -20,7 +20,6 @@ import { postsSelector } from "store/slices/postsSlices";
 
 import { getUniqueLocation } from "store/actions/postsActions";
 import AppHeader from "components/header/appHeader";
-
 let controller;
 
 const App = () => {
@@ -164,6 +163,7 @@ const App = () => {
           >
             <Tab label="Map" />
             <Tab label="Posts" />
+            <Tab label="Chat" />
           </Tabs>
         </Grid>
       </Hidden>
@@ -203,12 +203,13 @@ const App = () => {
                 md={6}
                 id="appPostLists"
               >
-                <PostsTab
+                <Chat/>
+                {/* <PostsTab
                   filters={dialogFilters}
                   posts={posts}
                   handleGetMorePosts={handleGetMorePosts}
                   scrollParentId="appPostLists"
-                />
+                /> */}
               </Grid>
             </>
           ) : (
@@ -242,12 +243,14 @@ const App = () => {
               handleBounds={handleBounds}
               search={search}
             />
-          ) : (
+          ) : tabValue === 1 ? (
             <PostsTab
               posts={posts}
               handleGetMorePosts={handleGetMorePosts}
               scrollParentId="appPostLists"
             />
+          ) : (
+            <Chat />
           )}
         </Grid>
       </Hidden>
