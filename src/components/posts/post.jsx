@@ -121,14 +121,36 @@ const Post = ({
           >
             {data.title}
           </Typography>
-          {/* //////////////////////////////////////// Distance And Date ///////////////////////////////////// */}
+          {/* //////////////////////////////////////// Date ///////////////////////////////////// */}
           <Grid
             container
             item
             xs={12}
             justifyContent={"space-between"}
             alignItems={"center"}
-            sx={{ mt: 2 }}
+            sx={{ mt: 1 }}
+          >
+            <Grid sx={{ mt: 1 }} contianer justifyContent={"flex-start"} item>
+              <Typography
+                sx={{
+                  color: "gray",
+                  fontSize: "14px",
+                  fontStyle: "italic",
+                }}
+              >
+                {moment(data.created_at).fromNow()}
+              </Typography>
+            </Grid>
+          </Grid>
+          {/* //////////////////////////////////////// Distance ///////////////////////////////////// */}
+
+          <Grid
+            container
+            item
+            xs={12}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            sx={{ mt: 1 }}
           >
             {!isMyPost && data.distance && (
               <Grid
@@ -155,8 +177,8 @@ const Post = ({
                       textTransform: "lowercase",
                       padding: 0,
                       width: "auto",
-                      minWidth: 'auto',
-                      pl: '5px'
+                      minWidth: "auto",
+                      pl: "5px",
                     }}
                     onClick={() => setAddressTooltipOpen(true)}
                   >
@@ -165,17 +187,6 @@ const Post = ({
                 </Tooltip>
               </Grid>
             )}
-            <Grid sx={{ mt: 1 }} contianer justifyContent={"flex-start"} item>
-              <Typography
-                sx={{
-                  color: "gray",
-                  fontSize: "14px",
-                  fontStyle: "italic",
-                }}
-              >
-                {moment(data.created_at).fromNow()}
-              </Typography>
-            </Grid>
           </Grid>
           {/* //////////////////////////////////////// User Avatar And Name ///////////////////////////////////// */}
           {!isMyPost && <User data={data} />}
