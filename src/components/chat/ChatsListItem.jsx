@@ -1,24 +1,34 @@
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-
-const ChatListItem = () => {
+import ListItemButton from "@mui/material/ListItemButton";
+const ChatListItem = ({ onClick }) => {
   return (
-    <Grid
+    <ListItemButton
       container
       justifyContent="flex-start"
       sx={{
-        borderBottom: "1px solid lightGray",
-        borderLeft: "1px solid lightGray",
-        borderRight: "1px solid lightGray",
         p: 1.5,
         bgcolor: "white",
+        alignItems: "stretch",
+        borderBottom: "1px solid lightGray",
       }}
-      alignItems={"center"}
+      alignItems={"stretch"}
+      onClick={onClick}
     >
-      <Avatar />
-      <Typography sx={{ fontWeight: "bold", ml: 1 }}>Sajad Seif</Typography>
-    </Grid>
+      <Grid item alignItems={"center"} container width={"45px"}>
+        <Avatar />
+      </Grid>
+      <Grid item xs direction="column" sx={{ ml: 1 }}>
+        <Typography sx={{ fontWeight: "bold" }}>Seyf</Typography>
+        <Typography>Hi. I can help you</Typography>
+      </Grid>
+      <Grid item width={"70px"} container alignItems={"flex-end"}>
+        <Typography sx={{ fontSize: "12px", color: "gray" }}>
+          2024/02/23
+        </Typography>
+      </Grid>
+    </ListItemButton>
   );
 };
 export default ChatListItem;
