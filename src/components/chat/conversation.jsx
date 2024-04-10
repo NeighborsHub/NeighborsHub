@@ -3,14 +3,14 @@ import ConversationMessages from "components/chat/conversationMessages";
 import ConversationTitle from "components/chat/conversationTitle";
 import Grid from "@mui/material/Grid";
 
-const Conversation = ({ handleSetChatId }) => {
+const Conversation = () => {
   return (
     <Grid
       container
       direction="column"
       sx={{ position: "relative", overflow: "hidden" }}
     >
-      <ConversationTitle handleSetChatId={handleSetChatId} />
+      <ConversationTitle />
       <ConversationMessages />
       <ConversationInput />
     </Grid>

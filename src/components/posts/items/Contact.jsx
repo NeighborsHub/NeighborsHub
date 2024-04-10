@@ -6,6 +6,7 @@ import Chip from "@mui/material/Chip";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import { snackActions } from "utils/SnackbarUtils";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
+import { useRouteQuery } from "utils/route";
 
 const Contact = ({ data }) => {
   const [contactOpen, setContactOpen] = useState(false);
@@ -13,6 +14,13 @@ const Contact = ({ data }) => {
   const handleCloseContactMenu = () => {
     setContactOpen(false);
   };
+
+  const routeQuery = useRouteQuery();
+  const handleGoToConversation = ({ conversationId }) =>
+    routeQuery({
+      status: "conversation",
+      conversationId,
+    });
 
   const handleCopyToClipboard = (value) => {
     if (isAuth) {
@@ -26,7 +34,8 @@ const Contact = ({ data }) => {
   return (
     <Grid>
       <Chip
-        onClick={(e) => setContactOpen(e.currentTarget)}
+        onClick={() => handleGoToConversation({ conversationId: data.id })}
+        // onClick={(e) => setContactOpen(e.currentTarget)}
         label="Contact"
         sx={{
           bgcolor: "#0298E8",

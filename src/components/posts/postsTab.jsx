@@ -3,8 +3,14 @@ import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import ChatIcon from "@mui/icons-material/Chat";
 import Badge from "@mui/material/Badge";
+import { useRouteQuery } from "utils/route";
 
 const PostTab = ({ posts = [], handlePushToChat, ...props }) => {
+  const routeQuery = useRouteQuery();
+  const handleGoToChatsList = () =>
+    routeQuery({
+      status: "chats",
+    });
   return (
     <Grid
       container
@@ -18,7 +24,7 @@ const PostTab = ({ posts = [], handlePushToChat, ...props }) => {
         <Fab
           color="primary"
           aria-label="add"
-          onClick={() => handlePushToChat(true)}
+          onClick={handleGoToChatsList}
           size="big"
           sx={{ position: "absolute", bottom: "15px", right: "25px" }}
         >

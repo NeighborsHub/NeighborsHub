@@ -5,20 +5,27 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import { useInputHandler } from "hooks/useInputHandler";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useRouteQuery } from "utils/route";
 
 const chatListData = [{ id: 1 }, { id: 2 }];
 
-const ChatsList = ({ handlePushToChat, handleSetChatId }) => {
+const ChatsList = ({ isFullWidth }) => {
   const search = useInputHandler("");
-  const router = useRouter();
+
+  const routeQuery = useRouteQuery();
+  const handleGoToConversation = ({ conversationId }) =>
+    routeQuery({
+      status: "conversation",
+      conversationId,
+    });
+  const handleGoToPostsList = () =>
+    routeQuery({
+      status: "posts",
+    });
 
   const handleSubmit = () => {};
-
-  const handlePushToConversation = (id) => {
-    handleSetChatId(id);
-  };
 
   return (
     <Grid
@@ -35,11 +42,11 @@ const ChatsList = ({ handlePushToChat, handleSetChatId }) => {
     >
       <Grid container sx={{ pb: 1 }} alignItems={"center"}>
         <Grid>
-          {handlePushToChat && (
+          {isFullWidth && (
             <IconButton>
               <ArrowBackIcon
                 sx={{ fill: "gray" }}
-                onClick={() => handlePushToChat(false)}
+                onClick={handleGoToPostsList}
               />
             </IconButton>
           )}
@@ -92,7 +99,9 @@ const ChatsList = ({ handlePushToChat, handleSetChatId }) => {
             <ChatsListItem
               key={index}
               data={item}
-              onClick={() => handlePushToConversation(item.id)}
+              onClick={() =>
+                handleGoToConversation({ conversationId: item.id })
+              }
             />
           ))}
         </Grid>

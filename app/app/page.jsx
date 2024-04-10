@@ -20,6 +20,8 @@ import { postsSelector } from "store/slices/postsSlices";
 
 import { getUniqueLocation } from "store/actions/postsActions";
 import AppHeader from "components/header/appHeader";
+import { useSearchParams } from "next/navigation";
+
 let controller;
 
 const App = () => {
@@ -35,6 +37,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [pushToChat, setPushToChat] = useState(false);
+  const params = useSearchParams();
 
   useEffect(() => {
     setLoading(true);
@@ -209,8 +212,9 @@ const App = () => {
                 id="appPostLists"
                 direction={"column"}
               >
-                {pushToChat ? (
-                  <Chat handlePushToChat={handlePushToChat} />
+                {params.get("status") === "chats" ||
+                params.get("status") === "conversation" ? (
+                  <Chat isFullWidth />
                 ) : (
                   <PostsTab
                     filters={dialogFilters}

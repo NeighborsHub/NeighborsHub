@@ -1,14 +1,10 @@
 import Grid from "@mui/material/Grid";
 import ChatsList from "components/chat/chatsList";
 import Conversation from "components/chat/conversation";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-const Chat = ({ handlePushToChat }) => {
-  const [chatId, setChatId] = useState(null);
-
-  const handleSetChatId = (id) => {
-    setChatId(id);
-  };
+const Chat = ({ isFullWidth }) => {
+  const params = useSearchParams();
 
   return (
     <Grid
@@ -20,13 +16,10 @@ const Chat = ({ handlePushToChat }) => {
         overflow: "hidden",
       }}
     >
-      {chatId ? (
-        <Conversation handleSetChatId={handleSetChatId} />
+      {params.get("status") === "conversation" ? (
+        <Conversation />
       ) : (
-        <ChatsList
-          handlePushToChat={handlePushToChat}
-          handleSetChatId={handleSetChatId}
-        />
+        <ChatsList isFullWidth={isFullWidth} />
       )}
     </Grid>
   );
