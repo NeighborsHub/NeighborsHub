@@ -4,19 +4,17 @@ import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import { useRouter } from "next/navigation";
 
-const ChatTitle = () => {
-  const router = useRouter();
+const ChatTitle = ({ handleSetChatId }) => {
 
   const handlePushToChatsList = () => {
-    router.push("/app");
+    handleSetChatId(null);
   };
 
   return (
     <Paper container sx={{ m: 1, p: 1, display: "flex", alignItems: "center" }}>
-      <IconButton>
-        <ArrowBackIcon sx={{ fill: "gray" }} onClick={handlePushToChatsList} />
+      <IconButton onClick={handlePushToChatsList}>
+        <ArrowBackIcon sx={{ fill: "gray" }} />
       </IconButton>
       <Divider orientation="vertical" sx={{ mx: 1 }} />
       <Avatar />

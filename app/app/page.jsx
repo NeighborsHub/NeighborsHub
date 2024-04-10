@@ -34,6 +34,7 @@ const App = () => {
   const [longBounds, setLongBounds] = useState([0, 0]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [pushToChat, setPushToChat] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -142,6 +143,10 @@ const App = () => {
     setSearch(value);
   };
 
+  const handlePushToChat = (bool) => {
+    setPushToChat(bool);
+  };
+
   return (
     <Grid
       container
@@ -167,12 +172,12 @@ const App = () => {
           </Tabs>
         </Grid>
       </Hidden>
-      <AppHeader
-        handleSearch={handleSearch}
-        dialogFilters={dialogFilters}
-        handleSubmitFilters={handleSubmitFilters}
-      />
       <Hidden mdDown>
+        <AppHeader
+          handleSearch={handleSearch}
+          dialogFilters={dialogFilters}
+          handleSubmitFilters={handleSubmitFilters}
+        />
         <Grid
           container
           justifyContent={"center"}
@@ -202,14 +207,19 @@ const App = () => {
                 lg={4}
                 md={6}
                 id="appPostLists"
+                direction={"column"}
               >
-                <Chat/>
-                {/* <PostsTab
-                  filters={dialogFilters}
-                  posts={posts}
-                  handleGetMorePosts={handleGetMorePosts}
-                  scrollParentId="appPostLists"
-                /> */}
+                {pushToChat ? (
+                  <Chat handlePushToChat={handlePushToChat} />
+                ) : (
+                  <PostsTab
+                    filters={dialogFilters}
+                    posts={posts}
+                    handleGetMorePosts={handleGetMorePosts}
+                    scrollParentId="appPostLists"
+                    handlePushToChat={handlePushToChat}
+                  />
+                )}
               </Grid>
             </>
           ) : (
@@ -231,6 +241,11 @@ const App = () => {
         </Grid>
       </Hidden>
       <Hidden mdUp>
+        <AppHeader
+          handleSearch={tabValue !== 2 && handleSearch}
+          dialogFilters={dialogFilters}
+          handleSubmitFilters={handleSubmitFilters}
+        />
         <Grid
           container
           justifyContent={"center"}

@@ -16,15 +16,15 @@ const MessageItem = ({ isMine }) => {
         sx={{
           bgcolor: isMine ? "#edf9ff" : "white",
           borderRadius: "10px",
+          border: "1px solid #ebebeb",
           width: "auto",
-          py: 2,
-          px: 2,
+          p: 1,
           boxShadow: "0 0 2px lightGray",
           minWidth: "70px",
           maxWidth: "270px",
         }}
       >
-        <Typography>
+        <Typography sx={{ fontSize: "14px" }}>
           123 asdf asd fas dfa da asdd as fawsd asf d123 asdf asd fas dfa da
           asdd as fawsd asf d123 asdf asd fas dfa da asdd as fawsd asf d
         </Typography>

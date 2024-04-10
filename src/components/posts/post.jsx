@@ -47,12 +47,6 @@ const Post = ({
         sx={{
           p: { sm: 3, xs: 1 },
           border: "1px solid lightGray",
-          "&:hover": !isPostPage
-            ? {
-                backgroundColor: "#f7f7f7",
-                cursor: "pointer",
-              }
-            : {},
         }}
       >
         {Boolean(data.media?.length) && (

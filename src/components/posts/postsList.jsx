@@ -44,7 +44,7 @@ const PostsList = ({
   }, [posts]);
 
   return (
-    <>
+    <Grid container direction={'column'} item xs>
       {posts.results?.length > 0 ? (
         <Grid container direction="column">
           <InfiniteScroll
@@ -107,7 +107,7 @@ const PostsList = ({
           />
         </Grid>
       </Modal>
-    </>
+    </Grid>
   );
 };
 

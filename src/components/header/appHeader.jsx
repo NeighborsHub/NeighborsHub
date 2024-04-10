@@ -47,67 +47,17 @@ const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
     <Grid
       container
       justifyContent={"space-between"}
+      direction={"row-reverse"}
       sx={{
         py: 1,
         px: { sm: 4, xs: 1 },
         bgcolor: "#e8e8e8",
         borderTop: "1px solid #d4d4d4",
         borderBottom: "1px solid #d4d4d4",
+        height: "65px",
       }}
     >
-      <Grid container item xs={6}>
-        <TextField
-          autocomplete="off"
-          name="search"
-          placeholder="Search"
-          sx={{
-            backgroundColor: "white",
-            borderRadius: "10px",
-            "& .MuiOutlinedInput-notchedOutline": {
-              fontSize: "12px",
-              display: "none",
-            },
-            "& .MuiInputBase-input": {
-              padding: "12px 20px",
-            },
-          }}
-          InputLabelProps={{
-            sx: {
-              color: "darkenGray",
-              fontSize: "12px",
-              fontWeight: "bold",
-            },
-          }}
-          {...search}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => handleSearch(search.value)}
-                  edge="end"
-                >
-                  <SearchIcon sx={{ fill: "gray" }} />
-                </IconButton>
-              </InputAdornment>
-            ),
-            startAdornment: search.value ? (
-              <InputAdornment position="start">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClearSearch}
-                  edge="end"
-                >
-                  <CloseIcon sx={{ fill: "gray" }} />
-                </IconButton>
-              </InputAdornment>
-            ) : (
-              <Grid sx={{ width: "36px" }} />
-            ),
-          }}
-        />
-      </Grid>
-      <Grid container xs={6} justifyContent={"flex-end"}>
+      <Grid container xs={6} justifyContent={"flex-end"} alignItems={'center'}>
         <Button
           sx={{
             mr: { xs: 1, md: 2 },
@@ -119,6 +69,8 @@ const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
               backgroundColor: "#f27527",
             },
             minWidth: { xs: "40px", sm: "64px" },
+            height: { xs: "40px", sm: "47px" },
+
           }}
           variant="contained"
           onClick={handleOpenFilterDialog}
@@ -155,6 +107,7 @@ const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
             backgroundColor: "#0298e8",
             px: { md: 4, sm: 1, xs: 0 },
             minWidth: { xs: "40px", sm: "64px" },
+            height: { xs: "40px", sm: "47px" },
           }}
         >
           {!matcheMdDown && "Add New Post"}
@@ -165,6 +118,60 @@ const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
           />
         </Button>
       </Grid>
+      {handleSearch && (
+        <Grid container item xs={6}>
+          <TextField
+            autocomplete="off"
+            name="search"
+            placeholder="Search"
+            sx={{
+              backgroundColor: "white",
+              borderRadius: "10px",
+              "& .MuiOutlinedInput-notchedOutline": {
+                fontSize: "12px",
+                display: "none",
+              },
+              "& .MuiInputBase-input": {
+                padding: "12px 20px",
+              },
+            }}
+            InputLabelProps={{
+              sx: {
+                color: "darkenGray",
+                fontSize: "12px",
+                fontWeight: "bold",
+              },
+            }}
+            {...search}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => handleSearch(search.value)}
+                    edge="end"
+                  >
+                    <SearchIcon sx={{ fill: "gray" }} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+              startAdornment: search.value ? (
+                <InputAdornment position="start">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClearSearch}
+                    edge="end"
+                  >
+                    <CloseIcon sx={{ fill: "gray" }} />
+                  </IconButton>
+                </InputAdornment>
+              ) : (
+                <Grid sx={{ width: "36px" }} />
+              ),
+            }}
+          />
+        </Grid>
+      )}
       <FiltersDialog
         open={openFilterDialog}
         handleClose={handleFilterDialogClose}
