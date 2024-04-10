@@ -2,6 +2,8 @@ import PostList from "components/posts/postsList";
 import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import ChatIcon from "@mui/icons-material/Chat";
+import Badge from "@mui/material/Badge";
+
 const PostTab = ({ posts = [], handlePushToChat, ...props }) => {
   return (
     <Grid
@@ -20,7 +22,19 @@ const PostTab = ({ posts = [], handlePushToChat, ...props }) => {
           size="big"
           sx={{ position: "absolute", bottom: "15px", right: "25px" }}
         >
-          <ChatIcon />
+          <Badge
+            badgeContent={4}
+            sx={{
+              "& .MuiBadge-badge": {
+                backgroundColor: "red",
+                border: "1px solid white",
+                top: "2px",
+                right: "1px",
+              },
+            }}
+          >
+            <ChatIcon />
+          </Badge>
         </Fab>
       )}
     </Grid>

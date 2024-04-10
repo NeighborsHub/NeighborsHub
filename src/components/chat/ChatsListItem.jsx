@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import ListItemButton from "@mui/material/ListItemButton";
-const ChatListItem = ({ onClick }) => {
+const ChatsListItem = ({ onClick }) => {
   return (
     <ListItemButton
       container
@@ -31,4 +31,4 @@ const ChatListItem = ({ onClick }) => {
     </ListItemButton>
   );
 };
-export default ChatListItem;
+export default ChatsListItem;

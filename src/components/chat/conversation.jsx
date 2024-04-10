@@ -1,6 +1,6 @@
-import ChatInput from "components/chat/chatInput";
-import MessageContainer from "components/chat/messagesContainer";
-import ChatTitle from "components/chat/chatTitle";
+import ConversationInput from "components/chat/conversationInput";
+import ConversationMessages from "components/chat/conversationMessages";
+import ConversationTitle from "components/chat/conversationTitle";
 import Grid from "@mui/material/Grid";
 
 const Conversation = ({ handleSetChatId }) => {
@@ -10,9 +10,9 @@ const Conversation = ({ handleSetChatId }) => {
       direction="column"
       sx={{ position: "relative", overflow: "hidden" }}
     >
-      <ChatTitle handleSetChatId={handleSetChatId} />
-      <MessageContainer />
-      <ChatInput />
+      <ConversationTitle handleSetChatId={handleSetChatId} />
+      <ConversationMessages />
+      <ConversationInput />
     </Grid>
   );
 };

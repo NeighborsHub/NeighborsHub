@@ -5,7 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 
-const ChatTitle = ({ handleSetChatId }) => {
+const ConversationTitle = ({ handleSetChatId }) => {
 
   const handlePushToChatsList = () => {
     handleSetChatId(null);
@@ -22,4 +22,4 @@ const ChatTitle = ({ handleSetChatId }) => {
     </Paper>
   );
 };
-export default ChatTitle;
+export default ConversationTitle;
