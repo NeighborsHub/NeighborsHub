@@ -33,6 +33,8 @@ import LocationOn from "@mui/icons-material/LocationOn";
 import { logoutAction } from "store/actions/authActions";
 import { authSelector } from "store/slices/authSlices";
 import { useSelector } from "react-redux";
+import Badge from "@mui/material/Badge";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 
 const path = {
   "/": 0,
@@ -213,21 +215,70 @@ const Header = () => {
             />
           </BottomNavigation>
         </Grid>
-        <Grid sx={{ width: "200px" }} container justifyContent={"flex-end"}>
+        <Grid
+          sx={{ width: "200px" }}
+          container
+          justifyContent={"flex-end"}
+          alignItems={"center"}
+        >
           {isAuth ? (
             <>
+              <Badge
+                badgeContent={4}
+                color="primary"
+                sx={{
+                  mr: "30px",
+                  "& .MuiBadge-badge": {
+                    backgroundColor: "red",
+                    top: "6px",
+                    right: "6px",
+                  },
+                }}
+              >
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleOpenMenu}
+                  edge="start"
+                  sx={{ padding: "4px!important", height: "fit-content" }}
+                >
+                  <NotificationsNoneIcon
+                    sx={{
+                      color: "gray",
+                      p: 0.5,
+                      fontSize: "25px",
+                      border: "1px solid gray",
+                      borderRadius: "100%",
+                    }}
+                  />
+                </IconButton>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={menuOpen}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem onClick={handlePushToProfile}>Profile</MenuItem>
+                  <MenuItem onClick={handlePushtoMyPosts}>My Posts</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
+              </Badge>
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
                 onClick={handleOpenMenu}
                 edge="start"
+                sx={{ padding: "0!important" }}
               >
                 <PersonIcon
                   sx={{
                     color: "gray",
                     border: "1px solid gray",
-                    p: 0.5,
                     borderRadius: "100%",
+                    p: 0.5,
                     fontSize: "25px",
                   }}
                 />

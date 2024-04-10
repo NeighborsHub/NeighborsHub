@@ -13,10 +13,10 @@ const LikesDislikes = ({ data }) => {
   const dispatch = useDispatch();
 
   const [likesCount, setLikesCount] = useState(
-    data.likes.find((item) => item.type === "like")?.count || 0
+    data.likes?.find((item) => item.type === "like")?.count || 0
   );
   const [dislikesCount, setDislikesCount] = useState(
-    data.likes.find((item) => item.type === "dislike")?.count || 0
+    data.likes?.find((item) => item.type === "dislike")?.count || 0
   );
   const [lastClicked, setLastClicked] = useState(data.user_liked);
 
