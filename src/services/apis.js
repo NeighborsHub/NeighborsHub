@@ -121,6 +121,11 @@ const Apis = {
         params: data,
       }),
   },
+  chat: {
+    getChatMessages: ({ data }) =>
+      apiConfig({ url: `/chats/${data.chatId}/messages`, method: "get" }),
+    getMyChats: () => apiConfig({ url: `/chats/`, method: "get" }),
+  },
 };
 
 export default Apis;

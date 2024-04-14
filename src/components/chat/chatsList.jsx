@@ -8,10 +8,10 @@ import { useInputHandler } from "hooks/useInputHandler";
 import { useSearchParams } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouteQuery } from "utils/route";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 
-const chatListData = [{ id: 1 }, { id: 2 }];
-
-const ChatsList = ({ isFullWidth }) => {
+const ChatsList = ({ isFullWidth, data }) => {
   const search = useInputHandler("");
 
   const routeQuery = useRouteQuery();
@@ -37,6 +37,7 @@ const ChatsList = ({ isFullWidth }) => {
         flex: 1,
         overflow: "hidden",
         borderBottom: "1px solid lightGray",
+        position: "relative",
       }}
       direction={"column"}
     >
@@ -94,17 +95,23 @@ const ChatsList = ({ isFullWidth }) => {
         </Grid>
       </Grid>
       <Grid container direction="column" sx={{ flex: 1, overflowY: "auto" }}>
-        <Grid>
-          {chatListData.map((item, index) => (
-            <ChatsListItem
-              key={index}
-              data={item}
-              onClick={() =>
-                handleGoToConversation({ conversationId: item.id })
-              }
-            />
-          ))}
-        </Grid>
+        {data.length > 0 ? (
+          <Grid>
+            {data.map((item, index) => (
+              <ChatsListItem
+                key={index}
+                data={item}
+                onClick={() =>
+                  handleGoToConversation({ conversationId: item.id })
+                }
+              />
+            ))}
+          </Grid>
+        ) : (
+          <Grid xs container alignItems={"center"} justifyContent={"center"}>
+            You Have Not Any Conversation.
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );
