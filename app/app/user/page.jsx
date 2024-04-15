@@ -80,9 +80,9 @@ function Page() {
     setOpen(false);
   };
 
-  const handleOpenContactMenu = (e) => {
-    setContactOpen(e.currentTarget);
-  };
+  // const handleOpenContactMenu = (e) => {
+  //   setContactOpen(e.currentTarget);
+  // };
 
   const handleGetMorePosts = (page, limit) => {
     dispatch(
@@ -138,7 +138,7 @@ function Page() {
               >
                 Location
               </Button>
-              <Button
+              {/* <Button
                 sx={{
                   borderRadius: "10px",
                   height: "47px",
@@ -150,7 +150,7 @@ function Page() {
                 onClick={handleOpenContactMenu}
               >
                 Contact
-              </Button>
+              </Button> */}
             </Grid>
             <Menu
               id="basic-menu"
