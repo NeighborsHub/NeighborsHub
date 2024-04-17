@@ -59,8 +59,57 @@ export const getLocationPosts = (data) => async (dispatch) => {
 export const getUniqueLocation = (data, signal) => async (dispatch) => {
   // dispatch(startLoading());
   return Apis.posts.getUniqueLocation(data, signal).then((res) => {
-    console.log(res, "test");
-    dispatch(setUniqueLocation(res?.posts?.results || []));
+    console.log(res, "uniqueLocation");
+
+    const divide = 15;
+
+    const maxLong = data.in_bbox_array[0];
+    const minLong = data.in_bbox_array[1];
+    const maxLat = data.in_bbox_array[2];
+    const minLat = data.in_bbox_array[3];
+
+    const longStep = (maxLong - minLong) / divide;
+    const latStep = (maxLat - minLat) / divide;
+
+    const longIntervals = [];
+    const latIntervals = [];
+
+    for (var i = 0; i < divide; i++) {
+      longIntervals.push(minLong + i * longStep);
+      latIntervals.push(minLat + i * latStep);
+    }
+
+    console.log(longIntervals, latIntervals, "uniqueLocation");
+
+    const finalArray = [];
+
+    console.log(res.posts?.results, "uniqueLocation");
+
+    for (var i = 0; i < divide - 1; i++) {
+      for (var j = 0; j < divide - 1; j++) {
+        if (
+          res?.posts?.results.find(
+            (item) =>
+              longIntervals[i] < item.location.coordinates[0] &&
+              item.location.coordinates[0] < longIntervals[i + 1] &&
+              latIntervals[j] < item.location.coordinates[1] &&
+              item.location.coordinates[1] < latIntervals[j + 1]
+          )
+        ) {
+          finalArray.push({
+            location: {
+              coordinates: [
+                (longIntervals[i] + longIntervals[i + 1]) / 2,
+                (latIntervals[j] + latIntervals[j + 1]) / 2,
+              ],
+            },
+          });
+        }
+      }
+    }
+
+    dispatch(setUniqueLocation(finalArray || []));
+    // dispatch(setUniqueLocation(res?.posts?.results || []));
   });
   // .finally(() => dispatch(endLoading()));
 };

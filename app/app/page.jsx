@@ -115,6 +115,7 @@ const App = () => {
     dispatch(
       getUniqueLocation(
         {
+          in_bbox_array : [...longBounds , ...latBounds],
           in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
           offset: 0,
           limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 15,
