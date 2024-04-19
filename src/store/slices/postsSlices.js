@@ -42,9 +42,24 @@ const postsSlices = createSlice({
         // ),
       ];
     },
+    addMoreUniqueLocation: (state, { payload }) => {
+      state.uniqueLocation = [
+        ...state.uniqueLocation,
+        ...payload
+          .map((item) => item.location.coordinates)
+          .filter(
+            (item) =>
+              !state.uniqueLocation.find(
+                (item2) => item2[0] === item[0] && item2[1] !== item[0]
+              )
+          ),
+      ];
+    },
     clearPosts: () => initialState,
     removePost: (state, { payload }) => {
-      state.myPosts.results = state.myPosts.results.filter((item) => item.id !== payload.id);
+      state.myPosts.results = state.myPosts.results.filter(
+        (item) => item.id !== payload.id
+      );
     },
     moreDetailsPost: (state, { payload }) => {
       if (payload.is_owner) {
@@ -118,6 +133,7 @@ export const {
   setMyPosts,
   addPost,
   setUniqueLocation,
+  addMoreUniqueLocation,
   clearPosts,
   removePost,
   setLocationPosts,

@@ -20,6 +20,7 @@ import {
   setPostComments,
   addPostComments,
   addComment,
+  addMoreUniqueLocation,
 } from "store/slices/postsSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { snackActions } from "utils/SnackbarUtils";
@@ -56,76 +57,82 @@ export const getLocationPosts = (data) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const getUniqueLocation = (data, signal) => async (dispatch) => {
-  // dispatch(startLoading());
-  return Apis.posts.getUniqueLocation(data, signal).then((res) => {
-    console.log(res, "uniqueLocation");
+export const getUniqueLocation =
+  ({ isPan, ...data }, signal) =>
+  async (dispatch) => {
+    // dispatch(startLoading());
+    return Apis.posts.getUniqueLocation(data, signal).then((res) => {
+      console.log(res, "uniqueLocation");
 
-    const divide = 10;
+      const divide = 10;
 
-    // const maxLong = 180;
-    // const minLong = -180;
-    // const maxLat = 90;
-    // const minLat = -90;
+      // const maxLong = 180;
+      // const minLong = -180;
+      // const maxLat = 90;
+      // const minLat = -90;
 
-    const maxLong = data.in_bbox_array[0];
-    const minLong = data.in_bbox_array[1];
-    const maxLat = data.in_bbox_array[2];
-    const minLat = data.in_bbox_array[3];
+      const maxLong = data.in_bbox_array[0];
+      const minLong = data.in_bbox_array[1];
+      const maxLat = data.in_bbox_array[2];
+      const minLat = data.in_bbox_array[3];
 
-    const longStep = (maxLong - minLong) / divide;
-    const latStep = (maxLat - minLat) / divide;
+      const longStep = (maxLong - minLong) / divide;
+      const latStep = (maxLat - minLat) / divide;
 
-    const longIntervals = [];
-    const latIntervals = [];
+      const longIntervals = [];
+      const latIntervals = [];
 
-    for (var i = 0; i < divide; i++) {
-      longIntervals.push(minLong + i * longStep);
-      latIntervals.push(minLat + i * latStep);
-    }
+      for (var i = 0; i < divide; i++) {
+        longIntervals.push(minLong + i * longStep);
+        latIntervals.push(minLat + i * latStep);
+      }
 
-    const finalArray = [];
+      const finalArray = [];
 
-    for (var i = 0; i < divide - 1; i++) {
-      for (var j = 0; j < divide - 1; j++) {
-        if (
-          res?.posts?.results.find(
-            (item) =>
-              longIntervals[i] < item.location.coordinates[0] &&
-              item.location.coordinates[0] < longIntervals[i + 1] &&
-              latIntervals[j] < item.location.coordinates[1] &&
-              item.location.coordinates[1] < latIntervals[j + 1]
-          )
-        ) {
-          const allInRange = res?.posts?.results.filter(
-            (item) =>
-              longIntervals[i] < item.location.coordinates[0] &&
-              item.location.coordinates[0] < longIntervals[i + 1] &&
-              latIntervals[j] < item.location.coordinates[1] &&
-              item.location.coordinates[1] < latIntervals[j + 1]
-          );
-          let average = allInRange.reduce(
-            (summation, currentValue) => [
-              currentValue.location.coordinates[0] + summation[0],
-              currentValue.location.coordinates[1] + summation[1],
-            ],
-            [0, 0]
-          );
-          average = [average[0] / allInRange.length, average[1] / allInRange.length];
-          finalArray.push({
-            location: {
-              coordinates: average,
-            },
-          });
+      for (var i = 0; i < divide - 1; i++) {
+        for (var j = 0; j < divide - 1; j++) {
+          if (
+            res?.posts?.results.find(
+              (item) =>
+                longIntervals[i] < item.location.coordinates[0] &&
+                item.location.coordinates[0] < longIntervals[i + 1] &&
+                latIntervals[j] < item.location.coordinates[1] &&
+                item.location.coordinates[1] < latIntervals[j + 1]
+            )
+          ) {
+            const allInRange = res?.posts?.results.filter(
+              (item) =>
+                longIntervals[i] < item.location.coordinates[0] &&
+                item.location.coordinates[0] < longIntervals[i + 1] &&
+                latIntervals[j] < item.location.coordinates[1] &&
+                item.location.coordinates[1] < latIntervals[j + 1]
+            );
+            let average = allInRange.reduce(
+              (summation, currentValue) => [
+                currentValue.location.coordinates[0] + summation[0],
+                currentValue.location.coordinates[1] + summation[1],
+              ],
+              [0, 0]
+            );
+            average = [
+              average[0] / allInRange.length,
+              average[1] / allInRange.length,
+            ];
+            finalArray.push({
+              location: {
+                coordinates: average,
+              },
+            });
+          }
         }
       }
-    }
-
-    dispatch(setUniqueLocation(finalArray || []));
-    // dispatch(setUniqueLocation(res?.posts?.results || []));
-  });
-  // .finally(() => dispatch(endLoading()));
-};
+      isPan
+        ? dispatch(addMoreUniqueLocation(finalArray || []))
+        : dispatch(setUniqueLocation(finalArray || []));
+      // dispatch(setUniqueLocation(res?.posts?.results || []));
+    });
+    // .finally(() => dispatch(endLoading()));
+  };
 
 export const getMyPosts = () => async (dispatch) => {
   // dispatch(startLoading());

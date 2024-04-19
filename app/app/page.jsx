@@ -37,6 +37,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [pushToChat, setPushToChat] = useState(false);
+  const [isPan, setIsPan] = useState(false);
   const params = useSearchParams();
 
   useEffect(() => {
@@ -62,6 +63,7 @@ const App = () => {
     longBounds[1],
     dialogFilters,
     search,
+    isPan,
   ]);
 
   function getPostsFun() {
@@ -115,7 +117,7 @@ const App = () => {
     dispatch(
       getUniqueLocation(
         {
-          in_bbox_array : [...longBounds , ...latBounds],
+          in_bbox_array: [...longBounds, ...latBounds],
           in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
           offset: 0,
           limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 15,
@@ -123,6 +125,7 @@ const App = () => {
             ? dialogFilters.selectedCategories.toString()
             : undefined,
           search: search || undefined,
+          isPan,
         },
         controller.signal
       )
@@ -137,9 +140,10 @@ const App = () => {
     setDialogFilters(state);
   };
 
-  function handleBounds(long1, long2, lat1, lat2) {
+  function handleBounds(long1, long2, lat1, lat2, isPan) {
     setLongBounds([long1, long2]);
     setLatBounds([lat1, lat2]);
+    setIsPan(isPan);
     controller?.abort();
   }
 

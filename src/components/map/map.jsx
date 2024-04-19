@@ -70,12 +70,13 @@ export default function Map({
         bounds.getEast(),
         bounds.getWest(),
         bounds.getNorth(),
-        bounds.getSouth()
+        bounds.getSouth(),
+        false
       );
     });
 
     //////////////////////////////////////////////////////////////////////////
-    map.current.on("moveend", () => {
+    map.current.on("dragend", () => {
       var newCenter = map.current.getCenter();
       handleCenterChanged?.(newCenter);
       var bounds = map.current.getBounds();
@@ -83,7 +84,8 @@ export default function Map({
         bounds.getEast(),
         bounds.getWest(),
         bounds.getNorth(),
-        bounds.getSouth()
+        bounds.getSouth(),
+        true
       );
     });
 
