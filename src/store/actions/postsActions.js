@@ -61,7 +61,12 @@ export const getUniqueLocation = (data, signal) => async (dispatch) => {
   return Apis.posts.getUniqueLocation(data, signal).then((res) => {
     console.log(res, "uniqueLocation");
 
-    const divide = 15;
+    const divide = 10;
+
+    // const maxLong = 180;
+    // const minLong = -180;
+    // const maxLat = 90;
+    // const minLat = -90;
 
     const maxLong = data.in_bbox_array[0];
     const minLong = data.in_bbox_array[1];
@@ -79,11 +84,7 @@ export const getUniqueLocation = (data, signal) => async (dispatch) => {
       latIntervals.push(minLat + i * latStep);
     }
 
-    console.log(longIntervals, latIntervals, "uniqueLocation");
-
     const finalArray = [];
-
-    console.log(res.posts?.results, "uniqueLocation");
 
     for (var i = 0; i < divide - 1; i++) {
       for (var j = 0; j < divide - 1; j++) {
@@ -96,12 +97,24 @@ export const getUniqueLocation = (data, signal) => async (dispatch) => {
               item.location.coordinates[1] < latIntervals[j + 1]
           )
         ) {
+          const allInRange = res?.posts?.results.filter(
+            (item) =>
+              longIntervals[i] < item.location.coordinates[0] &&
+              item.location.coordinates[0] < longIntervals[i + 1] &&
+              latIntervals[j] < item.location.coordinates[1] &&
+              item.location.coordinates[1] < latIntervals[j + 1]
+          );
+          let average = allInRange.reduce(
+            (summation, currentValue) => [
+              currentValue.location.coordinates[0] + summation[0],
+              currentValue.location.coordinates[1] + summation[1],
+            ],
+            [0, 0]
+          );
+          average = [average[0] / allInRange.length, average[1] / allInRange.length];
           finalArray.push({
             location: {
-              coordinates: [
-                (longIntervals[i] + longIntervals[i + 1]) / 2,
-                (latIntervals[j] + latIntervals[j + 1]) / 2,
-              ],
+              coordinates: average,
             },
           });
         }
