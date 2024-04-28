@@ -27,8 +27,15 @@ import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import InputAdornment from "@mui/material/InputAdornment";
 
-const SetUserName = ({ setCurrentState }) => {
-  const [userName, setUserName] = useState("");
+let interval = null;
+
+const SetUserName = ({
+  setCurrentState,
+  userName,
+  setUserName,
+  isGoogle,
+  otp,
+}) => {
   const [isUserNameExist, setIsUserNameExist] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -37,29 +44,42 @@ const SetUserName = ({ setCurrentState }) => {
   const dispatch = useDispatch();
 
   const handleUserNameChecking = async ({ target: { value } }) => {
+    clearInterval(interval);
     setUserName(value);
     if (value.length > 2) {
-      setLoading(true);
-      const result = dispatch(userNameCheckingAction({ username: value }))
-        .then((res) => {
-          console.log(res, "gggggggg");
-          setIsUserNameExist(res);
-          isChecked(true);
-        })
-        .catch(() => {
-          setIsChecked(false);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      interval = setTimeout(() => {
+        setLoading(true);
+        const result = dispatch(userNameCheckingAction({ username: value }))
+          .then((res) => {
+            console.log(res, "gggggggg");
+            setIsUserNameExist(res);
+            isChecked(true);
+          })
+          .catch(() => {
+            setIsChecked(false);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }, 1000);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(userNameUpdateAction({ username: userName })).then((res) => {
-      setCurrentState(STATUS.PASSWORD_SETTING);
-    });
+    if (isGoogle) {
+      dispatch(userNameUpdateAction({ username: userName })).then((res) => {
+        setCurrentState(STATUS.PASSWORD_SETTING);
+      });
+    } else {
+      setCurrentState({ userName });
+    }
+  };
+
+  const handleBack = () => {
+    setUserName("");
+    otp.onChange({ target: { value: "" } });
+    setCurrentState(STATUS.GET_EMAIL_MOBILE);
   };
 
   return (
@@ -94,19 +114,22 @@ const SetUserName = ({ setCurrentState }) => {
           InputProps={{
             endAdornment: (
               <InputAdornment position="start">
-                {loading ? (
-                  <HourglassEmptyIcon />
-                ) : isUserNameExist ? (
-                  <CheckCircleOutlinedIcon />
-                ) : (
-                  <HighlightOffOutlinedIcon />
-                )}
+                {isChecked &&
+                  (loading ? (
+                    <HourglassEmptyIcon />
+                  ) : isUserNameExist ? (
+                    <CheckCircleOutlinedIcon sx={{ fill: "green" }} />
+                  ) : (
+                    <HighlightOffOutlinedIcon sx={{ fill: "red" }} />
+                  ))}
               </InputAdornment>
             ),
           }}
         />
         {isUserNameExist && isChecked && (
-          <Typography>This username is not available</Typography>
+          <Typography sx={{ fontSize: "14px", color: "red" }}>
+            This username is not available
+          </Typography>
         )}
         <Button
           sx={{
@@ -123,6 +146,31 @@ const SetUserName = ({ setCurrentState }) => {
         >
           Submit
         </Button>
+        {!isGoogle && (
+          <Button
+            sx={{
+              mt: 2,
+              borderRadius: "10px",
+              height: "47px",
+              fontSize: "13px",
+              backgroundColor: "transparent",
+              border: "1px solid #e85a02",
+              color: "#e85a02",
+              "&:hover": {
+                backgroundColor: "#f27527",
+                border: "1px solid #e85a02",
+                color: "white",
+              },
+            }}
+            fullWidth
+            variant="outlined"
+            // disabled={loading}
+            color="secondary"
+            onClick={handleBack}
+          >
+            Back
+          </Button>
+        )}
       </form>
     </>
   );

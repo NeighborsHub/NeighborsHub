@@ -19,6 +19,7 @@ const Signup = () => {
   const emailPhoneNumber = useInputHandler("");
   const otp = useInputHandler("");
   const password = useInputHandler("");
+  const [userName, setUserName] = useState("");
 
   const state = {
     [STATUS.GET_EMAIL_MOBILE]: (
@@ -38,6 +39,10 @@ const Signup = () => {
     [STATUS.SET_USER_NAME]: (
       <SetUserName
         setCurrentState={setCurrentState}
+        userName={userName}
+        setUserName={setUserName}
+        isGoogle={isGoogle}
+        otp={otp}
       />
     ),
     [STATUS.PASSWORD_SETTING]: (
@@ -47,6 +52,7 @@ const Signup = () => {
         emailPhoneNumber={emailPhoneNumber}
         password={password}
         isGoogle={isGoogle}
+        userName={userName}
       />
     ),
   };

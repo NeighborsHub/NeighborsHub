@@ -22,10 +22,10 @@ import { setGooglePassword } from "store/actions/authActions";
 
 const PasswordSetting = ({
   password,
-  setCurrentState,
   emailPhoneNumber,
   isGoogle,
   otp,
+  userName,
 }) => {
   const repeatPassword = useInputHandler();
   ("");
@@ -61,6 +61,7 @@ const PasswordSetting = ({
             email_mobile: emailPhoneNumber.value,
             password: password.value,
             otp: otp.value,
+            username: userName,
           })
           .then((res) => {
             enqueueSnackbar("Successful", { variant: "success" });
@@ -82,14 +83,12 @@ const PasswordSetting = ({
     }
   };
 
-  // const handleBack = () => {
-  //   password.onChange({ target: { value: "" } });
-  //   if (isGoogle) {
-  //     setCurrentState(STATUS.GET_EMAIL_MOBILE);
-  //   } else {
-  //     setCurrentState(STATUS.OTP_CHECKING);
-  //   }
-  // };
+  const handleBack = () => {
+    password.onChange({ target: { value: "" } });
+    if (isGoogle) {
+      setCurrentState(STATUS.SET_USER_NAME);
+    }
+  };
 
   const handleSkip = () => {
     router.push("/app");
@@ -168,29 +167,31 @@ const PasswordSetting = ({
           {/* {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"} */}
           Submit
         </Button>
-        {/* <Button
-          sx={{
-            mt: 2,
-            borderRadius: "10px",
-            height: "47px",
-            fontSize: "13px",
-            backgroundColor: "transparent",
-            border: "1px solid #e85a02",
-            color: "#e85a02",
-            "&:hover": {
-              backgroundColor: "#f27527",
+        {!isGoogle && (
+          <Button
+            sx={{
+              mt: 2,
+              borderRadius: "10px",
+              height: "47px",
+              fontSize: "13px",
+              backgroundColor: "transparent",
               border: "1px solid #e85a02",
-              color: "white",
-            },
-          }}
-          fullWidth
-          variant="outlined"
-          // disabled={loading}
-          color="secondary"
-          onClick={handleBack}
-        >
-          Back
-        </Button> */}
+              color: "#e85a02",
+              "&:hover": {
+                backgroundColor: "#f27527",
+                border: "1px solid #e85a02",
+                color: "white",
+              },
+            }}
+            fullWidth
+            variant="outlined"
+            // disabled={loading}
+            color="secondary"
+            onClick={handleBack}
+          >
+            Back
+          </Button>
+        )}
       </form>
       {isGoogle && (
         <Grid container sx={{ mt: 3 }} justifyContent={"flex-end"}>
