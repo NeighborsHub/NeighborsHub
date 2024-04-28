@@ -182,13 +182,13 @@ function Page() {
               )}
             </Menu>
           </Grid>
-          {userInfo.first_name && userInfo.last_name && (
+          {
             <Grid container sx={{ pl: 2, mt: 2 }}>
               <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                {userInfo.first_name + " " + userInfo.last_name}{" "}
+                {userInfo.username || "unknown"}
               </Typography>
             </Grid>
-          )}
+          }
           {/* <Grid container justifyContent={"center"}>
           <Tabs
             value={tabValue}

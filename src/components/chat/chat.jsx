@@ -15,7 +15,6 @@ const Chat = ({ isFullWidth }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector(myInfoSelector);
   const chats = useSelector(chatsSelector);
-  console.log(userInfo, "ggggggggggggggg");
   useEffect(() => {
     if (userInfo.id)
       socket = new WebSocket(

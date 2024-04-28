@@ -25,9 +25,7 @@ const User = ({ data }) => {
         src={BASE_URL + data.created_by?.avatar.avatar_thumbnail}
       />
       <Typography sx={{ ml: 1, fontWeight: "bold" }}>
-        {(data.created_by?.first_name || "") +
-          " " +
-          (data.created_by?.last_name || "")}
+        {data.created_by?.username || "unknown"}
       </Typography>
     </Grid>
   );

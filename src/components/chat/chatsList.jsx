@@ -8,8 +8,6 @@ import { useInputHandler } from "hooks/useInputHandler";
 import { useSearchParams } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouteQuery } from "utils/route";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 
 const ChatsList = ({ isFullWidth, data }) => {
   const search = useInputHandler("");

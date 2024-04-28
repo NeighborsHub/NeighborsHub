@@ -55,3 +55,15 @@ function loginActions(res, dispatch) {
   dispatch(getMyAddresses({ token: res.access_token }));
   snackActions.success("Successful");
 }
+
+export const userNameCheckingAction = (data) => (dispatch) => {
+  return Apis.auth.userNameChecking(data).then((res) => {
+    loginActions(res, dispatch);
+  });
+};
+
+export const userNameUpdateAction = (data) => (dispatch) => {
+  return Apis.auth.userNameUpdate(data).then((res) => {
+    loginActions(res, dispatch);
+  });
+};

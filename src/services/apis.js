@@ -20,6 +20,15 @@ const Apis = {
       apiConfig({ url: `/auth/login/google?code=${data.code}`, method: "get" }),
     setGooglePassword: (data) =>
       apiConfig({ url: `auth/set-password/google`, method: "post", data }),
+    userNameChecking: (data) =>
+      apiConfig({
+        url: `/user/update-username/`,
+        method: "post",
+        data,
+        withoutLoading: true,
+      }),
+    userNameUpdate: (data) =>
+      apiConfig({ url: `/user/update-username/`, method: "put", data }),
   },
   user: {
     myInfo: () => apiConfig({ url: "/me", method: "get" }),
@@ -122,9 +131,9 @@ const Apis = {
       }),
   },
   chat: {
+    getMyChats: () => apiConfig({ url: `/chats/`, method: "get" }),
     getChatMessages: ({ data }) =>
       apiConfig({ url: `/chats/${data.chatId}/messages`, method: "get" }),
-    getMyChats: () => apiConfig({ url: `/chats/`, method: "get" }),
   },
 };
 

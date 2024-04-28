@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import GetEmailPhoneNumber from "components/signup/getEmailPhoneNumber";
 import OtpChecking from "components/signup/otpChecking";
+import SetUserName from "components/signup/setUserName";
 import PasswordSetting from "components/signup/passwordSetting";
 import STATUS from "components/signup/status";
 import { useInputHandler } from "hooks/useInputHandler";
@@ -32,6 +33,11 @@ const Signup = () => {
         setCurrentState={setCurrentState}
         otp={otp}
         emailPhoneNumber={emailPhoneNumber}
+      />
+    ),
+    [STATUS.SET_USER_NAME]: (
+      <SetUserName
+        setCurrentState={setCurrentState}
       />
     ),
     [STATUS.PASSWORD_SETTING]: (

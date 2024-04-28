@@ -16,7 +16,7 @@ export const getMyChats = () => (dispatch) => {
   return Apis.chat
     .getMyChats()
     .then((res) => {
-      dispatch(setMyChats(res.chats));
+      dispatch(setMyChats(res));
       return res;
     })
     .finally(() => dispatch(endLoading()));

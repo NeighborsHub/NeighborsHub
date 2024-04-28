@@ -31,7 +31,7 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
         otp: otp.value,
       })
       .then(() => {
-        setCurrentState(STATUS.PASSWORD_SETTING);
+        setCurrentState(STATUS.SET_USER_NAME);
       })
       .catch((message) => {
         enqueueSnackbar(message, { variant: "error" });

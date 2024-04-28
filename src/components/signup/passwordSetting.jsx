@@ -82,14 +82,14 @@ const PasswordSetting = ({
     }
   };
 
-  const handleBack = () => {
-    password.onChange({ target: { value: "" } });
-    if (isGoogle) {
-      setCurrentState(STATUS.GET_EMAIL_MOBILE);
-    } else {
-      setCurrentState(STATUS.OTP_CHECKING);
-    }
-  };
+  // const handleBack = () => {
+  //   password.onChange({ target: { value: "" } });
+  //   if (isGoogle) {
+  //     setCurrentState(STATUS.GET_EMAIL_MOBILE);
+  //   } else {
+  //     setCurrentState(STATUS.OTP_CHECKING);
+  //   }
+  // };
 
   const handleSkip = () => {
     router.push("/app");
@@ -168,7 +168,7 @@ const PasswordSetting = ({
           {/* {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"} */}
           Submit
         </Button>
-        <Button
+        {/* <Button
           sx={{
             mt: 2,
             borderRadius: "10px",
@@ -190,7 +190,7 @@ const PasswordSetting = ({
           onClick={handleBack}
         >
           Back
-        </Button>
+        </Button> */}
       </form>
       {isGoogle && (
         <Grid container sx={{ mt: 3 }} justifyContent={"flex-end"}>
