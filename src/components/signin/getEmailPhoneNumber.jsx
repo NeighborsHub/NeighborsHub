@@ -98,7 +98,7 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
         <TextField
           fullWidth
           variant="outlined"
-          label="Email Or Phone Number"
+          label="Email, Phone Number or Username"
           // autocomplete="off"
           name="your phone"
           sx={{

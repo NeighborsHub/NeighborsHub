@@ -54,7 +54,7 @@ const SetUserName = ({
         const result = dispatch(userNameCheckingAction({ username: value }))
           .then((res) => {
             console.log(res, "gggggggg");
-            setIsUserNameExist(res);
+            setIsUserNameExist(res?.is_available);
             isChecked(true);
           })
           .catch(() => {
