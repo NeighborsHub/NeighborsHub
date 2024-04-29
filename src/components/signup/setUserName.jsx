@@ -38,12 +38,14 @@ const SetUserName = ({
 }) => {
   const [isUserNameExist, setIsUserNameExist] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [isFirstTyping, setIsFirstTyping] = useState(true);
   const [loading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const dispatch = useDispatch();
 
   const handleUserNameChecking = async ({ target: { value } }) => {
+    setIsFirstTyping(false);
     clearInterval(interval);
     setUserName(value);
     if (value.length > 2) {
@@ -72,7 +74,7 @@ const SetUserName = ({
         setCurrentState(STATUS.PASSWORD_SETTING);
       });
     } else {
-      setCurrentState({ userName });
+      setCurrentState(STATUS.PASSWORD_SETTING);
     }
   };
 
@@ -114,7 +116,7 @@ const SetUserName = ({
           InputProps={{
             endAdornment: (
               <InputAdornment position="start">
-                {isChecked &&
+                {!isFirstTyping &&
                   (loading ? (
                     <HourglassEmptyIcon />
                   ) : isUserNameExist ? (

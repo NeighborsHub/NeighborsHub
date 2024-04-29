@@ -22,13 +22,13 @@ const Apis = {
       apiConfig({ url: `auth/set-password/google`, method: "post", data }),
     userNameChecking: (data) =>
       apiConfig({
-        url: `/user/update-username/`,
+        url: `/me/update-username`,
         method: "post",
         data,
         withoutLoading: true,
       }),
     userNameUpdate: (data) =>
-      apiConfig({ url: `/user/update-username/`, method: "put", data }),
+      apiConfig({ url: `/me/update-username`, method: "put", data }),
   },
   user: {
     myInfo: () => apiConfig({ url: "/me", method: "get" }),
