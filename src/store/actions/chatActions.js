@@ -11,12 +11,30 @@ export const setSocketToStoreAction = (payload) => async (dispatch) => {
   dispatch(setSocket(payload));
 };
 
+export const createConversation = () => (dispatch) => {
+  return Apis.chat.createConversation().then((res) => {
+    // dispatch(setMyChats(res));
+    return res;
+  });
+};
+
 export const getMyChats = () => (dispatch) => {
   dispatch(startLoading());
   return Apis.chat
     .getMyChats()
     .then((res) => {
       dispatch(setMyChats(res));
+      return res;
+    })
+    .finally(() => dispatch(endLoading()));
+};
+
+export const getChat = (data) => (dispatch) => {
+  dispatch(startLoading());
+  return Apis.chat
+    .getChatMessages(data)
+    .then((res) => {
+      dispatch(getChat(res.chat));
       return res;
     })
     .finally(() => dispatch(endLoading()));

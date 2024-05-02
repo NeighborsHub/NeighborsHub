@@ -4,6 +4,7 @@ const initialState = {
   loading: 0,
   socket: null,
   chats: [],
+  chat: {},
   messages: [],
 };
 
@@ -24,8 +25,14 @@ const chatSlices = createSlice({
     setMyChats: (state, { payload }) => {
       state.chats = payload;
     },
+    setChat: (state, { payload }) => {
+      state.chat = payload;
+    },
     setChatMessages: (state, { payload }) => {
-      state.messages = { ...state.messages, [payload.id]: payload.messages };
+      state.chat.messages = {
+        ...state.messages,
+        [payload.id]: payload.messages,
+      };
     },
   },
 });
@@ -37,12 +44,13 @@ export const {
   clearChat,
   setSocket,
   setMyChats,
+  setChat,
   setChatMessages,
 } = chatSlices.actions;
 
 export const loadingSelector = (state) => state.chat.loading;
 export const socketSelector = (state) => state.chat.socket;
 export const chatsSelector = (state) => state.chat.chats;
-export const messagesSelector = (state) => state.chat.messages;
+export const chatSelector = (state) => state.chat.chat;
 
 export default chatSlices.reducer;

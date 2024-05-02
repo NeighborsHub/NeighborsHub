@@ -35,6 +35,7 @@ const Post = ({
   const myAddressCordinate = useSelector(myAddressesSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   console.log(mainAddress, "teeeeeeeeeest");
+  
   const handleRedirectToPostPage = (id) => {
     !isPostPage && router.push(`/app/post?id=${id}`);
   };

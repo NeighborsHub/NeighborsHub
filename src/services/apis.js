@@ -26,6 +26,7 @@ const Apis = {
         method: "post",
         data,
         withoutLoading: true,
+        withoutSnack: true,
       }),
     userNameUpdate: (data) =>
       apiConfig({ url: `/me/update-username`, method: "put", data }),
@@ -131,6 +132,7 @@ const Apis = {
       }),
   },
   chat: {
+    createConversation: () => apiConfig({ url: `/chats/`, method: "Post" }),
     getMyChats: () => apiConfig({ url: `/chats/`, method: "get" }),
     getChatMessages: ({ data }) =>
       apiConfig({ url: `/chats/${data.chatId}/messages`, method: "get" }),

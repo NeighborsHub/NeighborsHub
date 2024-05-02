@@ -16,10 +16,13 @@ const Contact = ({ data }) => {
   };
 
   const routeQuery = useRouteQuery();
-  const handleGoToConversation = ({ conversationId }) =>
+
+  const handleGoToConversation = () =>
     routeQuery({
       status: "conversation",
-      conversationId,
+      conversationId: data.conversationId,
+      userId: data.created_by.id,
+      postId: data.id,
     });
 
   const handleCopyToClipboard = (value) => {
@@ -34,7 +37,7 @@ const Contact = ({ data }) => {
   return (
     <Grid>
       <Chip
-        onClick={() => handleGoToConversation({ conversationId: data.id })}
+        onClick={() => handleGoToConversation()}
         // onClick={(e) => setContactOpen(e.currentTarget)}
         label="Contact"
         sx={{

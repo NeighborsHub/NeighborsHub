@@ -13,7 +13,7 @@ const PasswordChecking = ({ password, setCurrentState, emailPhoneNumber }) => {
     e.preventDefault();
     dispatch(
       passwordLoginAction({
-        email_mobile: emailPhoneNumber.value,
+        user_field: emailPhoneNumber.value,
         password: password.value,
       })
     ).then(() => {
