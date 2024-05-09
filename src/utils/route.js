@@ -4,7 +4,7 @@ export const useRouteQuery = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  return (list) => {
+  return (list, arbitaryPathname = pathname) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     Object.entries(list).forEach((dataArr) => {
       dataArr[1]
@@ -13,6 +13,6 @@ export const useRouteQuery = () => {
     });
     const search = current.toString();
     const query = search ? `?${search}` : "";
-    router.push(`${pathname}${query}`);
+    router.push(`${arbitaryPathname}${query}`);
   };
 };

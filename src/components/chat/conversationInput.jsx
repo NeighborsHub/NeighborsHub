@@ -4,9 +4,41 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SendIcon from "@mui/icons-material/Send";
 import IconButton from "@mui/material/IconButton";
 import { useInputHandler } from "hooks/useInputHandler";
+import { useContext } from "react";
+import { SocketContext } from "../../../app/bootstrap";
+import { useSearchParams } from "next/navigation";
+import { createConversation } from "store/actions/chatActions";
+import { useSelector, useDispatch } from "react-redux";
+import { myInfoSelector } from "store/slices/userSlices";
 
 const ChatInput = ({ handleSubmit }) => {
-  const search = useInputHandler("");
+  const message = useInputHandler("");
+  const socket = useContext(SocketContext);
+  const params = useSearchParams();
+  const conversationId = params.get("conversationId");
+  const userId = params.get("userId");
+  const postId = params.get("postId");
+  const myInfo = useSelector(myInfoSelector);
+  const dispatch = useDispatch();
+
+  const handleSendMessage = async () => {
+    let tempConversationId = conversationId;
+    if (!conversationId) {
+      const res = await dispatch(
+        createConversation({ members: [{ id: userId }], type: "direct" })
+      );
+      tempConversationId = res.room_id;
+    }
+    socket.send(
+      JSON.stringify({
+        action: "message",
+        message: message.value,
+        user: myInfo.id,
+        roomId: tempConversationId,
+        postId,
+      })
+    );
+  };
 
   return (
     <Grid container item sx={{ p: 1 }}>
@@ -33,7 +65,7 @@ const ChatInput = ({ handleSubmit }) => {
             fontWeight: "bold",
           },
         }}
-        {...search}
+        {...message}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -42,7 +74,7 @@ const ChatInput = ({ handleSubmit }) => {
                 onClick={handleSubmit}
                 edge="end"
               >
-                <SendIcon sx={{ fill: "gray" }} />
+                <SendIcon sx={{ fill: "gray" }} onClick={handleSendMessage} />
               </IconButton>
             </InputAdornment>
           ),

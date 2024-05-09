@@ -20,10 +20,12 @@ const Contact = ({ data }) => {
   const handleGoToConversation = () =>
     routeQuery({
       status: "conversation",
-      conversationId: data.conversationId,
+      conversationId: data.common_chat,
       userId: data.created_by.id,
       postId: data.id,
-    });
+    },
+    '/app/'
+  );
 
   const handleCopyToClipboard = (value) => {
     if (isAuth) {

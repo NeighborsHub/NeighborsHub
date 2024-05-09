@@ -132,9 +132,10 @@ const Apis = {
       }),
   },
   chat: {
-    createConversation: () => apiConfig({ url: `/chats/`, method: "Post" }),
+    createConversation: (data) =>
+      apiConfig({ url: `/chats/`, method: "Post", data }),
     getMyChats: () => apiConfig({ url: `/chats/`, method: "get" }),
-    getChatMessages: ({ data }) =>
+    getChatMessages: (data) =>
       apiConfig({ url: `/chats/${data.chatId}/messages`, method: "get" }),
   },
 };

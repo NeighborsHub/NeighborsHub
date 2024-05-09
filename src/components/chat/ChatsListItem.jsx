@@ -2,7 +2,10 @@ import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import ListItemButton from "@mui/material/ListItemButton";
-const ChatsListItem = ({ onClick }) => {
+import moment from "moment";
+
+const ChatsListItem = ({ onClick, data }) => {
+  console.log(data, "teeeeeeeeeeeeeeeees");
   return (
     <ListItemButton
       container
@@ -25,7 +28,7 @@ const ChatsListItem = ({ onClick }) => {
       </Grid>
       <Grid item width={"70px"} container alignItems={"flex-end"}>
         <Typography sx={{ fontSize: "12px", color: "gray" }}>
-          2024/02/23
+          {moment(data.updated_at).fromNow(true)} {' ago'}
         </Typography>
       </Grid>
     </ListItemButton>

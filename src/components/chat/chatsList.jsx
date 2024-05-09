@@ -8,11 +8,16 @@ import { useInputHandler } from "hooks/useInputHandler";
 import { useSearchParams } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouteQuery } from "utils/route";
+import { useEffect, useState } from "react";
+import { chatsSelector } from "store/slices/chatSlices";
+import { getMyChats } from "store/actions/chatActions";
+import { useDispatch, useSelector } from "react-redux";
 
-const ChatsList = ({ isFullWidth, data }) => {
+const ChatsList = ({ isFullWidth }) => {
   const search = useInputHandler("");
-
+  const dispatch = useDispatch();
   const routeQuery = useRouteQuery();
+  const chats = useSelector(chatsSelector);
   const handleGoToConversation = ({ conversationId }) =>
     routeQuery({
       status: "conversation",
@@ -24,6 +29,10 @@ const ChatsList = ({ isFullWidth, data }) => {
     });
 
   const handleSubmit = () => {};
+
+  useEffect(() => {
+    dispatch(getMyChats());
+  }, []);
 
   return (
     <Grid
@@ -93,14 +102,14 @@ const ChatsList = ({ isFullWidth, data }) => {
         </Grid>
       </Grid>
       <Grid container direction="column" sx={{ flex: 1, overflowY: "auto" }}>
-        {data.length > 0 ? (
+        {chats.length > 0 ? (
           <Grid>
-            {data.map((item, index) => (
+            {chats.map((item, index) => (
               <ChatsListItem
                 key={index}
                 data={item}
                 onClick={() =>
-                  handleGoToConversation({ conversationId: item.id })
+                  handleGoToConversation({ conversationId: item.room_id })
                 }
               />
             ))}

@@ -11,8 +11,8 @@ export const setSocketToStoreAction = (payload) => async (dispatch) => {
   dispatch(setSocket(payload));
 };
 
-export const createConversation = () => (dispatch) => {
-  return Apis.chat.createConversation().then((res) => {
+export const createConversation = (data) => (dispatch) => {
+  return Apis.chat.createConversation(data).then((res) => {
     // dispatch(setMyChats(res));
     return res;
   });
@@ -41,14 +41,10 @@ export const getChat = (data) => (dispatch) => {
 };
 
 export const getChatMessages = (data) => (dispatch) => {
-  dispatch(startLoading());
-  return Apis.chat
-    .getChatMessages(data)
-    .then((res) => {
-      dispatch(setChatMessages(res.messages));
-      return res;
-    })
-    .finally(() => dispatch(endLoading()));
+  return Apis.chat.getChatMessages(data).then((res) => {
+    dispatch(setChatMessages(res.chat_messages.results));
+    return res;
+  });
 };
 
 export const OnNewChatMessage = () => {

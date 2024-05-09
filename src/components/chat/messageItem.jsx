@@ -1,8 +1,9 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
+import moment from "moment";
 
-const MessageItem = ({ isMine }) => {
+const MessageItem = ({ data, isMine }) => {
   return (
     <Grid
       container
@@ -24,12 +25,9 @@ const MessageItem = ({ isMine }) => {
           maxWidth: "270px",
         }}
       >
-        <Typography sx={{ fontSize: "14px" }}>
-          123 asdf asd fas dfa da asdd as fawsd asf d123 asdf asd fas dfa da
-          asdd as fawsd asf d123 asdf asd fas dfa da asdd as fawsd asf d
-        </Typography>
+        <Typography sx={{ fontSize: "14px" }}>{data.message}</Typography>
         <Typography sx={{ fontSize: "11px", color: "gray" }} textAlign={"end"}>
-          2:04 PM
+          {moment(data.created_at).fromNow(true)} ago
         </Typography>
       </Grid>
     </Grid>

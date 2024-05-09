@@ -29,10 +29,7 @@ const chatSlices = createSlice({
       state.chat = payload;
     },
     setChatMessages: (state, { payload }) => {
-      state.chat.messages = {
-        ...state.messages,
-        [payload.id]: payload.messages,
-      };
+      state.messages = payload;
     },
   },
 });
@@ -52,5 +49,6 @@ export const loadingSelector = (state) => state.chat.loading;
 export const socketSelector = (state) => state.chat.socket;
 export const chatsSelector = (state) => state.chat.chats;
 export const chatSelector = (state) => state.chat.chat;
+export const messagesSelector = (state) => state.chat.messages;
 
 export default chatSlices.reducer;

@@ -38,10 +38,10 @@ const AxiosInterceptor = ({ children }) => {
         localStorage.removeItem("token");
         return Promise.reject(error);
       } else if (error.response?.status === 404) {
-        !config.withoutSnack && snackActions.error("Server Error");
+        // !config.withoutSnack && snackActions.error("Server Error");
       } else {
-        !config.withoutSnack &&
-          snackActions.error(error.response.data.message);
+        // !config.withoutSnack &&
+        //   snackActions.error(error.response.data.message);
       }
 
       return Promise.reject(error);
