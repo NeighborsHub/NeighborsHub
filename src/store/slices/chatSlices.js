@@ -31,6 +31,9 @@ const chatSlices = createSlice({
     setChatMessages: (state, { payload }) => {
       state.messages = payload;
     },
+    addChatMessage: (state, { payload }) => {
+      state.messages = [...state.messages, payload];
+    },
   },
 });
 
@@ -43,6 +46,7 @@ export const {
   setMyChats,
   setChat,
   setChatMessages,
+  addChatMessage,
 } = chatSlices.actions;
 
 export const loadingSelector = (state) => state.chat.loading;

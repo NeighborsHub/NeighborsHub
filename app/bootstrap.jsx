@@ -7,6 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { loadingSelector } from "store/slices/appSlices";
 import { WS_BASE_URL } from "services/constants";
 import { myInfoSelector } from "store/slices/userSlices";
+import { addChatMessageAction } from "store/actions/chatActions";
 
 export const SocketContext = createContext();
 
@@ -14,7 +15,7 @@ const Bootstrap = ({ children }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(loadingSelector) > 0;
   const userInfo = useSelector(myInfoSelector);
-  const [socket, setSocket] = useState();
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -23,8 +24,21 @@ const Bootstrap = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (userInfo.id)
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (socket) {
+      socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        console.log(data, "socket event");
+        switch (data.action) {
+          case "message":
+            dispatch(addChatMessageAction(data));
+        }
+      };
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    if (userInfo.id) {
+      console.warn("web socket created");
       setSocket(
         new WebSocket(
           WS_BASE_URL +
@@ -33,6 +47,7 @@ const Bootstrap = ({ children }) => {
               .replace("Bearer ", "")}`
         )
       );
+    }
   }, [userInfo.id]);
 
   return (

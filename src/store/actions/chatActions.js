@@ -5,6 +5,7 @@ import {
   setSocket,
   setMyChats,
   setChatMessages,
+  addChatMessage
 } from "store/slices/chatSlices";
 
 export const setSocketToStoreAction = (payload) => async (dispatch) => {
@@ -42,7 +43,7 @@ export const getChat = (data) => (dispatch) => {
 
 export const getChatMessages = (data) => (dispatch) => {
   return Apis.chat.getChatMessages(data).then((res) => {
-    dispatch(setChatMessages(res.chat_messages.results));
+    dispatch(setChatMessages(res.chat_messages.results.reverse()));
     return res;
   });
 };
@@ -85,3 +86,6 @@ export const messageSubmitHandler = (event) => {
   }
   setInputMessage("");
 };
+
+export const addChatMessageAction = (payload) => (dispatch) =>
+  dispatch(addChatMessage(payload));
