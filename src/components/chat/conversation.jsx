@@ -25,6 +25,7 @@ const Conversation = () => {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
     let tempConversationId = conversationId;
     if (!conversationId) {
       const res = await dispatch(
@@ -46,7 +47,7 @@ const Conversation = () => {
   };
 
   const scrollToBottom = (options) => {
-    messageListRef.current.scrollIntoView(options);
+    messageListRef.current?.scrollIntoView(options);
   };
 
   useEffect(() => {

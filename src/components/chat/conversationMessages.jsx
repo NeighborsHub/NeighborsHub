@@ -1,30 +1,52 @@
 import Grid from "@mui/material/Grid";
 import MessageItem from "components/chat/messageItem";
-import { useEffect, forwardRef } from "react";
+import { useEffect, forwardRef, useState } from "react";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Grow from "@mui/material/Grow";
 import { useDispatch, useSelector } from "react-redux";
-import { getChatMessages } from "store/actions/chatActions";
+import { getChatMessages, getMoreChatMessage } from "store/actions/chatActions";
 import { messagesSelector } from "store/slices/chatSlices";
 import { useSearchParams } from "next/navigation";
+import InfiniteScroll from "react-infinite-scroll-component";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const MessageContainer = forwardRef(function Test(
   { isInView, scrollToBottom },
   messageListRef
 ) {
   const dispatch = useDispatch();
-  const messagesList = useSelector(messagesSelector);
+  const messages = useSelector(messagesSelector);
+  // const reversedMessages = [].concat(messages.results).reverse();
+  const [flag, setFlag] = useState(true);
   const params = useSearchParams();
   const conversationId = params.get("conversationId");
+  const [page, setPage] = useState(0);
+  const limit = 10;
 
   useEffect(() => {
     dispatch(getChatMessages({ chatId: conversationId }));
   }, [conversationId]);
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messagesList]);
+  // useEffect(() => {
+  //   if (messages && flag) {
+  //     scrollToBottom();
+  //     setFlag(false);
+  //   }
+  // }, [messages]);
+
+  const handleGetMoreChatMessage = (page, limit) => {
+    dispatch(
+      getMoreChatMessage({
+        chatId: conversationId,
+        params: {
+          // search: search || undefined,
+          offset: page * limit,
+          limit,
+        },
+      })
+    );
+  };
 
   return (
     <Grid
@@ -32,16 +54,39 @@ const MessageContainer = forwardRef(function Test(
         px: 1,
         flex: 1,
         overflowY: "auto",
-        alignItems: "flex-end",
+        display: "flex",
+        flexDirection: "column-reverse",
+        width: "100%",
+        alignItems: "stretch",
       }}
+      id="p123"
     >
-      <Grid>
-        {messagesList.map((item, index) => (
+      <InfiniteScroll
+        dataLength={messages.results?.length || 0}
+        next={() => {
+          handleGetMoreChatMessage(page + 1, limit);
+          setPage((prevState) => prevState + 1);
+        }}
+        hasMore={page * limit + limit <= messages.count}
+        loader={
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            sx={{ py: 2, my: 2 }}
+          >
+            <CircularProgress />
+          </Grid>
+        }
+        inverse={true}
+        scrollableTarget={"p123"}
+        style={{ display: "flex", flexDirection: "column-reverse" }}
+      >
+        <div ref={messageListRef} />
+        {messages.results?.map((item, index) => (
           <MessageItem data={item} isMine key={index} />
         ))}
-
-        <div ref={messageListRef} />
-      </Grid>
+      </InfiniteScroll>
 
       <Grow
         direction="up"

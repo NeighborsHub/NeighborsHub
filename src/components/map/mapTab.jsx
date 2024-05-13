@@ -101,6 +101,7 @@ const MapTab = ({ filters, handleBounds, search, resetPage }) => {
             handleGetMorePosts={handleGetMorePosts}
             scrollParentId="mapTabPostList"
             resetPage={resetPage}
+            handleClosePostListOnModal={handleClose}
           />
         </Grid>
       </Modal>

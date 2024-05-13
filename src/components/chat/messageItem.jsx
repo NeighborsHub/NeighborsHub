@@ -27,7 +27,7 @@ const MessageItem = ({ data, isMine }) => {
       >
         <Typography sx={{ fontSize: "14px" }}>{data.message}</Typography>
         <Typography sx={{ fontSize: "11px", color: "gray" }} textAlign={"end"}>
-          {moment(data.created_at).fromNow(true)} ago
+          {moment(data.created_at).format("MM/DD HH:mm")}
         </Typography>
       </Grid>
     </Grid>

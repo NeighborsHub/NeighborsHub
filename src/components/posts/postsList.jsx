@@ -16,6 +16,7 @@ const PostsList = ({
   showLocationOnMap = false,
   handleGetMorePosts,
   scrollParentId = Math.random(),
+  handleClosePostListOnModal,
 }) => {
   const [open, setOpen] = useState(false);
   const [locations, setLocations] = useState([]);
@@ -44,7 +45,7 @@ const PostsList = ({
   }, [posts]);
 
   return (
-    <Grid container direction={'column'} item xs>
+    <Grid container direction={"column"} item xs>
       {posts.results?.length > 0 ? (
         <Grid container direction="column">
           <InfiniteScroll
@@ -73,6 +74,7 @@ const PostsList = ({
                   handleOpenModal={() => handleOpenModal(item)}
                   data={item}
                   handleClosePostsList={handleClose}
+                  handleClosePostListOnModal={handleClosePostListOnModal}
                 />
               </Card>
             ))}

@@ -136,7 +136,11 @@ const Apis = {
       apiConfig({ url: `/chats/`, method: "Post", data }),
     getMyChats: () => apiConfig({ url: `/chats/`, method: "get" }),
     getChatMessages: (data) =>
-      apiConfig({ url: `/chats/${data.chatId}/messages`, method: "get" }),
+      apiConfig({
+        url: `/chats/${data.chatId}/messages`,
+        method: "get",
+        params: data.params,
+      }),
   },
 };
 

@@ -4,10 +4,12 @@ import { APIS_BASE_URL } from "services/constants";
 import { useDispatch } from "react-redux";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { snackActions } from "utils/SnackbarUtils";
+import { useRouter } from "next/navigation";
+
 const instance = axios.create();
 
 const AxiosInterceptor = ({ children }) => {
-  //   const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
     const reqInterceptor = async (config) => {
@@ -34,14 +36,16 @@ const AxiosInterceptor = ({ children }) => {
       dispatch(endLoading());
       console.log(error, "errorrrr");
       if (error.code === "ERR_CANCELED") return;
-      if (error.response?.status === 403 || error.response?.status === 400) {
+      if (error.response?.status === 403) {
         localStorage.removeItem("token");
+        router.push("/signin");
+        snackActions.error("You have to login again");
         return Promise.reject(error);
       } else if (error.response?.status === 404) {
-        // !config.withoutSnack && snackActions.error("Server Error");
+        snackActions.error("Server Error");
       } else {
         // !config.withoutSnack &&
-        //   snackActions.error(error.response.data.message);
+        snackActions.error(error.response.data.message);
       }
 
       return Promise.reject(error);

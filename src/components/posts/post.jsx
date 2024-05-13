@@ -25,6 +25,7 @@ const Post = ({
   showLocationOnMap,
   data,
   handleClosePostsList,
+  handleClosePostListOnModal,
   isPostPage,
 }) => {
   const myInfo = useSelector(myInfoSelector);
@@ -188,7 +189,7 @@ const Post = ({
           {/* //////////////////////////////////////// Actions ///////////////////////////////////// */}
           <Grid container justifyContent={"flex-end"}>
             {!isMyPost && isAuth && <LikesDislikes data={data} />}
-            {!isMyPost && <Contact data={data} />}
+            {!isMyPost && <Contact data={data} handleClosePostListOnModal={handleClosePostListOnModal}/>}
             {(showLocationOnMap || isMyPost) && (
               <Dots
                 showLocationOnMap={!isMyPost}
