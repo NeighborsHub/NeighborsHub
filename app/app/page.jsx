@@ -132,7 +132,7 @@ const App = () => {
     );
   }
 
-  const handleChange = (e, value) => {
+  const handleChangeTab = (e, value) => {
     setTabValue(value);
   };
 
@@ -171,7 +171,7 @@ const App = () => {
         <Grid container justifyContent={"center"}>
           <Tabs
             value={tabValue}
-            onChange={handleChange}
+            onChange={handleChangeTab}
             sx={{ display: "flex", justifyContent: "center" }}
           >
             <Tab label="Map" />
@@ -205,6 +205,7 @@ const App = () => {
                     filters={dialogFilters}
                     handleBounds={handleBounds}
                     search={search}
+                    handleChangeTab={handleChangeTab}
                   />
                 )}
               </Grid>
@@ -219,7 +220,7 @@ const App = () => {
               >
                 {params.get("status") === "chats" ||
                 params.get("status") === "conversation" ? (
-                  <Chat isFullWidth />
+                  <Chat isFullWidth/>
                 ) : (
                   <PostsTab
                     filters={dialogFilters}
@@ -227,6 +228,7 @@ const App = () => {
                     handleGetMorePosts={handleGetMorePosts}
                     scrollParentId="appPostLists"
                     handlePushToChat={handlePushToChat}
+                    handleChangeTab={handleChangeTab}
                   />
                 )}
               </Grid>
@@ -243,6 +245,7 @@ const App = () => {
                   filters={dialogFilters}
                   handleBounds={handleBounds}
                   search={search}
+                  handleChangeTab={handleChangeTab}
                 />
               )}
             </Grid>
@@ -266,12 +269,14 @@ const App = () => {
               filters={dialogFilters}
               handleBounds={handleBounds}
               search={search}
+              handleChangeTab={handleChangeTab}
             />
           ) : tabValue === 1 ? (
             <PostsTab
               posts={posts}
               handleGetMorePosts={handleGetMorePosts}
               scrollParentId="appPostLists"
+              handleChangeTab={handleChangeTab}
             />
           ) : (
             <Chat />

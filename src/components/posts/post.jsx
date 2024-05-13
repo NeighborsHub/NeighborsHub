@@ -27,7 +27,9 @@ const Post = ({
   handleClosePostsList,
   handleClosePostListOnModal,
   isPostPage,
+  handleChangeTab
 }) => {
+
   const myInfo = useSelector(myInfoSelector);
   const isAuth = useSelector(authSelector);
   const isMyPost = myInfo.id === data.created_by?.id;
@@ -36,7 +38,7 @@ const Post = ({
   const myAddressCordinate = useSelector(myAddressesSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   console.log(mainAddress, "teeeeeeeeeest");
-  
+
   const handleRedirectToPostPage = (id) => {
     !isPostPage && router.push(`/app/post?id=${id}`);
   };
@@ -189,7 +191,13 @@ const Post = ({
           {/* //////////////////////////////////////// Actions ///////////////////////////////////// */}
           <Grid container justifyContent={"flex-end"}>
             {!isMyPost && isAuth && <LikesDislikes data={data} />}
-            {!isMyPost && <Contact data={data} handleClosePostListOnModal={handleClosePostListOnModal}/>}
+            {!isMyPost && (
+              <Contact
+                data={data}
+                handleClosePostListOnModal={handleClosePostListOnModal}
+                handleChangeTab={handleChangeTab}
+              />
+            )}
             {(showLocationOnMap || isMyPost) && (
               <Dots
                 showLocationOnMap={!isMyPost}

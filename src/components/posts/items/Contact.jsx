@@ -8,16 +8,21 @@ import { snackActions } from "utils/SnackbarUtils";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import { useRouteQuery } from "utils/route";
 
-const Contact = ({ data, handleClosePostListOnModal = () => {} }) => {
+const Contact = ({
+  data,
+  handleClosePostListOnModal = () => {},
+  handleChangeTab,
+}) => {
   const [contactOpen, setContactOpen] = useState(false);
-
+  console.log(handleChangeTab , 'ggggggggggg')
   const handleCloseContactMenu = () => {
     setContactOpen(false);
   };
 
   const routeQuery = useRouteQuery();
 
-  const handleGoToConversation = () =>
+  const handleGoToConversation = () => {
+    handleChangeTab(2);
     routeQuery(
       {
         status: "conversation",
@@ -27,6 +32,7 @@ const Contact = ({ data, handleClosePostListOnModal = () => {} }) => {
       },
       "/app/"
     );
+  };
 
   const handleCopyToClipboard = (value) => {
     if (isAuth) {

@@ -18,7 +18,13 @@ import {
 } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 
-const MapTab = ({ filters, handleBounds, search, resetPage }) => {
+const MapTab = ({
+  filters,
+  handleBounds,
+  search,
+  resetPage,
+  handleChangeTab,
+}) => {
   const myPosts = useSelector(myPostsSelector);
   const locationPosts = useSelector(locationPostSelector);
   const myAddressCordinate = useSelector(myAddressesSelector);
@@ -102,6 +108,7 @@ const MapTab = ({ filters, handleBounds, search, resetPage }) => {
             scrollParentId="mapTabPostList"
             resetPage={resetPage}
             handleClosePostListOnModal={handleClose}
+            handleChangeTab={handleChangeTab}
           />
         </Grid>
       </Modal>

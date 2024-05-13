@@ -17,7 +17,10 @@ const PostsList = ({
   handleGetMorePosts,
   scrollParentId = Math.random(),
   handleClosePostListOnModal,
+  handleChangeTab,
 }) => {
+  console.log(handleChangeTab , 'ggggggggggg')
+
   const [open, setOpen] = useState(false);
   const [locations, setLocations] = useState([]);
   const myAddressCordinate = useSelector(myAddressesSelector);
@@ -29,6 +32,7 @@ const PostsList = ({
   const handleClose = () => {
     setOpen(false);
   };
+
 
   const handleOpenModal = (post) => {
     setLocations([post.address.location.coordinates]);
@@ -75,6 +79,7 @@ const PostsList = ({
                   data={item}
                   handleClosePostsList={handleClose}
                   handleClosePostListOnModal={handleClosePostListOnModal}
+                  handleChangeTab={handleChangeTab}
                 />
               </Card>
             ))}
