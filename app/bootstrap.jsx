@@ -42,7 +42,7 @@ const Bootstrap = ({ children }) => {
       setSocket(
         new WebSocket(
           WS_BASE_URL +
-            `ws/users/${userInfo.id}/chat/?token=${localStorage
+            `wss/users/${userInfo.id}/chat/?token=${localStorage
               .getItem("token")
               .replace("Bearer ", "")}`
         )
