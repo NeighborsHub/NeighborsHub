@@ -57,13 +57,9 @@ function loginActions(res, dispatch) {
 }
 
 export const userNameCheckingAction = (data) => (dispatch) => {
-  return Apis.auth.userNameChecking(data).then((res) => {
-    loginActions(res, dispatch);
-  });
+  return Apis.auth.userNameChecking(data).then((res) => {});
 };
 
 export const userNameUpdateAction = (data) => (dispatch) => {
-  return Apis.auth.userNameUpdate(data).then((res) => {
-    loginActions(res, dispatch);
-  });
+  return Apis.auth.userNameUpdate(data).then((res) => {});
 };

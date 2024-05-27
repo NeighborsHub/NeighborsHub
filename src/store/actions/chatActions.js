@@ -36,7 +36,7 @@ export const getChat = (data) => (dispatch) => {
   return Apis.chat
     .getChatMessages(data)
     .then((res) => {
-      dispatch(getChat(res.chat));
+      // dispatch(getChat(res.chat));
       return res;
     })
     .finally(() => dispatch(endLoading()));

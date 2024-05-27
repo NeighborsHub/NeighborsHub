@@ -144,7 +144,7 @@ const SetUserName = ({
           fullWidth
           variant="contained"
           type="submit"
-          disabled={isUserNameExist || !isChecked}
+          // disabled={isUserNameExist || !isChecked}
         >
           Submit
         </Button>

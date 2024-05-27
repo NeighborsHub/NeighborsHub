@@ -20,15 +20,15 @@ const ChatsListItem = ({ onClick, data }) => {
       onClick={onClick}
     >
       <Grid item alignItems={"center"} container width={"45px"}>
-        <Avatar src={data.last_message.user_avatar} />
+        <Avatar src={data.avatar.avatar_thumbnail} />
       </Grid>
       <Grid item xs direction="column" sx={{ ml: 1 }}>
         <Typography sx={{ fontWeight: "bold" }}>{data.name}</Typography>
         <Typography sx={{ fontSize: "13px", color: "gray" }}>
-          {data.last_message.message}
+          {data.last_message?.message}
         </Typography>
       </Grid>
-      <Grid item width={"70px"} container alignItems={"flex-end"}>
+      <Grid item width={"90px"} container alignItems={"flex-end"}>
         <Typography sx={{ fontSize: "12px", color: "gray" }}>
           {moment(data.updated_at).fromNow(true)} {" ago"}
         </Typography>

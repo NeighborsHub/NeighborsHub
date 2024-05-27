@@ -99,3 +99,6 @@ export const setMyAvatarAction = (data) => async (dispatch) =>
     dispatch(setMyAvatar(res.avatar));
     return res;
   });
+
+export const updateUsernameAction = (data) => async (dispatch) =>
+  Apis.user.userNameUpdate(data).then((res) => {});

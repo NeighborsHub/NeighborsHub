@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import Hidden from "@mui/material/Hidden";
 import { myAddressesSelector } from "store/slices/userSlices";
 import { useSelector } from "react-redux";
-import { getMyAddresses } from "store/actions/userActions";
+import { getMyAddresses, myInfoAction } from "store/actions/userActions";
 import {
   getPosts,
   getCategories,
@@ -45,6 +45,7 @@ const App = () => {
     setTimeout(() => {
       dispatch(getMyAddresses()).finally(() => setLoading(false));
       dispatch(getCategories());
+      dispatch(myInfoAction());
     }, 500);
   }, []);
 
@@ -206,6 +207,8 @@ const App = () => {
                     handleBounds={handleBounds}
                     search={search}
                     handleChangeTab={handleChangeTab}
+                    latBounds={latBounds}
+                    longBounds={longBounds}
                   />
                 )}
               </Grid>
@@ -220,7 +223,7 @@ const App = () => {
               >
                 {params.get("status") === "chats" ||
                 params.get("status") === "conversation" ? (
-                  <Chat isFullWidth/>
+                  <Chat isFullWidth />
                 ) : (
                   <PostsTab
                     filters={dialogFilters}
@@ -246,6 +249,8 @@ const App = () => {
                   handleBounds={handleBounds}
                   search={search}
                   handleChangeTab={handleChangeTab}
+                  latBounds={latBounds}
+                  longBounds={longBounds}
                 />
               )}
             </Grid>
@@ -270,6 +275,8 @@ const App = () => {
               handleBounds={handleBounds}
               search={search}
               handleChangeTab={handleChangeTab}
+              latBounds={latBounds}
+              longBounds={longBounds}
             />
           ) : tabValue === 1 ? (
             <PostsTab

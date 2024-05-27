@@ -9,7 +9,7 @@ import { getChatMessages, getMoreChatMessage } from "store/actions/chatActions";
 import { messagesSelector } from "store/slices/chatSlices";
 import { useSearchParams } from "next/navigation";
 import InfiniteScroll from "react-infinite-scroll-component";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 const MessageContainer = forwardRef(function Test(
   { isInView, scrollToBottom },
@@ -25,7 +25,8 @@ const MessageContainer = forwardRef(function Test(
   const limit = 10;
 
   useEffect(() => {
-    dispatch(getChatMessages({ chatId: conversationId }));
+    console.log(conversationId, "ffffffffffffff");
+    if (conversationId) dispatch(getChatMessages({ chatId: conversationId }));
   }, [conversationId]);
 
   // useEffect(() => {
