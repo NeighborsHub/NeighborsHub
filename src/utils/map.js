@@ -1,4 +1,9 @@
-export const dividedInBoxxComputing = ({ divide, longBounds, latBounds }) => {
+export const dividedInBoxxComputing = ({
+  divide,
+  longBounds,
+  latBounds,
+  markerLocation,
+}) => {
   const maxLong = longBounds[0];
   const minLong = longBounds[1];
   const maxLat = latBounds[0];
