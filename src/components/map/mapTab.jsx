@@ -17,6 +17,7 @@ import {
   addLocationPostsAction,
 } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
+import { dividedInBoxxComputing } from "utils/map";
 
 const MapTab = ({
   filters,
@@ -43,36 +44,11 @@ const MapTab = ({
   const handleMarkerClicked = async (item) => {
     setMarkerLocation([item[0], item[1]]);
 
-    const divide = 10;
-    const maxLong = longBounds[0];
-    const minLong = longBounds[1];
-    const maxLat = latBounds[0];
-    const minLat = latBounds[1];
-
-    const longStep = (maxLong - minLong) / divide;
-    const latStep = (maxLat - minLat) / divide;
-
-    const longIntervals = [];
-    const latIntervals = [];
-
-    console.log(longStep, latStep, "gggggggggggggggg");
-
-    for (var i = 0; i < divide; i++) {
-      if (
-        minLong + i * longStep > item[0] &&
-        minLong + (i - 1) * longStep < item[0]
-      ) {
-        longIntervals.push(minLong + (i - 1) * longStep);
-        longIntervals.push(minLong + i * longStep);
-      }
-      if (
-        minLat + i * latStep > item[1] &&
-        minLat + (i - 1) * latStep < item[1]
-      ) {
-        latIntervals.push(minLat + (i - 1) * latStep);
-        latIntervals.push(minLat + i * latStep);
-      }
-    }
+    const [longIntervals, latIntervals] = dividedInBoxxComputing({
+      divide: 10,
+      longBounds,
+      latBounds,
+    });
 
     dispatch(
       getLocationPosts({
@@ -104,36 +80,11 @@ const MapTab = ({
   };
 
   const handleGetMorePosts = (page, limit) => {
-    const divide = 10;
-    const maxLong = longBounds[0];
-    const minLong = longBounds[1];
-    const maxLat = latBounds[0];
-    const minLat = latBounds[1];
-
-    const longStep = (maxLong - minLong) / divide;
-    const latStep = (maxLat - minLat) / divide;
-
-    const longIntervals = [];
-    const latIntervals = [];
-
-    console.log(longStep, latStep, "gggggggggggggggg");
-
-    for (var i = 0; i < divide; i++) {
-      if (
-        minLong + i * longStep > markerLocation[0] &&
-        minLong + (i - 1) * longStep < markerLocation[0]
-      ) {
-        longIntervals.push(minLong + (i - 1) * longStep);
-        longIntervals.push(minLong + i * longStep);
-      }
-      if (
-        minLat + i * latStep > markerLocation[1] &&
-        minLat + (i - 1) * latStep < markerLocation[1]
-      ) {
-        latIntervals.push(minLat + (i - 1) * latStep);
-        latIntervals.push(minLat + i * latStep);
-      }
-    }
+    const [longIntervals, latIntervals] = dividedInBoxxComputing({
+      divide: 10,
+      longBounds,
+      latBounds,
+    });
 
     isMyPosts
       ? dispatch(addMyPostsAction({ offset: page * limit, limit }))
