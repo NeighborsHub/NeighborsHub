@@ -2,6 +2,10 @@ import apiConfig from "services/apiConfig";
 import axios from "axios";
 import { MAP_API_KEY, GEOCODE_API_KEY } from "constants";
 const Apis = {
+  app: {
+    feedback: (data) =>
+      apiConfig({ url: "/base/feedback", method: "post", data }),
+  },
   auth: {
     preRegister: (data) =>
       apiConfig({ url: "/auth/pre-register", method: "post", data }),

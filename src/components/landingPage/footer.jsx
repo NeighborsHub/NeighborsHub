@@ -11,12 +11,32 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import IconButton from "@mui/material/IconButton";
-
+import { FeedbackAction } from "store/actions/appActions";
+import { useInputHandler } from "hooks/useInputHandler";
+import { useDispatch } from "react-redux";
 const Footer = () => {
+  const name = useInputHandler("");
+  const email = useInputHandler("");
+  const message = useInputHandler("");
+  const dispatch = useDispatch();
+  const handleSubmitFeedback = () => {
+    dispatch(
+      FeedbackAction({
+        name: name.value,
+        email: email.value,
+        message: message.value,
+      })
+    ).then(() => {
+      name.onChange({ target: { value: "" } });
+      email.onChange({ target: { value: "" } });
+      message.onChange({ target: { value: "" } });
+    });
+  };
+
   return (
     <Grid container sx={{ mt: 4, pt: 2, pb: 8 }} direction={"row-reverse"}>
       <Grid item lg={5} md={6} sm={6} xs={12}>
-        <Typography sx={{ fontWeight: "bold" }}>Contact Us</Typography>
+        <Typography sx={{ fontWeight: "bold" }}>Feedback</Typography>
         <Typography sx={{ mt: 1 }}>Stay connected with us </Typography>
         <Grid
           container
@@ -24,8 +44,14 @@ const Footer = () => {
           direction={"column"}
           justifyContent={"flex-start"}
         >
-          <TextField label="Email Address" />
-          <TextField label="Your Proposal" sx={{ mt: 2 }} multiline />
+          <TextField label="Name" {...name} />
+          <TextField sx={{ mt: 1 }} label="Email Address" {...email} />
+          <TextField
+            sx={{ mt: 1 }}
+            label="Your Message"
+            multiline
+            {...message}
+          />
           <Button
             fullWidth
             variant="contained"
@@ -34,6 +60,7 @@ const Footer = () => {
               backgroundImage: "linear-gradient(90deg, #0D869C, #3BB4DD)",
               //   borderRadius: "15px",
             }}
+            onClick={handleSubmitFeedback}
           >
             Submit
           </Button>
