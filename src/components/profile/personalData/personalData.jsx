@@ -10,7 +10,7 @@ import { myInfoSelector } from "store/slices/userSlices";
 import { useInputHandler } from "hooks/useInputHandler";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  updateMyInfo,
+  updateMyInfoAction,
   setMyAvatarAction,
   updateUsernameAction,
 } from "store/actions/userActions";
@@ -48,7 +48,7 @@ const PersonalData = () => {
 
   const handleRegister = async () => {
     dispatch(
-      updateMyInfo({ first_name: firstName.value, last_name: lastName.value })
+      updateMyInfoAction({ first_name: firstName.value, last_name: lastName.value })
     )
       .then((res) => {
         enqueueSnackbar("Profile Updated Successfuly", {

@@ -13,7 +13,7 @@ import {
 } from "store/slices/userSlices";
 import { authenticated } from "store/slices/authSlices";
 
-export const getMyAddresses = () => async (dispatch) => {
+export const getMyAddressesAction = () => async (dispatch) => {
   return Apis.address.getListOfAddress().then((res) => {
     dispatch(setMyAddresses(res.addresses?.results || []));
     return res;
@@ -28,7 +28,7 @@ export const addNewAddressAction = (payload) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const updateMyInfo = (data) => async (dispatch) => {
+export const updateMyInfoAction = (data) => async (dispatch) => {
   return Apis.user.updateMyInfo(data).then((res) => {
     dispatch(setMyInfo(res.user));
   });
@@ -44,7 +44,7 @@ export const myInfoAction = () => async (dispatch) => {
     .catch(() => dispatch(authenticated(false)));
 };
 
-export const sendOtpToEmail = (data) => async (dispatch) => {
+export const sendOtpToEmailAction = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.user
     .sendOtpToEmail(data)
@@ -54,7 +54,7 @@ export const sendOtpToEmail = (data) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const verifyEmailOtp = (data) => async (dispatch) => {
+export const verifyEmailOtpAction = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.user
     .verifyEmailOtp(data)
@@ -65,7 +65,7 @@ export const verifyEmailOtp = (data) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const sendOtpToPhone = (data) => async (dispatch) => {
+export const sendOtpToPhoneAction = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.user
     .sendOtpToPhone(data)
@@ -75,7 +75,7 @@ export const sendOtpToPhone = (data) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const verifyPhoneOtp = (data) => async (dispatch) => {
+export const verifyPhoneOtpAction = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.user
     .verifyPhoneOtp(data)
@@ -87,7 +87,7 @@ export const verifyPhoneOtp = (data) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const getUserDetails = (data) => async (dispatch) =>
+export const getUserDetailsAction = (data) => async (dispatch) =>
   Apis.user.getUserDetails(data).then((res) => {
     console.log(res);
     dispatch(setUserInfo(res.user));

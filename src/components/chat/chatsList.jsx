@@ -10,7 +10,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouteQuery } from "utils/route";
 import { useEffect, useState } from "react";
 import { chatsSelector } from "store/slices/chatSlices";
-import { getMyChats } from "store/actions/chatActions";
+import { getMyChatsAction } from "store/actions/chatActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const ChatsList = ({ isFullWidth }) => {
@@ -31,7 +31,7 @@ const ChatsList = ({ isFullWidth }) => {
   const handleSubmit = () => {};
 
   useEffect(() => {
-    dispatch(getMyChats());
+    dispatch(getMyChatsAction());
   }, []);
 
   return (

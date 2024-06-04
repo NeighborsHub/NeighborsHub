@@ -11,8 +11,8 @@ import {
   locationPostSelector,
 } from "store/slices/postsSlices";
 import {
-  getLocationPosts,
-  getMyPosts,
+  getLocationPostsAction,
+  getMyPostsAction,
   addMyPostsAction,
   addLocationPostsAction,
 } from "store/actions/postsActions";
@@ -51,7 +51,7 @@ const MapTab = ({
     });
 
     dispatch(
-      getLocationPosts({
+      getLocationPostsAction({
         // post_longitude: item[0],
         // post_latitude: item[1],
         user_longitude: initialCordinate[0] || undefined,
@@ -69,7 +69,7 @@ const MapTab = ({
   };
 
   const handleMyMarkerClicked = async () => {
-    dispatch(getMyPosts()).then(() => {
+    dispatch(getMyPostsAction()).then(() => {
       setIsMyPosts(true);
       setOpen(true);
     });

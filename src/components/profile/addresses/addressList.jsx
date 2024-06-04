@@ -4,7 +4,7 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { myAddressesSelector, updateMyAddress } from "store/slices/userSlices";
-import { getMyAddresses } from "store/actions/userActions";
+import { getMyAddressesAction } from "store/actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
 import Apis from "services/apis";
 import { startLoading, endLoading } from "store/slices/appSlices";
@@ -51,7 +51,7 @@ const AddressList = () => {
       })
       .then(() => {
         enqueueSnackbar("Address Deleted Successfuly", { variant: "info" });
-        dispatch(getMyAddresses());
+        dispatch(getMyAddressesAction());
       })
       .finally(() => {
         handleConfirmationModalClose();

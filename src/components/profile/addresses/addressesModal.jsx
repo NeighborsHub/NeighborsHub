@@ -7,7 +7,7 @@ import { useSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import Apis from "services/apis";
-import { getMyAddresses } from "store/actions/userActions";
+import { getMyAddressesAction } from "store/actions/userActions";
 
 const STATUS = {
   MAP: "MAP",
@@ -62,7 +62,7 @@ const AddressesModal = ({ open, handleClose }) => {
       is_public: true,
     });
     if (result) {
-      dispatch(getMyAddresses());
+      dispatch(getMyAddressesAction());
       enqueueSnackbar("Location Added successfuly", { variant: "success" });
       innerHandleClose();
     }

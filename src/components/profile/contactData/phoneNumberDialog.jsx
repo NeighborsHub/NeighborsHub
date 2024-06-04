@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import Button from "@mui/material/Button";
-import { sendOtpToPhone, verifyPhoneOtp } from "store/actions/userActions";
+import { sendOtpToPhoneAction, verifyPhoneOtpAction } from "store/actions/userActions";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 
@@ -31,7 +31,7 @@ const PhoneNumberDialog = ({ open, handleClose }) => {
   }, [open]);
 
   const handleSubmitPhoneNumber = () => {
-    dispatch(sendOtpToPhone({ mobile: phoneNumber.value }))
+    dispatch(sendOtpToPhoneAction({ mobile: phoneNumber.value }))
       .then(() => {
         enqueueSnackbar("A Code Was Sent To Your Phone", {
           variant: "info",
@@ -45,7 +45,7 @@ const PhoneNumberDialog = ({ open, handleClose }) => {
   };
 
   const handleSubmitCode = () => {
-    dispatch(verifyPhoneOtp({ mobile: phoneNumber.value, otp: code.value }))
+    dispatch(verifyPhoneOtpAction({ mobile: phoneNumber.value, otp: code.value }))
       .then(() => {
         handleClose();
         enqueueSnackbar("Mobile Edited Successfuly", { variant: "success" });

@@ -13,14 +13,14 @@ export const setSocketToStoreAction = (payload) => async (dispatch) => {
   dispatch(setSocket(payload));
 };
 
-export const createConversation = (data) => (dispatch) => {
+export const createConversationAction = (data) => (dispatch) => {
   return Apis.chat.createConversation(data).then((res) => {
     // dispatch(setMyChats(res));
     return res;
   });
 };
 
-export const getMyChats = () => (dispatch) => {
+export const getMyChatsAction = () => (dispatch) => {
   dispatch(startLoading());
   return Apis.chat
     .getMyChats()
@@ -31,7 +31,7 @@ export const getMyChats = () => (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const getChat = (data) => (dispatch) => {
+export const getChatAction = (data) => (dispatch) => {
   dispatch(startLoading());
   return Apis.chat
     .getChatMessages(data)
@@ -42,21 +42,21 @@ export const getChat = (data) => (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const getChatMessages = (data) => (dispatch) => {
+export const getChatMessagesAction = (data) => (dispatch) => {
   return Apis.chat.getChatMessages(data).then((res) => {
     dispatch(setChatMessages(res.chat_messages));
     return res;
   });
 };
 
-export const getMoreChatMessage = (data) => (dispatch) => {
+export const getMoreChatMessageAction = (data) => (dispatch) => {
   return Apis.chat.getChatMessages(data).then((res) => {
     dispatch(addMoreChatMessages(res.chat_messages.results));
     return res;
   });
 };
 
-export const OnNewChatMessage = () => {
+export const OnNewChatMessageAction = () => {
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
     const chatId = CommonUtil.getActiveChatId(match);
@@ -80,7 +80,7 @@ export const OnNewChatMessage = () => {
   };
 };
 
-export const messageSubmitHandler = (event) => {
+export const messageSubmitHandlerAction = (event) => {
   event.preventDefault();
   if (inputMessage) {
     socket.send(

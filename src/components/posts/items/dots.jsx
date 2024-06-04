@@ -7,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
 import ConfirmationModal from "components/modal/confirmationModal";
-import { deletePost } from "store/actions/postsActions";
+import { deletePostAction } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 
 const Dots = ({
@@ -39,7 +39,7 @@ const Dots = ({
   };
 
   const handleDeletePost = () => {
-    dispatch(deletePost({ id: data.id })).then(() => {
+    dispatch(deletePostAction({ id: data.id })).then(() => {
       handleClose();
       handleClosePostsList();
     });

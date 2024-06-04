@@ -37,7 +37,7 @@ const AxiosInterceptor = ({ children }) => {
       console.log(error, "errorrrr");
       if (error.code === "ERR_CANCELED") return;
       if (error.response?.status === 403) {
-        // localStorage.removeItem("token");
+        localStorage.removeItem("token");
         // router.push("/signin");
         snackActions.error("You have to login again");
         return Promise.reject(error);
@@ -45,7 +45,8 @@ const AxiosInterceptor = ({ children }) => {
         snackActions.error("Server Error");
       } else {
         // !config.withoutSnack &&
-        snackActions.error(error.response.data.message);
+        const errorMessage = error.response?.data?.message || "Connection to Server Failed"
+        snackActions.error(errorMessage);
       }
 
       return Promise.reject(error);

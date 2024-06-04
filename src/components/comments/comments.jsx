@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CommentItem from "components/comments/commentItem";
 import {
   createCommentAction,
-  getPostComments,
+  getPostCommentsAction,
   addPostCommentsAction,
 } from "store/actions/postsActions";
 import { postCommentsSelector } from "store/slices/postsSlices";
@@ -34,7 +34,7 @@ const Comments = ({ postId }) => {
   };
 
   useEffect(() => {
-    if (postId) dispatch(getPostComments({ id: postId }));
+    if (postId) dispatch(getPostCommentsAction({ id: postId }));
   }, [postId]);
 
   const handleGetMoreComments = (page, limit) => {

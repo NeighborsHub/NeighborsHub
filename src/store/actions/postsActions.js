@@ -25,7 +25,7 @@ import {
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { snackActions } from "utils/SnackbarUtils";
 
-export const getPosts = (data) => async (dispatch) => {
+export const getPostsAction = (data) => async (dispatch) => {
   // dispatch(startLoading());
   return Apis.posts.getPosts(data).then((res) => {
     console.log(res, "test");
@@ -34,7 +34,7 @@ export const getPosts = (data) => async (dispatch) => {
   // .finally(() => dispatch(endLoading()));
 };
 
-export const getDetailsPost = (data) => async (dispatch) => {
+export const getDetailsPostAction = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.posts
     .getDetailsPost(data)
@@ -45,7 +45,7 @@ export const getDetailsPost = (data) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const getLocationPosts = (data) => async (dispatch) => {
+export const getLocationPostsAction = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.posts
     .getLocationPosts(data)
@@ -57,7 +57,7 @@ export const getLocationPosts = (data) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const getUniqueLocation =
+export const getUniqueLocationAction =
   ({ isPan, ...data }, signal) =>
   async (dispatch) => {
     // dispatch(startLoading());
@@ -134,7 +134,7 @@ export const getUniqueLocation =
     // .finally(() => dispatch(endLoading()));
   };
 
-export const getMyPosts = () => async (dispatch) => {
+export const getMyPostsAction = () => async (dispatch) => {
   // dispatch(startLoading());
   return Apis.posts.getMyPosts().then((res) => {
     console.log(res, "test");
@@ -144,7 +144,7 @@ export const getMyPosts = () => async (dispatch) => {
   // .finally(() => dispatch(endLoading()));
 };
 
-export const createPost = (data) => async (dispatch) => {
+export const createPostAction = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.posts
     .createPost(data)
@@ -155,7 +155,7 @@ export const createPost = (data) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const deletePost = (data) => async (dispatch) => {
+export const deletePostAction = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.posts
     .deletePost(data)
@@ -189,19 +189,19 @@ export const deleteLikeAction = (data) => async (dispatch) => {
   });
 };
 
-export const getCategories = () => async (dispatch) => {
+export const getCategoriesAction = () => async (dispatch) => {
   return Apis.posts.getCategories().then((res) => {
     dispatch(setCategories(res.categories.results));
   });
 };
 
-export const getPost = (data) => async (dispatch) =>
+export const getPostAction = (data) => async (dispatch) =>
   Apis.posts.getDetailsPost(data).then((res) => {
     dispatch(setPost(res.post));
     return res;
   });
 
-export const getUserPosts = (data) => async (dispatch) =>
+export const getUserPostsAction = (data) => async (dispatch) =>
   Apis.posts.getUserPosts(data).then((res) => {
     dispatch(setUserPosts(res.posts || {}));
     return res;
@@ -230,7 +230,7 @@ export const addPostsAction = (data) => async (dispatch) =>
     return res;
   });
 
-export const getPostComments = (data) => async (dispatch) =>
+export const getPostCommentsAction = (data) => async (dispatch) =>
   Apis.posts.getPostComments(data).then((res) => {
     dispatch(setPostComments(res.comments || []));
     return res;

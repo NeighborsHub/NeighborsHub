@@ -3,7 +3,7 @@ import Post from "components/posts/post";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { getPost } from "store/actions/postsActions";
+import { getPostAction } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 import { postSelector } from "store/slices/postsSlices";
 import { useSelector } from "react-redux";
@@ -26,7 +26,7 @@ const PostPage = () => {
   useEffect(() => {
     setTimeout(() => {
       setPostLoading(true);
-      dispatch(getPost({ id: postId })).finally(() => setPostLoading(false));
+      dispatch(getPostAction({ id: postId })).finally(() => setPostLoading(false));
     }, 500);
   }, [postId]);
 

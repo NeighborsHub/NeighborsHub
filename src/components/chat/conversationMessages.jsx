@@ -5,7 +5,7 @@ import Fab from "@mui/material/Fab";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Grow from "@mui/material/Grow";
 import { useDispatch, useSelector } from "react-redux";
-import { getChatMessages, getMoreChatMessage } from "store/actions/chatActions";
+import { getChatMessagesAction, getMoreChatMessageAction } from "store/actions/chatActions";
 import { messagesSelector } from "store/slices/chatSlices";
 import { useSearchParams } from "next/navigation";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -26,7 +26,7 @@ const MessageContainer = forwardRef(function Test(
 
   useEffect(() => {
     console.log(conversationId, "ffffffffffffff");
-    if (conversationId) dispatch(getChatMessages({ chatId: conversationId }));
+    if (conversationId) dispatch(getChatMessagesAction({ chatId: conversationId }));
   }, [conversationId]);
 
   // useEffect(() => {
@@ -38,7 +38,7 @@ const MessageContainer = forwardRef(function Test(
 
   const handleGetMoreChatMessage = (page, limit) => {
     dispatch(
-      getMoreChatMessage({
+      getMoreChatMessageAction({
         chatId: conversationId,
         params: {
           // search: search || undefined,

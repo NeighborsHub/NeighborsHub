@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Slider from "@mui/material/Slider";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { getPosts } from "store/actions/postsActions";
+import { getPostsAction } from "store/actions/postsActions";
 import { categoriesSelector } from "store/slices/postsSlices";
 import { useSelector } from "react-redux";
 

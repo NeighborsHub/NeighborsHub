@@ -15,7 +15,7 @@ import STATUS from "components/signup/status";
 import Link from "next/link";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import React, { useCallback } from "react";
-import { googleAuth } from "store/actions/authActions";
+import { googleAuthAction } from "store/actions/authActions";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import GoogleGLogo from "assets/svgs/google__G__logo.svg";
@@ -51,7 +51,7 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
 
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
-      dispatch(googleAuth({ code: tokenResponse.access_token })).then(() =>
+      dispatch(googleAuthAction({ code: tokenResponse.access_token })).then(() =>
         router.push("/app")
       );
     },

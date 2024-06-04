@@ -14,7 +14,7 @@ import MenuList from "@mui/material/MenuList";
 import AddressList from "components/profile/addresses/addressList";
 import ListItemButton from "@mui/material/ListItemButton";
 import List from "@mui/material/List";
-import { createPost } from "store/actions/postsActions";
+import { createPostAction } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import Link from "next/link";
@@ -51,7 +51,7 @@ const CreatePostModal = ({ open, handleClose }) => {
       formData.append(`medias[${index}]`, item);
     });
 
-    dispatch(createPost(formData))
+    dispatch(createPostAction(formData))
       .then(() => {
         enqueueSnackbar("Post Created Successfuly", { variant: "success" });
         handleClose();

@@ -10,15 +10,15 @@ import { useDispatch } from "react-redux";
 import Hidden from "@mui/material/Hidden";
 import { myAddressesSelector } from "store/slices/userSlices";
 import { useSelector } from "react-redux";
-import { getMyAddresses, myInfoAction } from "store/actions/userActions";
+import { getMyAddressesAction, myInfoAction } from "store/actions/userActions";
 import {
-  getPosts,
-  getCategories,
+  getPostsAction,
+  getCategoriesAction,
   addPostsAction,
 } from "store/actions/postsActions";
 import { postsSelector } from "store/slices/postsSlices";
 
-import { getUniqueLocation } from "store/actions/postsActions";
+import { getUniqueLocationAction } from "store/actions/postsActions";
 import AppHeader from "components/header/appHeader";
 import { useSearchParams } from "next/navigation";
 
@@ -43,8 +43,8 @@ const App = () => {
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      dispatch(getMyAddresses()).finally(() => setLoading(false));
-      dispatch(getCategories());
+      dispatch(getMyAddressesAction()).finally(() => setLoading(false));
+      dispatch(getCategoriesAction());
       dispatch(myInfoAction());
     }, 500);
   }, []);
@@ -69,7 +69,7 @@ const App = () => {
 
   function getPostsFun() {
     dispatch(
-      getPosts({
+      getPostsAction({
         user_latitude: initialCordinate[1] || undefined,
         user_longitude: initialCordinate[0] || undefined,
         from_distance: dialogFilters?.filters?.distance
@@ -116,7 +116,7 @@ const App = () => {
   function getUniqueLocationFun() {
     controller = new AbortController();
     dispatch(
-      getUniqueLocation(
+      getUniqueLocationAction(
         {
           in_bbox_array: [...longBounds, ...latBounds],
           in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,

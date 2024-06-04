@@ -14,14 +14,14 @@ import { snackActions } from "utils/SnackbarUtils";
 import { useState } from "react";
 import PostsList from "components/posts/postsList";
 import { postsSelector, userPostsSelector } from "store/slices/postsSlices";
-import { getUserPosts, addUserPostsAction } from "store/actions/postsActions";
+import { getUserPostsAction, addUserPostsAction } from "store/actions/postsActions";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Map from "components/map/map";
 import Modal from "components/modal/modal";
 import { useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { getUserDetails } from "store/actions/userActions";
+import { getUserDetailsAction } from "store/actions/userActions";
 import { userInfoSelector } from "store/slices/userSlices";
 import { authSelector } from "store/slices/authSlices";
 import Typography from "@mui/material/Typography";
@@ -44,12 +44,12 @@ function Page() {
   const initialCordinate = mainAddress?.location.coordinates;
 
   useEffect(() => {
-    dispatch(getUserDetails({ id: userId }));
+    dispatch(getUserDetailsAction({ id: userId }));
   }, []);
   useEffect(() => {
     if (initialCordinate)
       dispatch(
-        getUserPosts({
+        getUserPostsAction({
           id: userId,
           params: {
             user_longitude: initialCordinate[0],

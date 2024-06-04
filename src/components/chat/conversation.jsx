@@ -4,7 +4,7 @@ import ConversationTitle from "components/chat/conversationTitle";
 import Grid from "@mui/material/Grid";
 import { useContext } from "react";
 import { SocketContext } from "../../../app/bootstrap";
-import { createConversation } from "store/actions/chatActions";
+import { createConversationAction } from "store/actions/chatActions";
 import { useSelector, useDispatch } from "react-redux";
 import { myInfoSelector } from "store/slices/userSlices";
 import { useEffect, useRef, useState } from "react";
@@ -29,7 +29,7 @@ const Conversation = () => {
     let tempConversationId = conversationId;
     if (!conversationId) {
       const res = await dispatch(
-        createConversation({ members: [{ id: userId }], type: "direct" })
+        createConversationAction({ members: [{ id: userId }], type: "direct" })
       );
       tempConversationId = res.room_id;
     }

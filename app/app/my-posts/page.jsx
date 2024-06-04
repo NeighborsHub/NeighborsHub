@@ -4,7 +4,7 @@ import { myPostsSelector } from "store/slices/postsSlices";
 import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import { getMyPosts } from "store/actions/postsActions";
+import { getMyPostsAction } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 const MyPosts = () => {
@@ -12,7 +12,7 @@ const MyPosts = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMyPosts());
+    dispatch(getMyPostsAction());
   }, []);
 
   return (
