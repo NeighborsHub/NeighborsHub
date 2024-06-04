@@ -48,7 +48,7 @@ const MapTab = ({
       divide: 10,
       longBounds,
       latBounds,
-      markerLocation
+      markerLocation: [item[0], item[1]],
     });
 
     dispatch(
@@ -85,7 +85,7 @@ const MapTab = ({
       divide: 10,
       longBounds,
       latBounds,
-      markerLocation
+      markerLocation,
     });
 
     isMyPosts
