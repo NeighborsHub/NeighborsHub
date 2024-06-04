@@ -45,9 +45,9 @@ const Footer = () => {
           justifyContent={"flex-start"}
         >
           <TextField label="Name" {...name} />
-          <TextField sx={{ mt: 1 }} label="Email Address" {...email} />
+          <TextField sx={{ mt: 2 }} label="Email Address" {...email} />
           <TextField
-            sx={{ mt: 1 }}
+            sx={{ mt: 2 }}
             label="Your Message"
             multiline
             {...message}
