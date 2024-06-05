@@ -19,7 +19,6 @@ const PostsList = ({
   handleClosePostListOnModal,
   handleChangeTab,
 }) => {
-  console.log(handleChangeTab , 'ggggggggggg')
 
   const [open, setOpen] = useState(false);
   const [locations, setLocations] = useState([]);

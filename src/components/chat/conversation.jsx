@@ -38,8 +38,8 @@ const Conversation = () => {
         action: "message",
         message: message.value,
         user: myInfo.id,
-        roomId: tempConversationId,
-        postId,
+        room_id: tempConversationId,
+        post_id: postId
       })
     );
     message.onChange({ target: { value: "" } });

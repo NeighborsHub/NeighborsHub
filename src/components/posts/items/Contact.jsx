@@ -14,7 +14,6 @@ const Contact = ({
   handleChangeTab,
 }) => {
   const [contactOpen, setContactOpen] = useState(false);
-  console.log(handleChangeTab , 'ggggggggggg')
   const handleCloseContactMenu = () => {
     setContactOpen(false);
   };
