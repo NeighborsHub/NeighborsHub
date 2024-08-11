@@ -21,7 +21,7 @@ import { postsSelector } from "store/slices/postsSlices";
 import { getUniqueLocationAction } from "store/actions/postsActions";
 import AppHeader from "components/header/appHeader";
 import { useSearchParams } from "next/navigation";
-
+import NavigationBar from "components/navigationBar/navigationBar";
 let controller;
 
 const App = () => {
@@ -258,36 +258,39 @@ const App = () => {
         </Grid>
       </Hidden>
       <Hidden mdUp>
-        <AppHeader
-          handleSearch={tabValue !== 2 && handleSearch}
-          dialogFilters={dialogFilters}
-          handleSubmitFilters={handleSubmitFilters}
-        />
-        <Grid
-          container
-          justifyContent={"center"}
-          sx={{ mt: 1, height: "calc( 100vh - 210px )", overflowY: "auto" }}
-          id="appPostLists"
-        >
-          {tabValue === 0 ? (
-            <MapTab
-              filters={dialogFilters}
-              handleBounds={handleBounds}
-              search={search}
-              handleChangeTab={handleChangeTab}
-              latBounds={latBounds}
-              longBounds={longBounds}
-            />
-          ) : tabValue === 1 ? (
-            <PostsTab
-              posts={posts}
-              handleGetMorePosts={handleGetMorePosts}
-              scrollParentId="appPostLists"
-              handleChangeTab={handleChangeTab}
-            />
-          ) : (
-            <Chat />
-          )}
+        <Grid container direction={"column"} sx={{ height: "calc( 100vh - 120px )" }}>
+          <AppHeader
+            handleSearch={tabValue !== 2 && handleSearch}
+            dialogFilters={dialogFilters}
+            handleSubmitFilters={handleSubmitFilters}
+          />
+          <Grid
+            container
+            justifyContent={"center"}
+            sx={{ mt: 1, flex: 1, overflowY: "auto" }}
+            id="appPostLists"
+          >
+            {tabValue === 0 ? (
+              <MapTab
+                filters={dialogFilters}
+                handleBounds={handleBounds}
+                search={search}
+                handleChangeTab={handleChangeTab}
+                latBounds={latBounds}
+                longBounds={longBounds}
+              />
+            ) : tabValue === 1 ? (
+              <PostsTab
+                posts={posts}
+                handleGetMorePosts={handleGetMorePosts}
+                scrollParentId="appPostLists"
+                handleChangeTab={handleChangeTab}
+              />
+            ) : (
+              <Chat />
+            )}
+          </Grid>
+          <NavigationBar />
         </Grid>
       </Hidden>
     </Grid>
