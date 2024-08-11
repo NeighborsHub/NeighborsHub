@@ -162,13 +162,14 @@ const App = () => {
     <Grid
       container
       item
-      xs={12}
+      xs
       sx={{
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
         px: "0!important",
       }}
+      direction={"column"}
     >
       <Hidden mdDown>
         <AppHeader
@@ -247,13 +248,15 @@ const App = () => {
         </Grid>
       </Hidden>
       <Hidden mdUp>
-        <Grid container direction={"column"} sx={{ height: "calc( 100vh )" }}>
+        <Grid container direction={"column"} item xs>
           <ResponsiveHeader />
           <Grid
             container
             justifyContent={"center"}
             sx={{ mt: 1, flex: 1, overflowY: "auto" }}
             id="appPostLists"
+            item
+            xs
           >
             {tabValue === 0 ? (
               <MapTab
