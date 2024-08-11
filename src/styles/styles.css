@@ -18,6 +18,10 @@ html {
   font-family: "Cinzel";
   src: url("../assets/fonts/Cinzel/Cinzel-VariableFont_wght.ttf");
 }
+@font-face {
+  font-family: "Saira";
+  src: url("../assets/fonts/Saira/Saira-VariableFont_wdth\,wght.ttf");
+}
 
 a {
   color:black;

@@ -22,6 +22,8 @@ import { getUniqueLocationAction } from "store/actions/postsActions";
 import AppHeader from "components/header/appHeader";
 import { useSearchParams } from "next/navigation";
 import NavigationBar from "components/navigationBar/navigationBar";
+import ResponsiveHeader from "components/header/ResponsiveHeader";
+
 let controller;
 
 const App = () => {
@@ -168,19 +170,6 @@ const App = () => {
         px: "0!important",
       }}
     >
-      <Hidden mdUp>
-        <Grid container justifyContent={"center"}>
-          <Tabs
-            value={tabValue}
-            onChange={handleChangeTab}
-            sx={{ display: "flex", justifyContent: "center" }}
-          >
-            <Tab label="Map" />
-            <Tab label="Posts" />
-            <Tab label="Chat" />
-          </Tabs>
-        </Grid>
-      </Hidden>
       <Hidden mdDown>
         <AppHeader
           handleSearch={handleSearch}
@@ -258,12 +247,8 @@ const App = () => {
         </Grid>
       </Hidden>
       <Hidden mdUp>
-        <Grid container direction={"column"} sx={{ height: "calc( 100vh - 120px )" }}>
-          <AppHeader
-            handleSearch={tabValue !== 2 && handleSearch}
-            dialogFilters={dialogFilters}
-            handleSubmitFilters={handleSubmitFilters}
-          />
+        <Grid container direction={"column"} sx={{ height: "calc( 100vh )" }}>
+          <ResponsiveHeader />
           <Grid
             container
             justifyContent={"center"}
@@ -286,11 +271,11 @@ const App = () => {
                 scrollParentId="appPostLists"
                 handleChangeTab={handleChangeTab}
               />
-            ) : (
+            ) : tabValue === 3 ? (
               <Chat />
-            )}
+            ) : null}
           </Grid>
-          <NavigationBar />
+          <NavigationBar onChange={handleChangeTab} />
         </Grid>
       </Hidden>
     </Grid>

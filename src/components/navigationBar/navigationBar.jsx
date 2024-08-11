@@ -10,10 +10,13 @@ import AddColored from "assets/svgs/navigationBar/Add-colored.svg";
 import PostsColored from "assets/svgs/navigationBar/Posts-colored.svg";
 import Typography from "@mui/material/Typography";
 
-const NavigationBar = () => {
+const NavigationBar = ({ onChange }) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
-  const handleSelectItem = (index) => setSelectedItemIndex(index);
+  const handleSelectItem = (index) => {
+    setSelectedItemIndex(index);
+    onChange({},index);
+  };
   return (
     <Grid
       container
@@ -23,36 +26,39 @@ const NavigationBar = () => {
         backgroundColor: "white!important",
         py: "20px",
         height: "90px",
+        marginTop: '-30px',
+        zIndex: '100'
       }}
       justifyContent={"space-evenly"}
+      flexDirection={"row-reverse"}
     >
       <Icon
-        icon={selectedItemIndex === 3 ? ChatColored : Chat}
-        text={"chat"}
-        onClick={() => handleSelectItem(3)}
+        icon={selectedItemIndex === 0 ? MapColored : Map}
+        text={"map"}
+        onClick={handleSelectItem}
         selectedItemIndex={selectedItemIndex}
-        index={3}
-      />
-      <Icon
-        icon={selectedItemIndex === 2 ? AddColored : Add}
-        text={"add"}
-        onClick={() => handleSelectItem(2)}
-        selectedItemIndex={selectedItemIndex}
-        index={2}
+        index={0}
       />
       <Icon
         icon={selectedItemIndex === 1 ? PostsColored : Posts}
         text={"posts"}
-        onClick={() => handleSelectItem(1)}
+        onClick={handleSelectItem}
         selectedItemIndex={selectedItemIndex}
         index={1}
       />
       <Icon
-        icon={selectedItemIndex === 0 ? MapColored : Map}
-        text={"map"}
-        onClick={() => handleSelectItem(0)}
+        icon={selectedItemIndex === 2 ? AddColored : Add}
+        text={"add"}
+        onClick={handleSelectItem}
         selectedItemIndex={selectedItemIndex}
-        index={0}
+        index={2}
+      />
+      <Icon
+        icon={selectedItemIndex === 3 ? ChatColored : Chat}
+        text={"chat"}
+        onClick={handleSelectItem}
+        selectedItemIndex={selectedItemIndex}
+        index={3}
       />
     </Grid>
   );
@@ -69,7 +75,7 @@ const Icon = ({ icon, text, onClick, selectedItemIndex, index }) => {
       alignItems={"center"}
       item
       xs
-      onClick={onClick}
+      onClick={() => onClick(index)}
     >
       <img src={icon.src} style={{ fill: "red" }} />
       {selectedItemIndex === index && (
