@@ -253,7 +253,7 @@ const App = () => {
           <Grid
             container
             justifyContent={"center"}
-            sx={{ mt: 1, flex: 1, overflowY: "auto" }}
+            sx={{ flex: 1, overflowY: "auto" }}
             id="appPostLists"
             item
             xs

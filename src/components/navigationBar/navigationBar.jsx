@@ -15,7 +15,7 @@ const NavigationBar = ({ onChange }) => {
 
   const handleSelectItem = (index) => {
     setSelectedItemIndex(index);
-    onChange({},index);
+    onChange({}, index);
   };
   return (
     <Grid
@@ -26,8 +26,8 @@ const NavigationBar = ({ onChange }) => {
         backgroundColor: "white!important",
         py: "20px",
         height: "90px",
-        marginTop: '-30px',
-        zIndex: '100'
+        marginTop: "-30px",
+        zIndex: "100",
       }}
       justifyContent={"space-evenly"}
       flexDirection={"row-reverse"}
@@ -76,6 +76,7 @@ const Icon = ({ icon, text, onClick, selectedItemIndex, index }) => {
       item
       xs
       onClick={() => onClick(index)}
+      sx={{ cursor: "pointer" }}
     >
       <img src={icon.src} style={{ fill: "red" }} />
       {selectedItemIndex === index && (

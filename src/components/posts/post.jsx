@@ -37,7 +37,10 @@ const Post = ({
   const [addressTooltipOpen, setAddressTooltipOpen] = useState(false);
   const myAddressCordinate = useSelector(myAddressesSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
-  console.log(mainAddress, "teeeeeeeeeest");
+
+  const handleOpenDrawer = () => {
+    drawerState[1](true);
+  };
 
   const handleRedirectToPostPage = (id) => {
     !isPostPage && router.push(`/app/post?id=${id}`);
@@ -228,16 +231,16 @@ const Post = ({
               <Grid container item xs>
                 {!isMyPost && isAuth && <LikesDislikes data={data} />}
               </Grid>
-              <Grid container item xs>
+              <Grid container item xs justifyContent={'flex-end'}>
                 <Share />
 
-                {!isMyPost && (
+                {/* {!isMyPost && (
                   <Contact
                     data={data}
                     handleClosePostListOnModal={handleClosePostListOnModal}
                     handleChangeTab={handleChangeTab}
                   />
-                )}
+                )} */}
                 {(showLocationOnMap || isMyPost) && (
                   <Dots
                     showLocationOnMap={!isMyPost}
