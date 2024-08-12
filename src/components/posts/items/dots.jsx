@@ -68,7 +68,7 @@ const Dots = ({
         label={
           <Grid container justifyContent={"center"} alignItems={"center"}>
             <img src={DotsIcon.src} />
-            <Typography
+            {/* <Typography
               sx={{
                 fontFamily: "Saira",
                 fontSize: "14px",
@@ -77,10 +77,16 @@ const Dots = ({
               }}
             >
               See More
-            </Typography>
+            </Typography> */}
           </Grid>
         }
-        sx={{ px: 0, ml: 1, borderRadius: "10px", height: "35px" }}
+        sx={{
+          px: 0,
+          ml: 1,
+          borderRadius: "10px",
+          height: "35px",
+          width: "35px",
+        }}
       />
       <Menu
         id="basic-menu"

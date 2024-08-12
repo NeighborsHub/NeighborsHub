@@ -20,6 +20,7 @@ import User from "components/posts/items/user";
 import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
 import { myAddressesSelector } from "store/slices/userSlices";
+import IconButton from "@mui/material/IconButton";
 
 const Post = ({
   handleOpenModal,
@@ -231,7 +232,7 @@ const Post = ({
               <Grid container item xs>
                 {!isMyPost && isAuth && <LikesDislikes data={data} />}
               </Grid>
-              <Grid container item xs justifyContent={'flex-end'}>
+              <Grid container item xs justifyContent={"flex-end"}>
                 <Share />
 
                 {/* {!isMyPost && (
@@ -270,13 +271,24 @@ const Post = ({
 
           {/* //////////////////////////////////////// More Details ///////////////////////////////////// */}
           {!isPostPage && (
-            <Button
-              variant="outlined"
-              sx={{ mt: 2 }}
-              onClick={() => handleRedirectToPostPage(data.id)}
-            >
-              More Details
-            </Button>
+            <Grid>
+              <IconButton
+                variant="contained"
+                onClick={() => handleRedirectToPostPage(data.id)}
+                sx={{
+                  backgroundColor: "#EBEBEB",
+                  mt: 1,
+                  borderRadius: "10px",
+                  fontFamily: "Saira",
+                  fontWeight: "bold",
+                  color: "black",
+                  fontSize: "14px",
+                  width: "100%",
+                }}
+              >
+                More Details
+              </IconButton>
+            </Grid>
           )}
         </Grid>
       </Grid>
