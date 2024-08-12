@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import moment from "moment";
 import LikesDislikes from "components/posts/items/likesDislikes";
 import Contact from "components/posts/items/Contact";
+import Share from "components/posts/items/share";
 import Dots from "components/posts/items/dots";
 import User from "components/posts/items/user";
 import Tooltip from "@mui/material/Tooltip";
@@ -228,6 +229,8 @@ const Post = ({
                 {!isMyPost && isAuth && <LikesDislikes data={data} />}
               </Grid>
               <Grid container item xs>
+                <Share />
+
                 {!isMyPost && (
                   <Contact
                     data={data}
