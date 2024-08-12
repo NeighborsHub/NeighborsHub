@@ -18,14 +18,22 @@ const User = ({ data }) => {
       container
       alignItems={"center"}
       onClick={(e) => handleRirectToUserProfile(e, data.created_by.id)}
-      sx={{ cursor: "pointer", mt: 2 }}
+      sx={{ cursor: "pointer" }}
     >
       <Avatar
         alt={data.created_by?.first_name}
         src={BASE_URL + data.created_by?.avatar.avatar_thumbnail}
+        sx={{ width: "35px", height: "35px" }}
       />
-      <Typography sx={{ ml: 1, fontWeight: "bold" }}>
-        {data.created_by?.username || "unknown"}
+      <Typography
+        sx={{
+          ml: 1,
+          fontSize: "14px",
+          fontFamily: "Saira",
+          fontWeight: "bold",
+        }}
+      >
+        {data.created_by?.username || data.created_by?.first_name + ' ' + data.created_by?.last_name || "unknown"}
       </Typography>
     </Grid>
   );

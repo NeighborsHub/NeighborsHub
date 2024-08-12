@@ -39,7 +39,7 @@ const AxiosInterceptor = ({ children }) => {
       if (error.response?.status === 403) {
         localStorage.removeItem("token");
         // router.push("/signin");
-        snackActions.error("You have to login again");
+        snackActions.error("You need to login again");
         return Promise.reject(error);
       } else if (error.response?.status === 404) {
         snackActions.error("Server Error");

@@ -1,28 +1,52 @@
 "use client";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
-import CreatePostModal from "components/posts/createPostModal";
-import { useTheme } from "@mui/material/styles";
-import Badge from "@mui/material/Badge";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import FiltersDialog from "components/filters/filtersDialog";
-import AddIcon from "@mui/icons-material/Add";
-import TextField from "@mui/material/TextField";
-import { useInputHandler } from "hooks/useInputHandler";
-import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import CloseIcon from "@mui/icons-material/Close";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import { useSelector, useDispatch } from "react-redux";
+import { myInfoSelector } from "store/slices/userSlices";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { useRouter } from "next/navigation";
+import { logoutAction } from "store/actions/authActions";
 
-const ResponsiveHeader = ({
-  handleSearch,
-  dialogFilters,
-  handleSubmitFilters,
-}) => {
+const ResponsiveHeader = () => {
+  const myInfo = useSelector(myInfoSelector);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handlePushToProfile = () => {
+    router.push("/app/profile");
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutAction())
+      .then(() => {
+        router.push("/");
+      })
+      .finally(() => {
+        // dispatch(clearStoreAction());
+        setAnchorEl(null);
+      });
+  };
+
+  const handlePushtoMyPosts = () => {
+    router.push("/app/my-posts");
+    setAnchorEl(null);
+  };
+
   return (
     <Grid
       container
@@ -38,9 +62,13 @@ const ResponsiveHeader = ({
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          visibility: !myInfo.avatar && "hidden",
         }}
       >
-        <Avatar />
+        <Avatar
+          src={myInfo.avatar?.avatar_thumbnail}
+          onClick={handleOpenMenu}
+        />
       </Grid>
       <Grid sx={{ display: "flex" }}>
         <Typography
@@ -64,6 +92,19 @@ const ResponsiveHeader = ({
       >
         <SearchIcon sx={{ color: "#999999" }} />
       </IconButton>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={anchorEl}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handlePushToProfile}>Profile</MenuItem>
+        <MenuItem onClick={handlePushtoMyPosts}>My Posts</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
     </Grid>
   );
 };

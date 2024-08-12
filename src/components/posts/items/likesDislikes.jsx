@@ -2,13 +2,10 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { likeAction, deleteLikeAction } from "store/actions/postsActions";
 import Chip from "@mui/material/Chip";
-import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
-import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-
+import Like from "assets/svgs/Post/Like.svg";
+import Dislike from "assets/svgs/Post/Dislike.svg";
 const LikesDislikes = ({ data }) => {
   const dispatch = useDispatch();
 
@@ -64,22 +61,24 @@ const LikesDislikes = ({ data }) => {
       <Chip
         onClick={handleLike}
         sx={{
+          borderRadius: "10px",
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
+          backgroundColor: "#FDE7E7",
         }}
         label={
           <Grid container alignItems={"center"}>
             {lastClicked === "like" ? (
-              <ThumbUpAltIcon sx={{ fill: "#db1d1d" }} />
+              <img src={Like.src} />
             ) : (
-              <ThumbUpOffAltIcon sx={{ fill: "gray" }} />
+              <img src={Like.src} />
             )}
             {likesCount > 0 && (
               <Typography
                 sx={{
                   ml: 1,
                   fontSize: "12px",
-                  color: "#858585",
+                  color: "black",
                   fontWeight: "bold",
                 }}
               >
@@ -92,23 +91,25 @@ const LikesDislikes = ({ data }) => {
       <Chip
         onClick={handleDislike}
         sx={{
+          borderRadius: "10px",
           borderTopLeftRadius: 0,
           borderBottomLeftRadius: 0,
           borderLeft: "1px solid lightGray",
+          backgroundColor: "#FDE7E7",
         }}
         label={
           <Grid container alignItems={"center"}>
             {lastClicked === "dislike" ? (
-              <ThumbDownAltIcon sx={{ fill: "#db1d1d" }} />
+              <img src={Dislike.src} />
             ) : (
-              <ThumbDownOffAltIcon sx={{ fill: "gray" }} />
+              <img src={Dislike.src} />
             )}
             {dislikesCount > 0 && (
               <Typography
                 sx={{
                   ml: 1,
                   fontSize: "12px",
-                  color: "#858585",
+                  color: "black",
                   fontWeight: "bold",
                 }}
               >

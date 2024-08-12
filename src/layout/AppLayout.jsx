@@ -11,7 +11,7 @@ const AppLayout = ({ children }) => {
       sx={{
         backgroundColor: "#F1F5F6",
         height:
-          typeof window !== "undefined" ? window.innerHeight + "px" : "80vh",
+          typeof window !== "undefined" ? window.innerHeight + "px" : "100vh",
       }}
       item
       xs
