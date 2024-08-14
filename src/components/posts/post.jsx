@@ -21,6 +21,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
 import { myAddressesSelector } from "store/slices/userSlices";
 import IconButton from "@mui/material/IconButton";
+import Save from "components/posts/items/Save";
 
 const Post = ({
   handleOpenModal,
@@ -233,6 +234,7 @@ const Post = ({
                 {!isMyPost && isAuth && <LikesDislikes data={data} />}
               </Grid>
               <Grid container item xs justifyContent={"flex-end"}>
+                <Save />
                 <Share />
 
                 {/* {!isMyPost && (
@@ -271,7 +273,7 @@ const Post = ({
 
           {/* //////////////////////////////////////// More Details ///////////////////////////////////// */}
           {!isPostPage && (
-            <Grid>
+            <Grid container justifyContent={"space-evenly"}>
               <IconButton
                 variant="contained"
                 onClick={() => handleRedirectToPostPage(data.id)}
@@ -283,10 +285,34 @@ const Post = ({
                   fontWeight: "bold",
                   color: "black",
                   fontSize: "14px",
-                  width: "100%",
+                  flex: 1,
+                  mr: 0.5,
+                  "&:hover": {
+                    backgroundColor: "#dedede",
+                  },
                 }}
               >
                 More Details
+              </IconButton>
+              <IconButton
+                variant="contained"
+                onClick={() => handleRedirectToPostPage(data.id)}
+                sx={{
+                  backgroundColor: "#FFD816",
+                  mt: 1,
+                  borderRadius: "10px",
+                  fontFamily: "Saira",
+                  fontWeight: "bold",
+                  color: "black",
+                  fontSize: "14px",
+                  flex: 1,
+                  ml: 0.5,
+                  "&:hover": {
+                    backgroundColor: "#fce46a",
+                  },
+                }}
+              >
+                Contact
               </IconButton>
             </Grid>
           )}

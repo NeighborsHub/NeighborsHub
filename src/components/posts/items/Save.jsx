@@ -1,7 +1,8 @@
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import ShareIcon from "assets/svgs/Post/Share.svg";
+import SaveIcon from "assets/svgs/Post/Save.svg";
+
 const Share = () => {
   return (
     <IconButton
@@ -14,12 +15,13 @@ const Share = () => {
         justifyContent: "center",
         alignItems: "center",
         p: 0,
+        mx: 1,
         "&:hover": {
           backgroundColor: "#d6dbff",
         },
       }}
     >
-      <img src={ShareIcon.src} />
+      <img src={SaveIcon.src} />
     </IconButton>
   );
 };

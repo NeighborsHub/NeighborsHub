@@ -67,6 +67,9 @@ const LikesDislikes = ({ data }) => {
           backgroundColor: "#FDE7E7",
           height: "35px",
           width: "50px",
+          '&:hover':{
+            backgroundColor: "#fcbbbb",
+          }
         }}
       >
         <Grid sx={{display: 'flex'}} alignItems={"center"} justifyContent={"center"}>
@@ -99,6 +102,9 @@ const LikesDislikes = ({ data }) => {
           backgroundColor: "#FDE7E7",
           height: "35px",
           width: "50px",
+          '&:hover':{
+            backgroundColor: "#fcbbbb",
+          }
         }}
       >
         <Grid sx={{display: 'flex'}} alignItems={"center"} justifyContent={"space-around"}>
