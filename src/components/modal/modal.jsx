@@ -20,7 +20,7 @@ const CustomModal = ({ open, onClose, children, width = "md" }) => {
       <Container maxWidth={width} fullWidth>
         <Grid container justifyContent={"flex-end"}>
           <IconButton onClick={onClose} sx={{ p: 1 }}>
-            <CloseIcon sx={{ color: "white" }} />
+            <CloseIcon sx={{ color: "white!important" }} />
           </IconButton>
         </Grid>
         <Card

@@ -16,7 +16,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
 
-const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
+const AppHeader = ({
+  handleSearch = () => {},
+  dialogFilters = () => {},
+  handleSubmitFilters = () => {},
+}) => {
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const [createPostModalOpen, setCreatePostModalOpen] = useState(false);
   const search = useInputHandler("");
@@ -57,7 +61,7 @@ const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
         height: "65px",
       }}
     >
-      <Grid container xs={6} justifyContent={"flex-end"} alignItems={'center'}>
+      <Grid container xs={6} justifyContent={"flex-end"} alignItems={"center"}>
         <Button
           sx={{
             mr: { xs: 1, md: 2 },
@@ -70,7 +74,6 @@ const AppHeader = ({ handleSearch, dialogFilters, handleSubmitFilters }) => {
             },
             minWidth: { xs: "40px", sm: "64px" },
             height: { xs: "40px", sm: "47px" },
-
           }}
           variant="contained"
           onClick={handleOpenFilterDialog}

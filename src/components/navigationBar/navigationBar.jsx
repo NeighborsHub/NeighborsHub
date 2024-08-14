@@ -10,7 +10,7 @@ import AddColored from "assets/svgs/navigationBar/Add-colored.svg";
 import PostsColored from "assets/svgs/navigationBar/Posts-colored.svg";
 import Typography from "@mui/material/Typography";
 
-const NavigationBar = ({ onChange }) => {
+const NavigationBar = ({ onChange=()=>{} }) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
   const handleSelectItem = (index) => {
@@ -26,7 +26,7 @@ const NavigationBar = ({ onChange }) => {
         backgroundColor: "white!important",
         py: "20px",
         height: "90px",
-        marginTop: "-30px",
+        marginTop: "-35px",
         zIndex: "100",
       }}
       justifyContent={"space-evenly"}

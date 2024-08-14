@@ -1,6 +1,6 @@
-'use client'
+"use client";
 import Container from "@mui/material/Container";
-import Header from "components/header";
+import PostHeader from "components/header/postHeader";
 import Grid from "@mui/material/Grid";
 
 const AppLayout = ({ children }) => {
@@ -16,9 +16,14 @@ const AppLayout = ({ children }) => {
       item
       xs
     >
-      <Container maxWidth="lg">
-        {/* <Header /> */}</Container>
-      <Grid container justifyContent={"center"} direction={"column"} item xs>
+      <PostHeader />
+      <Grid
+        container
+        justifyContent={"flex-start"}
+        direction={"column"}
+        item
+        xs
+      >
         {children}
       </Grid>
     </Grid>

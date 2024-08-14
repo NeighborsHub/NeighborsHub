@@ -26,7 +26,9 @@ const PostPage = () => {
   useEffect(() => {
     setTimeout(() => {
       setPostLoading(true);
-      dispatch(getPostAction({ id: postId })).finally(() => setPostLoading(false));
+      dispatch(getPostAction({ id: postId })).finally(() =>
+        setPostLoading(false)
+      );
     }, 500);
   }, [postId]);
 
@@ -49,14 +51,13 @@ const PostPage = () => {
       <Container
         maxWidth="md"
         sx={{
-          maxHeight: "calc( 100vh - 90px )",
           overflowY: "auto",
           px: "0!important",
         }}
         id="postContainer"
       >
-        <Card sx={{ my: 1 }}>
-          <Grid>
+        <Card sx={{ my: 1, mx: 1 }}>
+          <Grid container direction={"column"}>
             {!postLoading && (
               <>
                 <Post
