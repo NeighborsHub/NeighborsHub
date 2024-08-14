@@ -20,6 +20,10 @@ import Divier from "@mui/material/Divider";
 import Message from "assets/svgs/Post/Message.svg";
 import Report from "assets/svgs/Post/Report.svg";
 import Block from "assets/svgs/Post/Block.svg";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import Divider from "@mui/material/Divider";
 
 const Dots = ({
   showLocationOnMap,
@@ -33,6 +37,8 @@ const Dots = ({
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const matchesMd = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleOpenConfirmationModal = () => {
     setOpen(true);
@@ -64,7 +70,7 @@ const Dots = ({
   return (
     <Grid>
       <Chip
-        onClick={handleOpenDrawer}
+        onClick={(e) => (matchesMd ? handleOpenDrawer() : handleOpenMenu(e))}
         label={
           <Grid container justifyContent={"center"} alignItems={"center"}>
             <img src={DotsIcon.src} />
@@ -98,25 +104,78 @@ const Dots = ({
         }}
       >
         {showLocationOnMap && (
-          <MenuItem
-            onClick={() => {
-              handleOpenModal(data);
-              setAnchorEl(null);
-            }}
-          >
-            <LocationOnIcon sx={{ mr: 0.5 }} /> Show On Map
-          </MenuItem>
+          <>
+            <MenuItem
+              onClick={() => {
+                handleOpenModal(data);
+                setAnchorEl(null);
+              }}
+              sx={{ display: "flex", alignItems: "flex-end" }}
+            >
+              <LocationOnOutlinedIcon
+                sx={{
+                  mr: 0.5,
+                  fontSize: "28px!important",
+                  color: "black!important",
+                }}
+              />
+              <Typography
+                sx={{
+                  fontFamily: "Saira",
+                  fontSize: "14px",
+                  color: "black!important",
+                }}
+              >
+                Show On Map
+              </Typography>
+            </MenuItem>
+            <Divider />
+          </>
+        )}
+        {!isMyPost && (
+          <>
+            <MenuItem sx={{ display: "flex", alignItems: "flex-end" }}>
+              <img src={Block.src} style={{ width: "28px", height: "25px" }} />
+              <Typography
+                sx={{
+                  fontFamily: "Saira",
+                  fontSize: "14px",
+                  color: "black!important",
+                  ml: 1,
+                }}
+              >
+                Block
+              </Typography>
+            </MenuItem>
+            <Divider />
+            <MenuItem sx={{ display: "flex", alignItems: "flex-end" }}>
+              <img src={Report.src} style={{ width: "28px", height: "25px" }} />
+              <Typography
+                sx={{
+                  fontFamily: "Saira",
+                  fontSize: "14px",
+                  color: "black!important",
+                  ml: 1,
+                }}
+              >
+                Report
+              </Typography>
+            </MenuItem>
+          </>
         )}
         {isMyPost && (
-          <MenuItem
-            onClick={() => {
-              handleOpenConfirmationModal();
-              setAnchorEl(null);
-            }}
-            sx={{ color: "red" }}
-          >
-            <DeleteIcon /> Delete
-          </MenuItem>
+          <>
+            <Divider />
+            <MenuItem
+              onClick={() => {
+                handleOpenConfirmationModal();
+                setAnchorEl(null);
+              }}
+              sx={{ color: "red" }}
+            >
+              <DeleteIcon /> Delete
+            </MenuItem>
+          </>
         )}
       </Menu>
       <ConfirmationModal
@@ -130,11 +189,21 @@ const Dots = ({
         <Grid sx={{ p: 6 }}>
           <List>
             <ListItem>
-              <ListItemButton sx={{ px: 0 }}>
+              <ListItemButton
+                sx={{ px: 0 }}
+                onClick={() => {
+                  handleOpenModal(data);
+                  setAnchorEl(null);
+                  setDrawerOpen(false);
+                }}
+              >
                 <ListItemIcon>
-                  <img
-                    src={Message.src}
-                    style={{ width: "30px", height: "30px" }}
+                  <LocationOnOutlinedIcon
+                    sx={{
+                      mr: 0.5,
+                      fontSize: "30px!important",
+                      color: "black!important",
+                    }}
                   />
                 </ListItemIcon>
                 <ListItemText
@@ -146,7 +215,7 @@ const Dots = ({
                     },
                   }}
                 >
-                  Message
+                  Show On Map
                 </ListItemText>
               </ListItemButton>
             </ListItem>
