@@ -5,46 +5,19 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { useSelector, useDispatch } from "react-redux";
 import { myInfoSelector } from "store/slices/userSlices";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useRouter } from "next/navigation";
-import { logoutAction } from "store/actions/authActions";
+import LeftResponsiveDrawer from "components/drawer/leftResponsiveDrawer";
+import { useSelector } from "react-redux";
 
 const ResponsiveHeader = () => {
   const myInfo = useSelector(myInfoSelector);
   const [anchorEl, setAnchorEl] = useState(null);
-  const router = useRouter();
-  const dispatch = useDispatch();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handlePushToProfile = () => {
-    router.push("/app/profile");
-    setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    dispatch(logoutAction())
-      .then(() => {
-        router.push("/");
-      })
-      .finally(() => {
-        // dispatch(clearStoreAction());
-        setAnchorEl(null);
-      });
-  };
-
-  const handlePushtoMyPosts = () => {
-    router.push("/app/my-posts");
-    setAnchorEl(null);
+  const handleOpenDrawer = () => {
+    setDrawerOpen(true);
   };
 
   return (
@@ -67,7 +40,7 @@ const ResponsiveHeader = () => {
       >
         <Avatar
           src={myInfo.avatar?.avatar_thumbnail}
-          onClick={handleOpenMenu}
+          onClick={handleOpenDrawer}
         />
       </Grid>
       <Grid sx={{ display: "flex" }}>
@@ -92,19 +65,7 @@ const ResponsiveHeader = () => {
       >
         <SearchIcon sx={{ color: "#999999" }} />
       </IconButton>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={anchorEl}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        <MenuItem onClick={handlePushToProfile}>Profile</MenuItem>
-        <MenuItem onClick={handlePushtoMyPosts}>My Posts</MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-      </Menu>
+      <LeftResponsiveDrawer open={drawerOpen} setOpen={setDrawerOpen} />
     </Grid>
   );
 };
