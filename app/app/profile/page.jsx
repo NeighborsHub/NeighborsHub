@@ -147,7 +147,7 @@ const ResponsiveProfile = () => {
                 </Grid>
               </ListItemIcon>
               <ListItemText
-                primary="Profile"
+                primary="Contact Data"
                 sx={{
                   "& .MuiTypography-root": {
                     fontFamily: "Saira!important",
