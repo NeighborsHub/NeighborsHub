@@ -1,167 +1,335 @@
 "use client";
-import Card from "@mui/material/Card";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import PersonalData from "components/profile/personalData/personalData";
-import Addresses from "components/profile/addresses/addresses";
-import { useState, useMemo } from "react";
-import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
-import Hidden from "@mui/material/Hidden";
-import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import PersonIcon from "@mui/icons-material/Person";
-import HomeIcon from "@mui/icons-material/Home";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import Typography from "@mui/material/Typography";
-import CallIcon from "@mui/icons-material/Call";
-import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
-import ContactData from "components/profile/contactData/contactData";
-const Profile = () => {
-  const [value, setValue] = useState(0);
-  const handleChange = (e, value) => {
-    setValue(value);
-  };
 
-  const status = {
-    0: <PersonalData />,
-    1: <ContactData />,
-    2: <Addresses />,
+import Grid from "@mui/material/Grid";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import { myInfoSelector } from "store/slices/userSlices";
+import { useSelector } from "react-redux";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import CallIcon from "assets/svgs/Profile/Call.svg";
+import AddressIcon from "assets/svgs/Profile/Address.svg";
+import NotificationIcon from "assets/svgs/Profile/Notification.svg";
+import BlackLogoutIcon from "assets/svgs/Profile/BlackLogout.svg";
+import BlackNotificationIcon from "assets/svgs/Profile/BlackNotification.svg";
+import Switch from "@mui/material/Switch";
+import IosSwitch from "components/switch/iosSwitch";
+import { alpha } from "@mui/material/styles";
+const ResponsiveProfile = () => {
+  const myInfo = useSelector(myInfoSelector);
+
+  const handleLogout = () => {
+    dispatch(logoutAction())
+      .then(() => {
+        router.push("/");
+      })
+      .finally(() => {
+        setOpen(false);
+      });
   };
 
   return (
-    <Container
-      maxWidth={"lg"}
-      sx={{
-        overflowY: "auto",
-        height: "calc( 100vh - 90px )",
-        pb: 1,
-        px: 0,
-        display: "flex",
-        direction: "column",
-      }}
+    <Grid
+      container
+      direction="column"
+      justifyContent={"flex-start"}
+      sx={{ flex: 1, p: 2 }}
     >
-      <Card sx={{ display: "flex", py: 1, flex: 1 }}>
-        {/* ////////////////////////////////////// Responsive //////////////////////////////////////// */}
-        <Hidden smUp>
+      <Grid
+        container
+        direction="column"
+        justifyContent={"flex-start"}
+        sx={{
+          backgroundColor: "white!important",
+          borderRadius: "12px",
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: "rgba(229, 229, 229, 1)",
+          py: 4,
+          px: 2,
+        }}
+      >
+        <Grid
+          container
+          direction="column"
+          alignItems={"center"}
+          justifyContent={"flex-start"}
+        >
+          <Avatar
+            alt="Remy Sharp"
+            src={myInfo.avatar?.avatar_thumbnail}
+            sx={{ width: "100px", height: "100px" }}
+          />
+          <Typography
+            sx={{
+              fontWeight: "bold",
+              fontSize: "20px",
+              fontFamily: "Saira",
+              mt: 2,
+            }}
+          >
+            {myInfo.first_name + " " + myInfo.last_name}
+          </Typography>
+          <Typography
+            sx={{
+              fontWeight: "bold",
+              fontSize: "14px",
+              fontFamily: "Saira",
+              color: "#999999",
+              mt: 1,
+            }}
+          >
+            @{myInfo.username}
+          </Typography>
+        </Grid>
+        <Grid container justifyContent={"center"} sx={{ mt: 2 }}>
+          <Button
+            sx={{
+              background:
+                "conic-gradient(from 204.91deg at 77.08% 41.67%, #202328 0deg, #5A6579 164.35deg, #202328 357.31deg, #202328 360deg)!important",
+              color: "white!important",
+              height: "41px",
+              width: "126px",
+              p: 0,
+            }}
+          >
+            Edit Profile
+          </Button>
+        </Grid>
+        <Grid container sx={{ mt: 4 }}>
+          <Typography
+            sx={{
+              fontFamily: "Saira",
+              color: "rgba(153, 153, 153, 1)!important",
+              fontSize: "14px",
+              ml: 1,
+            }}
+          >
+            Information
+          </Typography>
           <Grid
             container
             direction={"column"}
-            alignItems={"center"}
-            sx={{ flexWrap: "nowrap" }}
+            sx={{
+              backgroundColor: "#F7F7F7",
+              borderRadius: "10px",
+              border: "1px solid rgba(229, 229, 229, 1)",
+              mt: 1,
+            }}
           >
-            <Grid sx={{ width: "100%" }}>
-              <Tabs
-                sx={{
-                  justifyContent: "center",
-                  display: "flex",
-                  borderBottom: "1px solid lightGray",
-                  "& .MuiTabs-scroller": {
+            <ListItemButton
+              onClick={() => handlePushToRoute("/app/profile")}
+              sx={{
+                "&.MuiButtonBase-root": {
+                  p: 1,
+                },
+              }}
+            >
+              <ListItemIcon>
+                <Grid
+                  sx={{
+                    width: "36px",
+                    height: "36px",
+                    backgroundColor: "white!important",
                     display: "flex",
+                    alignItems: "center",
                     justifyContent: "center",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <img src={CallIcon.src} />
+                </Grid>
+              </ListItemIcon>
+              <ListItemText
+                primary="Profile"
+                sx={{
+                  "& .MuiTypography-root": {
+                    fontFamily: "Saira!important",
+                    fontSize: "16px",
+                    color: "black!important",
                   },
                 }}
-                value={value}
-                onChange={handleChange}
-              >
-                <Tab label="Personal Data" />
-                <Tab label="Contact Data" />
-                <Tab label="Address" />
-              </Tabs>
-            </Grid>
-            <Grid
-              item
-              justifyContent={"center"}
-              sx={{ mt: 3, overflowY: "auto" }}
-              container
+              />
+              <ArrowForwardIosIcon sx={{ color: "#D9D9D9" }} />
+            </ListItemButton>
+            <Divider sx={{ m: 0 }} />
+            <ListItemButton
+              onClick={() => handlePushToRoute("/app/profile")}
+              sx={{
+                "&.MuiButtonBase-root": {
+                  p: 1,
+                },
+              }}
             >
-              {status[value]}
-            </Grid>
+              <ListItemIcon>
+                <Grid
+                  sx={{
+                    width: "36px",
+                    height: "36px",
+                    backgroundColor: "white!important",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <img src={AddressIcon.src} />
+                </Grid>
+              </ListItemIcon>
+              <ListItemText
+                primary="Your Address"
+                sx={{
+                  "& .MuiTypography-root": {
+                    fontFamily: "Saira!important",
+                    fontSize: "16px",
+                    color: "black!important",
+                  },
+                }}
+              />
+              <ArrowForwardIosIcon sx={{ color: "#D9D9D9" }} />
+            </ListItemButton>
+            <Divider sx={{ m: 0 }} />
+            <ListItemButton
+              onClick={() => handlePushToRoute("/app/profile")}
+              sx={{
+                "&.MuiButtonBase-root": {
+                  p: 1,
+                },
+              }}
+            >
+              <ListItemIcon>
+                <Grid
+                  sx={{
+                    width: "36px",
+                    height: "36px",
+                    backgroundColor: "white!important",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <img src={NotificationIcon.src} />
+                </Grid>
+              </ListItemIcon>
+              <ListItemText
+                primary="Notification"
+                sx={{
+                  "& .MuiTypography-root": {
+                    fontFamily: "Saira!important",
+                    fontSize: "16px",
+                    color: "black!important",
+                  },
+                }}
+              />
+              <ArrowForwardIosIcon sx={{ color: "#D9D9D9" }} />
+            </ListItemButton>
           </Grid>
-        </Hidden>
-        {/* //////////////////////////////////////  //////////////////////////////////////// */}
-        <Hidden smDown>
+        </Grid>
+        <Grid container sx={{ mt: 4 }}>
+          <Typography
+            sx={{
+              fontFamily: "Saira",
+              color: "rgba(153, 153, 153, 1)!important",
+              fontSize: "14px",
+              ml: 1,
+            }}
+          >
+            Other
+          </Typography>
           <Grid
-            item
             container
             direction={"column"}
-            sx={{ width: "200px", mt: 3, pl: 1 }}
+            sx={{
+              backgroundColor: "#F7F7F7",
+              borderRadius: "10px",
+              border: "1px solid rgba(229, 229, 229, 1)",
+              mt: 1,
+            }}
           >
-            <Button
-              onClick={() => setValue(0)}
+            <ListItemButton
               sx={{
-                mb: 2,
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "flex-start",
+                "&.MuiButtonBase-root": {
+                  p: 1,
+                },
               }}
             >
-              {value === 0 ? <PersonIcon /> : <PersonOutlinedIcon />}
-              <Typography
+              <ListItemIcon>
+                <Grid
+                  sx={{
+                    width: "36px",
+                    height: "36px",
+                    backgroundColor: "rgba(255, 251, 229, 1)!important",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "8px",
+                    border: "1px solid rgba(255, 216, 22, 1)",
+                  }}
+                >
+                  <img src={BlackNotificationIcon.src} />
+                </Grid>
+              </ListItemIcon>
+              <ListItemText
+                primary="Push Notification"
                 sx={{
-                  fontSize: "14px",
-                  fontWeight: value === 0 && "bold",
-                  ml: 1,
+                  "& .MuiTypography-root": {
+                    fontFamily: "Saira!important",
+                    fontSize: "16px",
+                    color: "black!important",
+                  },
                 }}
-              >
-                Personal Data
-              </Typography>
-            </Button>
-            <Button
-              onClick={() => setValue(1)}
+              />
+              <IosSwitch />
+            </ListItemButton>
+            <Divider sx={{ m: 0 }} />
+            <ListItemButton
+              onClick={handleLogout}
               sx={{
-                mb: 2,
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "flex-start",
+                "&.MuiButtonBase-root": {
+                  p: 1,
+                },
               }}
             >
-              {value === 1 ? <CallIcon /> : <CallOutlinedIcon />}
-              <Typography
+              <ListItemIcon>
+                <Grid
+                  sx={{
+                    width: "36px",
+                    height: "36px",
+                    backgroundColor: "rgba(253, 231, 231, 1)!important",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "8px",
+                    border: "1px solid rgba(236, 19, 19, 1)",
+                  }}
+                >
+                  <img src={BlackLogoutIcon.src} />
+                </Grid>
+              </ListItemIcon>
+              <ListItemText
+                primary="Your Address"
                 sx={{
-                  fontSize: "14px",
-                  fontWeight: value === 1 && "bold",
-                  ml: 1,
+                  "& .MuiTypography-root": {
+                    fontFamily: "Saira!important",
+                    fontSize: "16px",
+                    color: "black!important",
+                  },
                 }}
-              >
-                Contact Data
-              </Typography>
-            </Button>
-            <Button
-              onClick={() => setValue(2)}
-              sx={{
-                mb: 2,
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "flex-start",
-              }}
-            >
-              {value === 2 ? <HomeIcon /> : <HomeOutlinedIcon />}
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  fontWeight: value === 2 && "bold",
-                  ml: 1,
-                }}
-              >
-                Address
-              </Typography>
-            </Button>
+              />
+              <ArrowForwardIosIcon sx={{ color: "#D9D9D9" }} />
+            </ListItemButton>
           </Grid>
-          <Divider orientation="vertical" />
-          <Grid
-            item
-            xs
-            container
-            justifyContent={"center"}
-            sx={{ mt: 3, overflowY: "auto", px: 1 }}
-          >
-            {status[value]}
-          </Grid>
-        </Hidden>
-      </Card>
-    </Container>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
-export default Profile;
+
+export default ResponsiveProfile;
