@@ -9,9 +9,9 @@ const AppLayout = ({ children }) => {
       container
       direction="column"
       sx={{
-        backgroundColor: "#F1F5F6",
+        backgroundColor: "white",
         height:
-          typeof window !== "undefined" ? window.innerHeight + "px" : "100vh",
+          typeof window !== "undefined" ? window.innerHeight-1 + "px" : "100vh",
       }}
       item
       xs

@@ -13,6 +13,7 @@ import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import { clearPost } from "store/slices/postsSlices";
 import Comments from "components/comments/comments";
+import SubHeader from "components/header/subHeader";
 
 const PostPage = () => {
   const dispatch = useDispatch();
@@ -47,14 +48,22 @@ const PostPage = () => {
   };
 
   return (
-    <Suspense>
-      <Container
-        maxWidth="md"
+    <Grid
+      container
+      direction={"column"}
+      item
+      xs
+      sx={{ overflow: "hidden", backgroundColor: "white!important" }}
+    >
+      <SubHeader title={"Profile"} backPath={"/app"} />
+      <Grid
         sx={{
           overflowY: "auto",
           px: "0!important",
         }}
         id="postContainer"
+        item
+        xs
       >
         <Card sx={{ my: 1, mx: 1 }}>
           <Grid container direction={"column"}>
@@ -100,8 +109,8 @@ const PostPage = () => {
             </Modal>
           </Grid>
         </Card>
-      </Container>
-    </Suspense>
+      </Grid>
+    </Grid>
   );
 };
 export default PostPage;

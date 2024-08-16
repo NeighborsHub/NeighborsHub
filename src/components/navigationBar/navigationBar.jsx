@@ -28,6 +28,7 @@ const NavigationBar = ({ onChange=()=>{} }) => {
         height: "90px",
         marginTop: "-35px",
         zIndex: "100",
+        border: '1px solid rgba(229, 229, 229, 1)'
       }}
       justifyContent={"space-evenly"}
       flexDirection={"row-reverse"}

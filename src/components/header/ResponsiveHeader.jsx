@@ -24,7 +24,12 @@ const ResponsiveHeader = () => {
     <Grid
       container
       justifyContent={"space-between"}
-      sx={{ backgroundColor: "white!important", px: 2, height: "65px" }}
+      sx={{
+        backgroundColor: "white!important",
+        px: 2,
+        height: "65px",
+        boxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.1)",
+      }}
       alignItems={"center"}
     >
       <Grid
