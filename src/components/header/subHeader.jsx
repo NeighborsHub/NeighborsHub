@@ -13,62 +13,43 @@ import { useRouter } from "next/navigation";
 import { logoutAction } from "store/actions/authActions";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const PostHeader = () => {
-  const myInfo = useSelector(myInfoSelector);
-  const [anchorEl, setAnchorEl] = useState(null);
+const SubHeader = ({ title, backPath }) => {
   const router = useRouter();
-  const dispatch = useDispatch();
-
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handlePushToProfile = () => {
-    router.push("/app/profile");
-    setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    dispatch(logoutAction())
-      .then(() => {
-        router.push("/");
-      })
-      .finally(() => {
-        // dispatch(clearStoreAction());
-        setAnchorEl(null);
-      });
-  };
-
-  const handlePushtoMyPosts = () => {
-    router.push("/app/my-posts");
-    setAnchorEl(null);
-  };
 
   const handlePushToPreviousPage = () => {
-    router.back();
+    router.push(backPath);
   };
 
   return (
     <Grid
       container
       justifyContent={"flex-start"}
-      sx={{ backgroundColor: "white!important", px: 2, height: "65px" }}
+      sx={{
+        backgroundColor: "white!important",
+        px: 2,
+        height: "65px",
+        boxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.1)",
+        mb: 2,
+      }}
       alignItems={"center"}
     >
       <IconButton onClick={handlePushToPreviousPage}>
         <ArrowBackIcon sx={{ color: "black!important" }} />
       </IconButton>
       <Typography
-        sx={{ fontFamily: "Saira", color: "black!important", fontSize: "16px" }}
+        sx={{
+          fontFamily: "Saira",
+          color: "black!important",
+          fontSize: "18px",
+          textAlign: "center",
+          width: "calc( 100% - 80px )",
+          fontWeight: "bold",
+        }}
       >
-        Post
+        {title}
       </Typography>
     </Grid>
   );
 };
 
-export default PostHeader;
+export default SubHeader;

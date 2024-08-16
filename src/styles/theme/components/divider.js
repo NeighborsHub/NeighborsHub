@@ -25,11 +25,12 @@ const { dark, transparent, white } = colors;
 const divider = {
   styleOverrides: {
     root: {
-      backgroundColor: transparent.main,
-      backgroundImage: `linear-gradient(to right, ${rgba(dark.main, 0)}, ${rgba(
-        dark.main,
-        0.4
-      )}, ${rgba(dark.main, 0)}) !important`,
+      backgroundColor: "rgba(217, 217, 217, 1)",
+      // backgroundColor: transparent.main,
+      // backgroundImage: `linear-gradient(to right, ${rgba(dark.main, 0)}, ${rgba(
+      //   dark.main,
+      //   0.4
+      // )}, ${rgba(dark.main, 0)}) !important`,
       height: pxToRem(1),
       margin: `${pxToRem(16)} 0`,
       borderBottom: "none",
@@ -38,10 +39,10 @@ const divider = {
 
     vertical: {
       backgroundColor: transparent.main,
-      backgroundImage: `linear-gradient(to bottom, ${rgba(dark.main, 0)}, ${rgba(
+      backgroundImage: `linear-gradient(to bottom, ${rgba(
         dark.main,
-        0.4
-      )}, ${rgba(dark.main, 0)}) !important`,
+        0
+      )}, ${rgba(dark.main, 0.4)}, ${rgba(dark.main, 0)}) !important`,
       width: pxToRem(1),
       height: "100%",
       margin: `0 ${pxToRem(16)}`,
@@ -50,16 +51,14 @@ const divider = {
 
     light: {
       backgroundColor: transparent.main,
-      backgroundImage: `linear-gradient(to right, ${rgba(white.main, 0)}, ${white.main}, ${rgba(
-        white.main,
-        0
-      )}) !important`,
+      backgroundImage: `linear-gradient(to right, ${rgba(white.main, 0)}, ${
+        white.main
+      }, ${rgba(white.main, 0)}) !important`,
 
       "&.MuiDivider-vertical": {
-        backgroundImage: `linear-gradient(to bottom, ${rgba(white.main, 0)}, ${white.main}, ${rgba(
-          white.main,
-          0
-        )}) !important`,
+        backgroundImage: `linear-gradient(to bottom, ${rgba(white.main, 0)}, ${
+          white.main
+        }, ${rgba(white.main, 0)}) !important`,
       },
     },
   },

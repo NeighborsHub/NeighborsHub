@@ -1,6 +1,6 @@
 "use client";
 import Container from "@mui/material/Container";
-import PostHeader from "components/header/postHeader";
+import SubHeader from "components/header/subHeader";
 import Grid from "@mui/material/Grid";
 
 const AppLayout = ({ children }) => {
@@ -16,7 +16,7 @@ const AppLayout = ({ children }) => {
       item
       xs
     >
-      <PostHeader />
+      <SubHeader title={"Post"} backPath={"/app"} />
       <Grid
         container
         justifyContent={"flex-start"}
