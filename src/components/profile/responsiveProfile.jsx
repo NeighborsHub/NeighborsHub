@@ -38,8 +38,16 @@ const ResponsiveProfile = () => {
       });
   };
 
+  const handlePushToRoute = (path) => router.push(path);
+
   return (
-    <Grid container direction={"column"} item xs sx={{overflow: 'hidden' , backgroundColor: 'white!important'}}>
+    <Grid
+      container
+      direction={"column"}
+      item
+      xs
+      sx={{ overflow: "hidden", backgroundColor: "white!important" }}
+    >
       <SubHeader title={"Profile"} backPath={"/app"} />
       <Grid
         container
@@ -131,7 +139,7 @@ const ResponsiveProfile = () => {
               }}
             >
               <ListItemButton
-                onClick={() => handlePushToRoute("/app/profile")}
+                onClick={() => handlePushToRoute("/app/profile/contact-data")}
                 sx={{
                   "&.MuiButtonBase-root": {
                     p: 1,
