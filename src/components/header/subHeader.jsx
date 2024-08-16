@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { logoutAction } from "store/actions/authActions";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const SubHeader = ({ title, backPath }) => {
+const SubHeader = ({ title, backPath, children }) => {
   const router = useRouter();
 
   const handlePushToPreviousPage = () => {
@@ -33,21 +33,27 @@ const SubHeader = ({ title, backPath }) => {
       }}
       alignItems={"center"}
     >
-      <IconButton onClick={handlePushToPreviousPage}>
-        <ArrowBackIcon sx={{ color: "black!important" }} />
-      </IconButton>
+      <Grid sx={{ width: "90px" }}>
+        <IconButton onClick={handlePushToPreviousPage}>
+          <ArrowBackIcon sx={{ color: "black!important" }} />
+        </IconButton>
+      </Grid>
       <Typography
         sx={{
           fontFamily: "Saira",
           color: "black!important",
           fontSize: "18px",
           textAlign: "center",
-          width: "calc( 100% - 80px )",
+          // width: "calc( 100% - 159px )",
           fontWeight: "bold",
+          flex: 1,
         }}
       >
         {title}
       </Typography>
+      <Grid sx={{ display: "flex", justifyContent: "flex-end", width: "90px" }}>
+        {children}
+      </Grid>
     </Grid>
   );
 };

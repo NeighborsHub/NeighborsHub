@@ -48,6 +48,7 @@ const LeftResponsiveDrawer = ({ children, open, setOpen }) => {
           height: window.innerHeight + "px",
           boxSizing: "border-box",
           overflowX: "hidden",
+          overflow: 'hidden'
         },
       }}
     >

@@ -175,7 +175,7 @@ const ResponsiveProfile = () => {
               </ListItemButton>
               <Divider sx={{ m: 0 }} />
               <ListItemButton
-                onClick={() => handlePushToRoute("/app/profile")}
+                onClick={() => handlePushToRoute("/app/profile/addresses")}
                 sx={{
                   "&.MuiButtonBase-root": {
                     p: 1,

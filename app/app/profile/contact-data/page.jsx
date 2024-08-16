@@ -4,11 +4,13 @@ import SubHeader from "components/header/subHeader";
 import TextField from "components/inputs/bootstrapInput";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
+import { useRouter } from "next/navigation";
 
 const ContactData = () => {
+  const router = useRouter();
   return (
     <Grid container direction={"column"} item xs>
-      <SubHeader title={"Contact Data"} backPath={"/app"} />
+      <SubHeader title={"Contact Data"} backPath={"/app/profile"} />
       <Grid
         container
         direction={"column"}
@@ -75,7 +77,7 @@ const ContactData = () => {
             <TextField label="First Name" fullWidth id="bootstrap-input" />
             <Button
               onClick={() =>
-                router.push("/app/profile/contact-data/edit-email")
+                router.push("/app/profile/contact-data/email-edit")
               }
               sx={{
                 backgroundColor: "rgba(255, 216, 22, 1)",
