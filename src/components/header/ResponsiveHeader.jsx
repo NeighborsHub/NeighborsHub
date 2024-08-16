@@ -29,6 +29,7 @@ const ResponsiveHeader = () => {
         px: 2,
         height: "65px",
         boxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.1)",
+        zIndex: 100
       }}
       alignItems={"center"}
     >
