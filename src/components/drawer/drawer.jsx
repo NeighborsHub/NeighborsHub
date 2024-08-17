@@ -1,5 +1,5 @@
 import MuiDrawer from "@mui/material/Drawer";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 
 const Drawer = ({ children, open, setOpen }) => {
   const handleClose = () => {
@@ -19,10 +19,10 @@ const Drawer = ({ children, open, setOpen }) => {
       onClose={handleClose}
       sx={{
         ".MuiDrawer-root": {
-          maxHeight: "250px",
+          minHeight: "100px",
         },
         ".MuiDrawer-paper": {
-          maxHeight: "250px",
+          minHeight: "100px",
           width: "100%",
         },
         ".MuiPaper-root": {
@@ -30,6 +30,7 @@ const Drawer = ({ children, open, setOpen }) => {
           borderRadius: "24px",
           borderBottomLeftRadius: 0,
           borderBottomRightRadius: 0,
+          height: "auto",
         },
       }}
     >
