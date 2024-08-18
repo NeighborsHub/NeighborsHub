@@ -7,15 +7,7 @@ const Chat = ({ isFullWidth }) => {
   const params = useSearchParams();
 
   return (
-    <Grid
-      container
-      direction={"column"}
-      sx={{
-        border: "1px solid lightGray",
-        height: "100%",
-        overflow: "hidden",
-      }}
-    >
+    <Grid container direction={"column"} item xs>
       {params.get("status") === "conversation" ? (
         <Conversation />
       ) : (

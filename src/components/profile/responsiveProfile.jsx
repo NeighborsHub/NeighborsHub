@@ -329,7 +329,7 @@ const ResponsiveProfile = () => {
                   </Grid>
                 </ListItemIcon>
                 <ListItemText
-                  primary="Your Address"
+                  primary="Logout"
                   sx={{
                     "& .MuiTypography-root": {
                       fontFamily: "Saira!important",

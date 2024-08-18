@@ -274,7 +274,7 @@ const App = () => {
                 scrollParentId="appPostLists"
                 handleChangeTab={handleChangeTab}
               />
-            ) : tabValue === 3 ? (
+            ) : tabValue === 2 ? (
               <Chat />
             ) : null}
           </Grid>

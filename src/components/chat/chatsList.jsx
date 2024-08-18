@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import { chatsSelector } from "store/slices/chatSlices";
 import { getMyChatsAction } from "store/actions/chatActions";
 import { useDispatch, useSelector } from "react-redux";
+import Button from "@mui/material/Button";
+import SubHeader from "components/header/subHeader";
 
 const ChatsList = ({ isFullWidth }) => {
   const search = useInputHandler("");
@@ -19,10 +21,13 @@ const ChatsList = ({ isFullWidth }) => {
   const routeQuery = useRouteQuery();
   const chats = useSelector(chatsSelector);
   const handleGoToConversation = ({ conversationId }) =>
-    routeQuery({
-      status: "conversation",
-      conversationId,
-    });
+    routeQuery(
+      {
+        status: "conversation",
+        conversationId,
+      },
+      "/app/chat"
+    );
   const handleGoToPostsList = () =>
     routeQuery({
       status: "posts",
@@ -35,90 +40,83 @@ const ChatsList = ({ isFullWidth }) => {
   }, []);
 
   return (
-    <Grid
-      item
-      xs
-      container
-      sx={{
-        p: 1,
-        flex: 1,
-        overflow: "hidden",
-        borderBottom: "1px solid lightGray",
-        position: "relative",
-      }}
-      direction={"column"}
-    >
-      <Grid container sx={{ pb: 1 }} alignItems={"center"}>
-        <Grid>
-          {isFullWidth && (
-            <IconButton>
-              <ArrowBackIcon
-                sx={{ fill: "gray" }}
-                onClick={handleGoToPostsList}
-              />
-            </IconButton>
-          )}
-        </Grid>
-        <Grid item xs sx={{ pl: 1 }}>
-          <TextField
-            autocomplete="off"
-            name="search"
-            placeholder="Search"
-            fullWidth
-            sx={{
-              backgroundColor: "white",
-              borderRadius: "10px",
-
-              "& .MuiOutlinedInput-notchedOutline": {
-                fontSize: "12px",
-                display: "none",
-              },
-              "& .MuiInputBase-input": {
-                padding: "12px 20px",
-              },
-            }}
-            InputLabelProps={{
-              sx: {
-                color: "darkenGray",
-                fontSize: "12px",
-                fontWeight: "bold",
-              },
-            }}
-            {...search}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleSubmit}
-                    edge="end"
-                  >
-                    <SearchIcon sx={{ fill: "gray" }} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
+    <Grid container direction={"column"} item xs>
+      <Grid container sx={{ px: 2, mb: 2, mt: 2 }}>
+        <TextField
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <img src={SearchIcon.src} />
+              </InputAdornment>
+            ),
+          }}
+          placeholder="Search"
+          disabled
+          fullWidth
+        />
       </Grid>
-      <Grid container direction="column" sx={{ flex: 1, overflowY: "auto" }}>
-        {chats.length > 0 ? (
-          <Grid>
-            {chats.map((item, index) => (
-              <ChatsListItem
-                key={index}
-                data={item}
-                onClick={() =>
-                  handleGoToConversation({ conversationId: item.room_id })
-                }
-              />
-            ))}
+
+      <Grid
+        container
+        direction={"column"}
+        justifyContent={"flex-start"}
+        item
+        xs
+        alignItems={"center"}
+        sx={{
+          flex: 1,
+          px: 2,
+          backgroundColor: "white!important",
+          boxSizing: "border-box",
+          mb: 2,
+        }}
+      >
+        <Grid
+          container
+          direction="column"
+          justifyContent={"flex-start"}
+          sx={{
+            backgroundColor: "white!important",
+            borderRadius: "12px",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor: "rgba(229, 229, 229, 1)",
+            // px: 2,
+            boxSizing: "border-box",
+            position: "relative",
+          }}
+          item
+          xs
+        >
+          <Grid
+            container
+            direction="column"
+            sx={{ flex: 1, overflowY: "auto" }}
+          >
+            {chats.length > 0 ? (
+              <Grid>
+                {chats.map((item, index) => (
+                  <ChatsListItem
+                    key={index}
+                    data={item}
+                    onClick={() =>
+                      handleGoToConversation({ conversationId: item.room_id })
+                    }
+                  />
+                ))}
+              </Grid>
+            ) : (
+              <Grid
+                xs
+                container
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                You Have Not Any Conversation.
+              </Grid>
+            )}
           </Grid>
-        ) : (
-          <Grid xs container alignItems={"center"} justifyContent={"center"}>
-            You Have Not Any Conversation.
-          </Grid>
-        )}
+        </Grid>
       </Grid>
     </Grid>
   );

@@ -39,7 +39,7 @@ const Conversation = () => {
         message: message.value,
         user: myInfo.id,
         room_id: tempConversationId,
-        post_id: postId
+        post_id: postId,
       })
     );
     message.onChange({ target: { value: "" } });
@@ -66,12 +66,7 @@ const Conversation = () => {
   }, [messageListRef.current]);
 
   return (
-    <Grid
-      container
-      direction="column"
-      sx={{ position: "relative", overflow: "hidden", flex: 1 }}
-    >
-      <ConversationTitle />
+    <Grid container direction="column" sx={{ position: "relative" }} item xs>
       <ConversationMessages
         ref={messageListRef}
         isInView={isInView}

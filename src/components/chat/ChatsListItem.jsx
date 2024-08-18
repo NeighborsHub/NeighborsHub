@@ -5,7 +5,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import moment from "moment";
 
 const ChatsListItem = ({ onClick, data }) => {
-  console.log(data, "teeeeeeeeeeeeeeeees");
   return (
     <ListItemButton
       container
@@ -23,7 +22,9 @@ const ChatsListItem = ({ onClick, data }) => {
         <Avatar src={data.avatar.avatar_thumbnail} />
       </Grid>
       <Grid item xs direction="column" sx={{ ml: 1 }}>
-        <Typography sx={{ fontWeight: "bold" }}>{data.name}</Typography>
+        <Typography sx={{ fontWeight: "bold", fontSize: "13px!important" }}>
+          {data.name}
+        </Typography>
         <Typography sx={{ fontSize: "13px", color: "gray" }}>
           {data.last_message?.message}
         </Typography>

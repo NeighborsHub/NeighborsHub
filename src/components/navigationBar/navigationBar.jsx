@@ -9,13 +9,26 @@ import ChatColored from "assets/svgs/navigationBar/Chat-colored.svg";
 import AddColored from "assets/svgs/navigationBar/Add-colored.svg";
 import PostsColored from "assets/svgs/navigationBar/Posts-colored.svg";
 import Typography from "@mui/material/Typography";
+import { useRouter, usePathname } from "next/navigation";
 
-const NavigationBar = ({ onChange=()=>{} }) => {
+const NavigationBar = ({ onChange = () => {} }) => {
+  const router = useRouter();
+  const pathname = usePathname();
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+  // const [selectedItemIndex, setSelectedItemIndex] = useState(
+  //   pathname === "/app/map/"
+  //     ? 0
+  //     : pathname === "/app/posts/"
+  //     ? 1
+  //     : pathname === "/app/chat/"
+  //     ? 2
+  //     : null
+  // );
 
-  const handleSelectItem = (index) => {
+  const handleSelectItem = (index, path) => {
     setSelectedItemIndex(index);
     onChange({}, index);
+    // router.push("/app/" + path);
   };
   return (
     <Grid
@@ -28,7 +41,7 @@ const NavigationBar = ({ onChange=()=>{} }) => {
         height: "90px",
         marginTop: "-35px",
         zIndex: "100",
-        border: '1px solid rgba(229, 229, 229, 1)',
+        border: "1px solid rgba(229, 229, 229, 1)",
         boxShadow: "0px -1px 10px 0px rgba(0, 0, 0, 0.1)",
       }}
       justifyContent={"space-evenly"}
@@ -49,18 +62,11 @@ const NavigationBar = ({ onChange=()=>{} }) => {
         index={1}
       />
       <Icon
-        icon={selectedItemIndex === 2 ? AddColored : Add}
-        text={"add"}
-        onClick={handleSelectItem}
-        selectedItemIndex={selectedItemIndex}
-        index={2}
-      />
-      <Icon
-        icon={selectedItemIndex === 3 ? ChatColored : Chat}
+        icon={selectedItemIndex === 2 ? ChatColored : Chat}
         text={"chat"}
         onClick={handleSelectItem}
         selectedItemIndex={selectedItemIndex}
-        index={3}
+        index={2}
       />
     </Grid>
   );
@@ -77,7 +83,7 @@ const Icon = ({ icon, text, onClick, selectedItemIndex, index }) => {
       alignItems={"center"}
       item
       xs
-      onClick={() => onClick(index)}
+      onClick={() => onClick(index, text)}
       sx={{ cursor: "pointer" }}
     >
       <img src={icon.src} style={{ fill: "red" }} />
