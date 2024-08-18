@@ -7,6 +7,8 @@ import TextField from "components/inputs/textfiled";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useRouter } from "next/navigation";
 import SearchIcon from "assets/svgs/Search.svg";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import IconButton from "@mui/material/IconButton";
 
 const ChatWrapper = () => {
   const router = useRouter();
@@ -14,19 +16,9 @@ const ChatWrapper = () => {
   return (
     <Grid container direction={"column"} item xs>
       <SubHeader title={"Milad Seyf"} backPath={"/app/"}>
-        <Button
-          sx={{
-            height: "33px",
-            minHeight: 0,
-            width: "90px",
-            p: 0,
-            color: "black!important",
-            backgroundColor: "rgba(255, 216, 22, 1)",
-          }}
-          onClick={() => router.push("/app/profile/addresses/map")}
-        >
-          Add New
-        </Button>
+        <IconButton edge="end" aria-label="delete" sx={{ width: "70px" }}>
+          <MoreVertIcon />
+        </IconButton>
       </SubHeader>
       <Grid container sx={{ px: 2, mb: 2 }}>
         <TextField

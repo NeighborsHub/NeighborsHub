@@ -55,7 +55,7 @@ const PostPage = () => {
       xs
       sx={{ overflow: "hidden", backgroundColor: "white!important" }}
     >
-      <SubHeader title={"Profile"} backPath={"/app"} />
+      <SubHeader title={"Post"} backPath={"/app"} />
       <Grid
         sx={{
           overflowY: "auto",

@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import { getMyPostsAction } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import SubHeader from "components/header/subHeader";
 const MyPosts = () => {
   const posts = useSelector(myPostsSelector);
   const dispatch = useDispatch();
@@ -16,23 +17,29 @@ const MyPosts = () => {
   }, []);
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        px: "0!important",
-      }}
-    >
+    <Grid container direction={"column"} item xs>
+      <SubHeader title={"Milad Seyf"} backPath={"/app/"} />
+
       <Grid
         container
-        justifyContent={"center"}
-        sx={{ px: 1, height: "calc( 100vh - 95px )", overflowY: "auto" }}
+        direction={"column"}
+        justifyContent={"flex-start"}
+        item
+        xs
+        alignItems={"center"}
+        sx={{
+          flex: 1,
+          px: 2,
+          backgroundColor: "white!important",
+          boxSizing: "border-box",
+          mb: 2,
+        }}
       >
-        <PostList posts={posts} showLocationOnMap />
+        <Grid container direction="column" item xs sx={{ overflowY: "auto" }}>
+          <PostList posts={posts} showLocationOnMap />
+        </Grid>
       </Grid>
-    </Container>
+    </Grid>
   );
 };
 
