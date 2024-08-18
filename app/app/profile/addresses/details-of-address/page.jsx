@@ -86,7 +86,7 @@ const AddressesModalAddress = ({
                 Address
               </InputLabel>
               <TextField
-                value={address}
+                // value={address}
                 fullWidth
                 onChange={handleAddressChanged}
                 // onChange={(e) => handleAddressListChange(key, e.target.value)}
