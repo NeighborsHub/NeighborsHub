@@ -4,14 +4,14 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Hidden from "@mui/material/Hidden";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -25,9 +25,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import PersonIcon from "@mui/icons-material/Person";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import { usePathname } from "next/navigation";
+
 import { useDispatch } from "react-redux";
 import LocationOn from "@mui/icons-material/LocationOn";
 import { logoutAction } from "store/actions/authActions";
@@ -35,27 +33,20 @@ import { authSelector } from "store/slices/authSlices";
 import { useSelector } from "react-redux";
 import Badge from "@mui/material/Badge";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-
-const path = {
-  "/": 0,
-  "/app": 1,
-  "/about-us": 2,
-};
-
+import { myInfoSelector } from "store/slices/userSlices";
+import Avatar from "@mui/material/Avatar";
+import Logo from "components/logo/logo";
+import HeaderRouterButtons from "components/navigationBar/headerRoutesButtons";
+import AvatarNameAndUserNameWithMenu from "components/avatar/avatarNameAndUserNameWithMenu";
 const Header = () => {
-  const [navigationValue, setNavigationValue] = useState(0);
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuOpen = Boolean(anchorEl);
   const isAuth = useSelector(authSelector);
+  const myInfo = useSelector(myInfoSelector);
 
-  const pathname = usePathname();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setNavigationValue(path[pathname]);
-  }, []);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -89,250 +80,17 @@ const Header = () => {
   return (
     <Grid
       container
-      sx={{
-        flex: 1,
-        // backgroundImage: `url(${BackgroundImage.src})`,
-        backgroundRepeat: "no-repeat",
-        pt: 2,
-        pb: 2,
-      }}
       justifyContent={"space-between"}
       alignItems={"center"}
+      sx={{ py: 1 }}
     >
-      <Hidden mdUp>
-        <Grid xs={12} container justifyContent={"space-between"}>
-          <Grid>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={() => setOpen(true)}
-              edge="start"
-              sx={{ ...(open && { display: "none" }) }}
-            >
-              <MenuIcon sx={{ color: "gray", fontSize: "35px" }} />
-            </IconButton>
-          </Grid>
-          <Grid>
-            <Typography
-              sx={{
-                // fontFamily: "Ephesis-Regular",
-                fontWeight: "bolder",
-                display: "flex",
-                alignItems: "flex-end",
-                fontSize: "24px",
-                textDecoration: "underline",
-                color: "black",
-                fontWeight: "bold",
-              }}
-            >
-              <LocationOn
-                sx={{
-                  fontSize: "35px",
-                }}
-              />
-              NeighborsHub
-            </Typography>
-          </Grid>
-          <Grid>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleOpenMenu}
-              edge="start"
-              sx={{
-                visibility: isAuth ? "" : "hidden",
-              }}
-            >
-              <PersonIcon
-                sx={{
-                  color: "gray",
-                  border: "1px solid gray",
-                  p: 0.5,
-                  borderRadius: "100%",
-                  fontSize: "25px",
-                }}
-              />
-            </IconButton>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={menuOpen}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-            >
-              <MenuItem onClick={handlePushToProfile}>Profile</MenuItem>
-              <MenuItem onClick={handlePushtoMyPosts}>My Posts</MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </Menu>
-          </Grid>
-        </Grid>
-      </Hidden>
-      <Hidden mdDown>
-        <Grid>
-          <Typography
-            sx={{
-              // fontFamily: "Ephesis-Regular",
-              fontWeight: "bolder",
-              display: "flex",
-              alignItems: "flex-end",
-              fontSize: "24px",
-              textDecoration: "underline",
-              color: "black",
-              fontWeight: "bold",
-            }}
-          >
-            <LocationOn
-              sx={{
-                fontSize: "35px",
-              }}
-            />
-            NeighborsHub
-          </Typography>
-        </Grid>
-        <Grid>
-          <BottomNavigation
-            showLabels
-            value={navigationValue}
-            onChange={(event, newValue) => {
-              setNavigationValue(newValue);
-            }}
-            sx={{ backgroundColor: "transparent" }}
-          >
-            <BottomNavigationAction
-              sx={{ width: "100px", color: "black" }}
-              label="Home"
-              onClick={() => router.push("/")}
-            />
-            <BottomNavigationAction
-              label="App"
-              onClick={() => router.push("/app")}
-            />
-            <BottomNavigationAction
-              label="About Us"
-              onClick={() => router.push("/about-us")}
-            />
-          </BottomNavigation>
-        </Grid>
-        <Grid
-          sx={{ width: "200px" }}
-          container
-          justifyContent={"flex-end"}
-          alignItems={"center"}
-        >
-          {isAuth ? (
-            <>
-              <Badge
-                badgeContent={4}
-                color="primary"
-                sx={{
-                  mr: "30px",
-                  "& .MuiBadge-badge": {
-                    backgroundColor: "red",
-                    top: "6px",
-                    right: "6px",
-                  },
-                }}
-              >
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={handleOpenMenu}
-                  edge="start"
-                  sx={{ padding: "4px!important", height: "fit-content" }}
-                >
-                  <NotificationsNoneIcon
-                    sx={{
-                      color: "gray",
-                      p: 0.5,
-                      fontSize: "25px",
-                      border: "1px solid gray",
-                      borderRadius: "100%",
-                    }}
-                  />
-                </IconButton>
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={menuOpen}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                  }}
-                >
-                  <MenuItem onClick={handlePushToProfile}>Profile</MenuItem>
-                  <MenuItem onClick={handlePushtoMyPosts}>My Posts</MenuItem>
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                </Menu>
-              </Badge>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleOpenMenu}
-                edge="start"
-                sx={{ padding: "0!important" }}
-              >
-                <PersonIcon
-                  sx={{
-                    color: "gray",
-                    border: "1px solid gray",
-                    borderRadius: "100%",
-                    p: 0.5,
-                    fontSize: "25px",
-                  }}
-                />
-              </IconButton>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={menuOpen}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-              >
-                <MenuItem onClick={handlePushToProfile}>Profile</MenuItem>
-                <MenuItem onClick={handlePushtoMyPosts}>My Posts</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-              </Menu>
-            </>
-          ) : (
-            <>
-              <Link href="/signin">
-                <Button
-                  sx={{
-                    mx: 2,
-                    fontWeight: "500",
-                    color: "#e85a02",
-                    borderRadius: "15px",
-                    // "&:hover": {
-                    //   backgroundImage:
-                    //     "linear-gradient(90deg, #f27527, #ff9959)",
-                    //   color: "white",
-                    // },
-                  }}
-                  variant="text"
-                >
-                  Sign in
-                </Button>
-              </Link>
-              <Link href="/signup">
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundImage: "linear-gradient(90deg, #0D869C, #3BB4DD)",
-                    borderRadius: "15px",
-                    boxShadow: "none",
-                  }}
-                >
-                  Sign Up
-                </Button>
-              </Link>
-            </>
-          )}
-        </Grid>
-      </Hidden>
+      <Grid sx={{ display: "flex" }}>
+        {isAuth && <AvatarNameAndUserNameWithMenu />}
+
+        <HeaderRouterButtons />
+      </Grid>
+
+      <Logo />
 
       <Drawer
         anchor={"left"}

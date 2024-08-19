@@ -38,7 +38,7 @@ const NavigationBar = ({ onChange = () => {} }) => {
         borderTopLeftRadius: "30px",
         backgroundColor: "white!important",
         py: "10px",
-        height: "90px",
+        height: "76px",
         marginTop: "-35px",
         zIndex: "100",
         border: "1px solid rgba(229, 229, 229, 1)",

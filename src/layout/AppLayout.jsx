@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Container from "@mui/material/Container";
 import Header from "components/header";
 import Grid from "@mui/material/Grid";
@@ -11,13 +11,16 @@ const AppLayout = ({ children }) => {
       sx={{
         backgroundColor: "white",
         height:
-          typeof window !== "undefined" ? window.innerHeight-1 + "px" : "100vh",
+          typeof window !== "undefined"
+            ? window.innerHeight - 1 + "px"
+            : "100vh",
       }}
       item
       xs
     >
       <Container maxWidth="lg">
-        {/* <Header /> */}</Container>
+        <Header />
+      </Container>
       <Grid container justifyContent={"center"} direction={"column"} item xs>
         {children}
       </Grid>
