@@ -177,11 +177,7 @@ const App = () => {
           dialogFilters={dialogFilters}
           handleSubmitFilters={handleSubmitFilters}
         />
-        <Grid
-          container
-          justifyContent={"center"}
-          sx={{ height: "calc( 100vh - 160px )" }}
-        >
+        <Grid container justifyContent={"center"} item xs>
           {mainAddress ? (
             <>
               <Grid
