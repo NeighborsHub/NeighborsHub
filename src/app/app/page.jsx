@@ -23,6 +23,7 @@ import AppHeader from "components/header/appHeader";
 import { useSearchParams } from "next/navigation";
 import NavigationBar from "components/navigationBar/navigationBar";
 import ResponsiveHeader from "components/header/ResponsiveHeader";
+import Header from "components/header";
 
 let controller;
 
@@ -172,6 +173,7 @@ const App = () => {
       direction={"column"}
     >
       <Hidden mdDown>
+        <Header />
         <AppHeader
           handleSearch={handleSearch}
           dialogFilters={dialogFilters}
@@ -199,7 +201,10 @@ const App = () => {
                 )}
               </Grid>
               <Grid
-                sx={{ height: "100%", overflowY: "auto" }}
+                sx={{
+                  height: "100%",
+                  overflowY: "auto",
+                }}
                 container
                 item
                 lg={4}

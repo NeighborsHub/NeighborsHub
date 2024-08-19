@@ -1,6 +1,5 @@
 "use client";
 import Container from "@mui/material/Container";
-import Header from "components/header";
 import Grid from "@mui/material/Grid";
 
 const AppLayout = ({ children }) => {
@@ -18,7 +17,6 @@ const AppLayout = ({ children }) => {
       item
       xs
     >
-      <Header />
       <Grid container justifyContent={"center"} direction={"column"} item xs>
         {children}
       </Grid>
