@@ -18,9 +18,7 @@ const AppLayout = ({ children }) => {
       item
       xs
     >
-      <Container maxWidth="lg">
-        <Header />
-      </Container>
+      <Header />
       <Grid container justifyContent={"center"} direction={"column"} item xs>
         {children}
       </Grid>

@@ -28,7 +28,7 @@ const HeaderRouterButtons = () => {
         onChange={(event, newValue) => {
           setNavigationValue(newValue);
         }}
-        sx={{ backgroundColor: "transparent" }}
+        sx={{ backgroundColor: "transparent!important" }}
       >
         <Divider orientation="vertical" sx={{ m: 0 }} />
         <BottomNavigationAction

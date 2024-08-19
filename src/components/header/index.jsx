@@ -38,6 +38,8 @@ import Avatar from "@mui/material/Avatar";
 import Logo from "components/logo/logo";
 import HeaderRouterButtons from "components/navigationBar/headerRoutesButtons";
 import AvatarNameAndUserNameWithMenu from "components/avatar/avatarNameAndUserNameWithMenu";
+import Container from "@mui/material/Container";
+
 const Header = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -82,119 +84,18 @@ const Header = () => {
       container
       justifyContent={"space-between"}
       alignItems={"center"}
-      sx={{ py: 1 }}
+      sx={{ py: 1, backgroundColor: "rgba(247, 247, 247, 1)" }}
     >
-      <Grid sx={{ display: "flex" }}>
-        {isAuth && <AvatarNameAndUserNameWithMenu />}
+      <Container maxWidth="lg">
+        <Grid container justifyContent={"space-between"} alignItems={"center"}>
+          <Grid sx={{ display: "flex" }}>
+            {isAuth && <AvatarNameAndUserNameWithMenu />}
 
-        <HeaderRouterButtons />
-      </Grid>
-
-      <Logo />
-
-      <Drawer
-        anchor={"left"}
-        open={open}
-        onClose={() => {
-          setOpen((prev) => !prev);
-        }}
-      >
-        <Grid sx={{ width: "300px" }}>
-          <Grid container justifyContent={"flex-end"}>
-            <IconButton
-              sx={{ p: 2 }}
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              <ArrowBackIosNewIcon />
-            </IconButton>
+            <HeaderRouterButtons />
           </Grid>
-          <Divider />
-
-          <List onClick={() => setOpen(false)}>
-            <Link href="/">
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <HomeIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Home"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Link href="/app">
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <LocationOnIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"App"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Link href="/about-us">
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <LightbulbIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"About Us"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Divider />
-
-            {isAuth ? (
-              <>
-                <Link href="/app/profile">
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <PersonIcon />
-                      </ListItemIcon>
-                      <ListItemText primary={"Profile"} />
-                    </ListItemButton>
-                  </ListItem>
-                </Link>
-                <Divider />
-                <ListItem disablePadding onClick={handleLogout}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <LogoutIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={"Log Out"} />
-                  </ListItemButton>
-                </ListItem>
-                <Divider />
-              </>
-            ) : (
-              <>
-                <Link href="/signup">
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <LoginIcon />
-                      </ListItemIcon>
-                      <ListItemText primary={"Sign Up"} />
-                    </ListItemButton>
-                  </ListItem>
-                </Link>
-                <Link href="/signin">
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <LogoutIcon />
-                      </ListItemIcon>
-                      <ListItemText primary={"Sign In"} />
-                    </ListItemButton>
-                  </ListItem>
-                </Link>
-              </>
-            )}
-          </List>
+          <Logo />
         </Grid>
-      </Drawer>
+      </Container>
     </Grid>
   );
 };
