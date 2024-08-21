@@ -46,6 +46,7 @@ const AvatarNameAndUserNameWithMenu = () => {
         sx={{ width: "250px" }}
         alignItems={"center"}
         justifyContent={"space-between"}
+        onClick={handleOpenMenu}
       >
         <AvatarNameAndUserName
           onClick={handleOpenMenu}
