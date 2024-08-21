@@ -24,6 +24,7 @@ import { useSearchParams } from "next/navigation";
 import NavigationBar from "components/navigationBar/navigationBar";
 import ResponsiveHeader from "components/header/ResponsiveHeader";
 import Header from "components/header";
+import DesktopListNavigations from "components/navigationBar/desktopListNavigations";
 
 let controller;
 
@@ -42,6 +43,8 @@ const App = () => {
   const [pushToChat, setPushToChat] = useState(false);
   const [isPan, setIsPan] = useState(false);
   const params = useSearchParams();
+  const [selectedNavigationItemIndex, setSelectedNavigationItemIndex] =
+    useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -182,13 +185,7 @@ const App = () => {
         <Grid container justifyContent={"center"} item xs>
           {mainAddress ? (
             <>
-              <Grid
-                sx={{ height: "100%", overflowY: "auto" }}
-                container
-                item
-                lg={8}
-                md={6}
-              >
+              <Grid sx={{ overflowY: "auto" }} container item lg={8} md={6}>
                 {!loading && (
                   <MapTab
                     filters={dialogFilters}
@@ -212,10 +209,17 @@ const App = () => {
                 id="appPostLists"
                 direction={"column"}
               >
-                {params.get("status") === "chats" ||
-                params.get("status") === "conversation" ? (
+                <Grid sx={{ m: 1 }}>
+                  <DesktopListNavigations
+                    selectedNavigationItemIndex={selectedNavigationItemIndex}
+                    setSelectedNavigationItemIndex={
+                      setSelectedNavigationItemIndex
+                    }
+                  />
+                </Grid>
+                {selectedNavigationItemIndex == 1 ? (
                   <Chat isFullWidth />
-                ) : (
+                ) : selectedNavigationItemIndex == 0 ? (
                   <PostsTab
                     filters={dialogFilters}
                     posts={posts}
@@ -224,7 +228,7 @@ const App = () => {
                     handlePushToChat={handlePushToChat}
                     handleChangeTab={handleChangeTab}
                   />
-                )}
+                ) : null}
               </Grid>
             </>
           ) : (

@@ -19,7 +19,6 @@ const PostsList = ({
   handleClosePostListOnModal,
   handleChangeTab,
 }) => {
-
   const [open, setOpen] = useState(false);
   const [locations, setLocations] = useState([]);
   const myAddressCordinate = useSelector(myAddressesSelector);
@@ -31,7 +30,6 @@ const PostsList = ({
   const handleClose = () => {
     setOpen(false);
   };
-
 
   const handleOpenModal = (post) => {
     setLocations([post.address.location.coordinates]);
@@ -63,7 +61,7 @@ const PostsList = ({
                 container
                 justifyContent="center"
                 alignItems="center"
-                sx={{ py: 2, my: 2 }}
+                sx={{ py: 2 }}
               >
                 <Typography>Wait For More Posts ...</Typography>
               </Grid>
@@ -71,7 +69,7 @@ const PostsList = ({
             scrollableTarget={scrollParentId}
           >
             {posts.results.map((item) => (
-              <Card key={item.id} sx={{ my: 2 }}>
+              <Grid sx={{ mb: 1 }}>
                 <Post
                   showLocationOnMap={showLocationOnMap}
                   handleOpenModal={() => handleOpenModal(item)}
@@ -79,8 +77,9 @@ const PostsList = ({
                   handleClosePostsList={handleClose}
                   handleClosePostListOnModal={handleClosePostListOnModal}
                   handleChangeTab={handleChangeTab}
+                  key={item.id}
                 />
-              </Card>
+              </Grid>
             ))}
           </InfiniteScroll>
         </Grid>

@@ -7,10 +7,6 @@ import { useRouteQuery } from "utils/route";
 
 const PostTab = ({ posts = [], handlePushToChat, ...props }) => {
   const routeQuery = useRouteQuery();
-  const handleGoToChatsList = () =>
-    routeQuery({
-      status: "chats",
-    });
   return (
     <Grid
       container
@@ -20,29 +16,6 @@ const PostTab = ({ posts = [], handlePushToChat, ...props }) => {
       <Grid container direction={"column"} item xs sx={{ overflow: "auto" }}>
         <PostList showLocationOnMap {...props} posts={posts} />
       </Grid>
-      {handlePushToChat && (
-        <Fab
-          color="primary"
-          aria-label="add"
-          onClick={handleGoToChatsList}
-          size="big"
-          sx={{ position: "absolute", bottom: "15px", right: "25px" }}
-        >
-          <Badge
-            badgeContent={4}
-            sx={{
-              "& .MuiBadge-badge": {
-                backgroundColor: "red",
-                border: "1px solid white",
-                top: "2px",
-                right: "1px",
-              },
-            }}
-          >
-            <ChatIcon />
-          </Badge>
-        </Fab>
-      )}
     </Grid>
   );
 };

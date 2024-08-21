@@ -54,8 +54,8 @@ const Post = ({
         container
         direction={"column"}
         sx={{
-          border: "1px solid #D9D9D9",
-          borderRadius: "10px",
+          border: "1px solid rgba(217, 217, 217, 0.5)",
+          borderRadius: "12px",
         }}
       >
         {/* //////////////////////////////////////// User Avatar And Name ///////////////////////////////////// */}
