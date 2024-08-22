@@ -201,6 +201,8 @@ const App = () => {
                 sx={{
                   height: "100%",
                   overflowY: "auto",
+                  boxShadow: "-4px 4px 12px 0px rgba(0, 0, 0, 0.25)",
+                  zIndex: '100'
                 }}
                 container
                 item

@@ -40,7 +40,9 @@ const AppHeader = ({
   };
 
   return (
-    <Grid sx={{ borderBottom: "2px solid rgba(217, 217, 217, 1)" }}>
+    <Grid
+      sx={{ borderBottom: "2px solid rgba(217, 217, 217, 1)", zIndex: "101" }}
+    >
       <Container maxWidth="lg">
         <Grid
           container
