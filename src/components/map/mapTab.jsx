@@ -118,10 +118,10 @@ const MapTab = ({
         handleMyMarkerClicked={handleMyMarkerClicked}
         handleBounds={handleBounds}
       />
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={open} onClose={handleClose} width="sm">
         <Grid
           container
-          sx={{ height: "calc( 100vh - 300px )", overflowY: "auto" }}
+          sx={{ maxHeight: "calc( 100vh - 100px )", overflowY: "auto" }}
           id="mapTabPostList"
         >
           <PostsList

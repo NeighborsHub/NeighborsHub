@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import { MAP_API_KEY } from "constants";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import MarkerIcon from "assets/svgs/Location-red.svg";
+import MyMarkerIcon from "assets/svgs/Location-red.svg";
 
 let addedCordinates = [];
 
@@ -126,7 +127,15 @@ export default function Map({
 
   useEffect(() => {
     if (myCordinate[0]) {
-      const marker = new maplibregl.Marker({ color: "lightBlue" })
+      var el = document.createElement("div");
+      el.style.backgroundImage = `url(${MyMarkerIcon.src})`;
+      el.style.width = "55px";
+      el.style.height = "65px";
+      el.className = "marker";
+      el.style.display = "block";
+      el.style.padding = "0";
+
+      const marker = new maplibregl.Marker({ element: el })
         .setLngLat(myCordinate)
         .addTo(map.current);
       handleMyMarkerClicked &&

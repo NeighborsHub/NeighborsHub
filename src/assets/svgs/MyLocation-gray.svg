@@ -1,0 +1,30 @@
+<svg width="54" height="64" viewBox="0 0 54 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M26.4092 62.8642C27.3628 63.5806 28.6372 63.5806 29.5907 62.8642C33.451 59.9641 43 51.8665 43 42.7273C43 38.8214 41.4196 35.0754 38.6066 32.3135C35.7936 29.5516 31.9782 28 28 28C24.0218 28 20.2064 29.5516 17.3934 32.3135C14.5804 35.0754 13 38.8214 13 42.7273C13 51.8665 22.549 59.9641 26.4092 62.8642ZM33 42.7273C33 45.4385 30.7614 47.6364 28 47.6364C25.2386 47.6364 23 45.4385 23 42.7273C23 40.0161 25.2386 37.8182 28 37.8182C30.7614 37.8182 33 40.0161 33 42.7273Z" fill="url(#paint0_angular_64_20)"/>
+<g filter="url(#filter0_d_64_20)">
+<rect x="8" y="8.33325" width="38" height="15.2" rx="7.6" fill="url(#paint1_angular_64_20)"/>
+</g>
+<path d="M21.956 13.504V19H20.9V11.656H22.004L24.344 16.516L26.648 11.656H27.752V19H26.708V13.504L24.668 17.728H23.996L21.956 13.504ZM34.4322 18.136V19H29.5602V11.656H34.4322V12.52H30.6162V14.884H34.0242V15.76H30.6162V18.136H34.4322Z" fill="white"/>
+<defs>
+<filter id="filter0_d_64_20" x="0" y="0.333252" width="54" height="31.2" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="1" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_64_20"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="3.5"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.247059 0 0 0 0 0.27451 0 0 0 0 0.32549 0 0 0 1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_64_20"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_64_20" result="shape"/>
+</filter>
+<radialGradient id="paint0_angular_64_20" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(28 46) rotate(90) scale(18 15)">
+<stop stop-color="#202328"/>
+<stop offset="0.456532" stop-color="#5A6579"/>
+<stop offset="0.992528" stop-color="#202328"/>
+</radialGradient>
+<radialGradient id="paint1_angular_64_20" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27 15.9333) rotate(90) scale(7.6 19)">
+<stop stop-color="#202328"/>
+<stop offset="0.456532" stop-color="#5A6579"/>
+<stop offset="0.992528" stop-color="#202328"/>
+</radialGradient>
+</defs>
+</svg>

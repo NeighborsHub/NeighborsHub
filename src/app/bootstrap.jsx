@@ -54,9 +54,17 @@ const Bootstrap = ({ children }) => {
     <SocketContext.Provider value={socket}>
       {children}
       <Backdrop sx={{ zIndex: 1395 }} open={isLoading} onClick={() => {}}>
-        {isLoading && (
-          <CircularProgress sx={{ color: "white", zIndex: 1399 }} />
-        )}
+        {/* {isLoading && ( */}
+        <CircularProgress
+          sx={{
+            color: "white",
+            zIndex: 1399,
+            "& .MuiCircularProgress-circle": {
+              color: "#FFD816",
+            },
+          }}
+        />
+        {/* )} */}
       </Backdrop>
     </SocketContext.Provider>
   );
