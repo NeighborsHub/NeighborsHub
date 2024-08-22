@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 // import { ScaleControl } from "maplibre-gl";
 import { MAP_API_KEY } from "constants";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
+import MarkerIcon from "assets/svgs/Location-red.svg";
 
 let addedCordinates = [];
 
@@ -29,7 +30,7 @@ export default function Map({
 
   useEffect(() => {
     if (map.current) return; // stops map from intializing more than once
-    maptilersdk.config.apiKey = API_KEY
+    maptilersdk.config.apiKey = API_KEY;
     map.current = new maptilersdk.Map({
       container: mapContainer.current,
       style: maptilersdk.MapStyle.STREETS.LIGHT,
@@ -149,7 +150,19 @@ export default function Map({
       //   (item) => item[0] === element[0] && item[1] === element[1]
       // );
       // if (!temp) {
-      const marker = new maplibregl.Marker({ color: "#FF0000" })
+      var el = document.createElement("div");
+      el.style.backgroundImage = `url(${MarkerIcon.src})`;
+      // const el = <img src={MarkerIcon.src} />;
+      el.style.width = "40px";
+      el.style.height = "50px";
+      el.className = "marker";
+      el.style.display = "block";
+      el.style.padding = "0";
+      el.style.backgroundSize = "cover";
+
+      const marker = new maptilersdk.Marker({
+        element: el,
+      })
         .setLngLat(element)
         .addTo(map.current);
       handleMarkerClicked &&
