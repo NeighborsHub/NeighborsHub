@@ -52,9 +52,9 @@ export default function Map({
     map.current.setStyle(maptilersdk.MapStyle.STREETS.PASTEL);
     map.current.scrollZoom.setWheelZoomRate(1);
     map.current.scrollZoom.setZoomRate(1);
-    map.current.addControl(new maplibregl.NavigationControl(), "top-right");
+    // map.current.addControl(new maptilersdk.NavigationControl(), "top-right");
     map.current.addControl(
-      new maplibregl.GeolocateControl({
+      new maptilersdk.GeolocateControl({
         positionOptions: {
           enableHighAccuracy: true,
         },

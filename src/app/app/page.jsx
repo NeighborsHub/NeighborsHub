@@ -201,8 +201,8 @@ const App = () => {
                 sx={{
                   height: "100%",
                   overflowY: "auto",
-                  boxShadow: "-4px 4px 12px 0px rgba(0, 0, 0, 0.25)",
-                  zIndex: '100'
+                  boxShadow: "-4px 6px 12px 0px rgba(0, 0, 0, 0.25)",
+                  zIndex: "100",
                 }}
                 container
                 item
@@ -211,7 +211,7 @@ const App = () => {
                 id="appPostLists"
                 direction={"column"}
               >
-                <Grid sx={{ m: 1 }}>
+                <Grid sx={{ m: 1, mr: "13px" }}>
                   <DesktopListNavigations
                     selectedNavigationItemIndex={selectedNavigationItemIndex}
                     setSelectedNavigationItemIndex={
