@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 const instance = axios.create();
 
+
 const AxiosInterceptor = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -37,9 +38,10 @@ const AxiosInterceptor = ({ children }) => {
       console.log(error, "errorrrr");
       if (error.code === "ERR_CANCELED") return;
       if (error.response?.status === 403) {
+        
         localStorage.removeItem("token");
         // router.push("/signin");
-        snackActions.error("You need to login again");
+        // snackActions.error("You need to login again");
         return Promise.reject(error);
       } else if (error.response?.status === 404) {
         snackActions.error("Server Error");

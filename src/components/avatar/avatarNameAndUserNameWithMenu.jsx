@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import ArrowDownIcon from "assets/svgs/ArrowDown.svg";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import { logoutAction } from "store/actions/authActions";
 
 const AvatarNameAndUserNameWithMenu = () => {
   const [anchorEl, setAnchorEl] = useState(false);
