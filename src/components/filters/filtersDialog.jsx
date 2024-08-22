@@ -17,7 +17,7 @@ import { categoriesSelector } from "store/slices/postsSlices";
 import { useSelector } from "react-redux";
 
 function valuetext(value) {
-  return `${value}°C`;
+  return value;
 }
 
 const marks = [
@@ -26,16 +26,8 @@ const marks = [
     label: "0",
   },
   {
-    value: 1000,
-    label: "1000 meter",
-  },
-  {
-    value: 2000,
-    label: "2000 meter",
-  },
-  {
-    value: 3000,
-    label: "3000 meter",
+    value: 10000,
+    label: "10KM",
   },
 ];
 
@@ -100,45 +92,76 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
     <Modal open={open} onClose={handleClose} width="sm">
       <Grid container direction={"column"}>
         <Typography variant="h6">FILTERS</Typography>
-        <Divider sx={{ my: 2 }} />
-        <Grid container direction={"column"} sx={{ px: 1 }}>
-          <Grid container justifyContent={"flex-start"}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={state.filters.distance}
-                  onChange={handleCheckbox}
-                  name="distance"
-                />
-              }
-              label="Distance"
+        <Grid container direction={"column"} sx={{ px: 1, mt: 2 }}>
+          <Grid container justifyContent={"flex-start"} alignItems={"center"}>
+            <Typography
+              sx={{
+                fontSize: "11px",
+                fontFamily: "Saira",
+                color: "rgba(153, 153, 153, 1)",
+              }}
+            >
+              Distance
+            </Typography>
+            <Divider
+              sx={{
+                flex: 1,
+                ml: 2,
+                height: "1.5px",
+                backgroundColor: "rgba(217, 217, 217, 1)",
+              }}
             />
           </Grid>
-          <Grid sx={{ px: 4 }}>
+          <Grid sx={{ px: 4 }} container direction={"column"}>
+            <Grid>
+              <Chip
+                label={state.distance[1] + " KM"}
+                sx={{
+                  mr: 1,
+                  mb: 1,
+                  backgroundColor: "rgba(255, 216, 22, 1)",
+                  color: "black",
+                  width: "auto",
+                }}
+              />
+            </Grid>
             <Slider
               value={state.distance}
               onChange={handleSetDistance}
-              valueLabelDisplay="auto"
               getAriaValueText={valuetext}
               min={0}
-              max={3000}
-              step={100}
+              max={10000}
               marks={marks}
-              disabled={!state.filters.distance}
+              sx={{
+                "& .MuiSlider-track": {
+                  backgroundColor: "rgba(255, 216, 22, 1)",
+                  height: "0.250rem",
+                },
+                "& .MuiSlider-thumb": {
+                  borderColor: 'lightGray'
+                },
+              }}
             />
           </Grid>
         </Grid>
         <Grid container direction={"column"} sx={{ mt: 2, px: 1 }}>
-          <Grid container justifyContent={"flex-start"}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={state.filters.categories}
-                  onChange={handleCheckbox}
-                  name="categories"
-                />
-              }
-              label="Categories"
+          <Grid container justifyContent={"flex-start"} alignItems={"center"}>
+            <Typography
+              sx={{
+                fontSize: "11px",
+                fontFamily: "Saira",
+                color: "rgba(153, 153, 153, 1)",
+              }}
+            >
+              Categories
+            </Typography>
+            <Divider
+              sx={{
+                flex: 1,
+                ml: 2,
+                height: "1.5px",
+                backgroundColor: "rgba(217, 217, 217, 1)",
+              }}
             />
           </Grid>
           <Grid container sx={{ px: 4 }}>
@@ -152,15 +175,13 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
                   sx={{
                     mr: 1,
                     mb: 1,
-                    backgroundColor: isSelected ? "#4c34eb" : "",
+                    backgroundColor: isSelected
+                      ? "rgba(255, 216, 22, 1)!important"
+                      : "",
                     color: isSelected ? "white" : "",
-                    "&:hover": {
-                      backgroundColor: isSelected ? "#6652eb" : "",
-                    },
                   }}
                   onClick={() => handleSelectCategories(item.internal_code)}
                   key={item.title}
-                  disabled={!state.filters.categories}
                 />
               );
             })}
@@ -195,16 +216,25 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
         </Grid>
         <Grid container direction={"column"} sx={{ px: 1 }}>
           <Grid container justifyContent={"flex-start"}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={state.filters.is_seen}
-                  onChange={handleCheckbox}
-                  name="is_seen"
-                />
-              }
-              label="Seen/Unseen Posts"
-            />
+            <Grid container justifyContent={"flex-start"} alignItems={"center"}>
+              <Typography
+                sx={{
+                  fontSize: "11px",
+                  fontFamily: "Saira",
+                  color: "rgba(153, 153, 153, 1)",
+                }}
+              >
+                Seen/Unseen Posts
+              </Typography>
+              <Divider
+                sx={{
+                  flex: 1,
+                  ml: 2,
+                  height: "1.5px",
+                  backgroundColor: "rgba(217, 217, 217, 1)",
+                }}
+              />
+            </Grid>
           </Grid>
           <Grid sx={{ px: 4 }}>
             <Chip
@@ -212,28 +242,28 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
               sx={{
                 mr: 1,
                 mb: 1,
-                backgroundColor: state.is_seen ? "#4c34eb" : "",
+                backgroundColor: state.is_seen
+                  ? "rgba(255, 216, 22, 1)!important"
+                  : "",
                 color: state.is_seen ? "white" : "",
-                "&:hover": {
-                  backgroundColor: state.is_seen ? "#6652eb" : "",
-                },
               }}
               onClick={(e) => handleSeenMessage(true)}
-              disabled={!state.filters.is_seen}
             />
             <Chip
               label={"Unseen Posts"}
               sx={{
                 mr: 1,
                 mb: 1,
-                backgroundColor: state.is_seen === false ? "#4c34eb" : "",
+                backgroundColor:
+                  state.is_seen === false
+                    ? "rgba(255, 216, 22, 1)!important"
+                    : "",
                 color: state.is_seen === false ? "white" : "",
                 "&:hover": {
                   backgroundColor: state.is_seen === false ? "#6652eb" : "",
                 },
               }}
               onClick={() => handleSeenMessage(false)}
-              disabled={!state.filters.is_seen}
             />
           </Grid>
         </Grid>
@@ -242,20 +272,21 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
             <Button
               sx={{
                 borderRadius: "10px",
-                height: "47px",
+                height: "40px",
                 fontSize: "13px",
-                backgroundColor: "#e85a02",
+                color: "white!important",
+                background:
+                  "conic-gradient(from 180deg at 50% 50%, #202328 0deg, #5A6579 164.35deg, #202328 357.31deg, #202328 360deg)!important",
                 "&:hover": {
-                  backgroundColor: "#f27527",
+                  background:
+                    "conic-gradient(from 180deg at 50% 50%, #202328 0deg, #5A6579 164.35deg, #202328 357.31deg, #202328 360deg)",
                 },
               }}
               fullWidth
-              variant="contained"
               type="submit"
               color="secondary"
               name="otpLogin"
               onClick={handleClear}
-              disabled={!Object.values(state.filters).filter(Boolean).length}
             >
               Clear All Filters
             </Button>
@@ -264,12 +295,15 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
             <Button
               sx={{
                 borderRadius: "10px",
-                height: "47px",
+                height: "40px",
                 fontSize: "13px",
-                backgroundColor: "#0298e8",
+                color: "black!important",
+                backgroundColor: "rgba(255, 216, 22, 1)",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 216, 22, 1)",
+                },
               }}
               fullWidth
-              variant="contained"
               type="submit"
               // disabled={loading || !emailPhoneNumber.value}
               name="passwordLogin"

@@ -13,7 +13,8 @@ import Container from "@mui/material/Container";
 
 const AppHeader = ({
   handleSearch = () => {},
-  handleSubmitFilters = () => {},
+  handleSubmitFilters = (e) => {
+  },
 }) => {
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const search = useInputHandler("");
