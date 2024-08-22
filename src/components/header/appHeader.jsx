@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import FilterIcon from "assets/svgs/Filter.svg";
+import FilterColoredIcon from "assets/svgs/Filter-colored.svg";
 import FiltersDialog from "components/filters/filtersDialog";
 import TextField from "components/inputs/textfiled";
 import { useInputHandler } from "hooks/useInputHandler";
@@ -10,14 +11,20 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "assets/svgs/Search.svg";
 import CloseIcon from "@mui/icons-material/Close";
 import Container from "@mui/material/Container";
+import Chip from "@mui/material/Chip";
+import FilterCloseIcon from "assets/svgs/Close.svg";
+import LocationIcon from "assets/svgs/Location.svg";
+import ShopIcon from "assets/svgs/Shop.svg";
 
 const AppHeader = ({
   handleSearch = () => {},
-  handleSubmitFilters = (e) => {
-  },
+  handleSubmitFilters = (e) => {},
+  dialogFilters,
 }) => {
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const search = useInputHandler("");
+
+  console.log(dialogFilters, "tttttttttt");
 
   const handleOpenFilterDialog = () => {
     setOpenFilterDialog(true);
@@ -38,6 +45,7 @@ const AppHeader = ({
         <Grid
           container
           justifyContent={"flex-start"}
+          alignItems={"center"}
           sx={{
             py: 1,
             height: "50px",
@@ -93,8 +101,37 @@ const AppHeader = ({
             }}
             onClick={handleOpenFilterDialog}
           >
-            <img src={FilterIcon.src} />
+            <img
+              src={
+                Object.values(dialogFilters)
+                  ? FilterColoredIcon.src
+                  : FilterIcon.src
+              }
+            />
           </IconButton>
+          <Chip
+            label={
+              <Grid container alignItems={"center"} sx={{ ml: "16px" }}>
+                Shop
+                <img src={ShopIcon.src} style={{ marginLeft: "6px" }} />
+              </Grid>
+            }
+            sx={{
+              ml: 1,
+              backgroundColor: "rgba(242, 242, 242, 1)",
+              border: "1px solid rgba(217, 217, 217, 1)",
+              color: "black!important",
+              fontFamily: "Saira",
+              borderRadius: "10px",
+              height: "32px",
+            }}
+            icon={
+              <IconButton>
+                <img src={FilterCloseIcon.src} sx={{ fill: "gray" }} />
+              </IconButton>
+            }
+            // onClick={(e) => handleSeenMessage(true)}
+          />
           <FiltersDialog
             open={openFilterDialog}
             handleClose={handleFilterDialogClose}

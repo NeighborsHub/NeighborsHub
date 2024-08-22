@@ -122,6 +122,7 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
                   backgroundColor: "rgba(255, 216, 22, 1)",
                   color: "black",
                   width: "auto",
+                  fontFamily: "Saira",
                 }}
               />
             </Grid>
@@ -138,7 +139,7 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
                   height: "0.250rem",
                 },
                 "& .MuiSlider-thumb": {
-                  borderColor: 'lightGray'
+                  borderColor: "lightGray",
                 },
               }}
             />
@@ -179,6 +180,7 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
                       ? "rgba(255, 216, 22, 1)!important"
                       : "",
                     color: isSelected ? "white" : "",
+                    fontFamily: "Saira",
                   }}
                   onClick={() => handleSelectCategories(item.internal_code)}
                   key={item.title}
@@ -246,6 +248,7 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
                   ? "rgba(255, 216, 22, 1)!important"
                   : "",
                 color: state.is_seen ? "white" : "",
+                fontFamily: "Saira",
               }}
               onClick={(e) => handleSeenMessage(true)}
             />

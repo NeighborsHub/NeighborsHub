@@ -7,6 +7,7 @@ import "./map.css";
 import Grid from "@mui/material/Grid";
 // import { ScaleControl } from "maplibre-gl";
 import { MAP_API_KEY } from "constants";
+import "@maptiler/sdk/dist/maptiler-sdk.css";
 
 let addedCordinates = [];
 
@@ -28,13 +29,26 @@ export default function Map({
 
   useEffect(() => {
     if (map.current) return; // stops map from intializing more than once
-    map.current = new maplibregl.Map({
+    maptilersdk.config.apiKey = API_KEY
+    map.current = new maptilersdk.Map({
       container: mapContainer.current,
-      style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${API_KEY}`,
+      style: maptilersdk.MapStyle.STREETS.LIGHT,
       center,
       zoom,
       geolocateControl: true,
+      layers: [
+        {
+          id: "water",
+          source: "streets",
+          "source-layer": "water",
+          type: "fill",
+          paint: {
+            "fill-color": "#00ffff",
+          },
+        },
+      ],
     });
+    map.current.setStyle(maptilersdk.MapStyle.STREETS.PASTEL);
     map.current.scrollZoom.setWheelZoomRate(1);
     map.current.scrollZoom.setZoomRate(1);
     map.current.addControl(new maplibregl.NavigationControl(), "top-right");
