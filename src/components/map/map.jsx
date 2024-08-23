@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import { MAP_API_KEY } from "constants";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import MarkerIcon from "assets/svgs/Location-red.svg";
-import MyMarkerIcon from "assets/svgs/Location-gray.svg";
+import MyMarkerIcon from "assets/svgs/Location-red.svg";
 
 let addedCordinates = [];
 
@@ -51,7 +51,8 @@ export default function Map({
         },
       ],
       // bearing: -12,
-      // pitch,
+      pitch,
+      zoom,
       maxBounds: [
         [-179, -60],
         [179, 80],
