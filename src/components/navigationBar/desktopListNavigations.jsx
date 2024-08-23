@@ -6,6 +6,7 @@ import ChatColored from "assets/svgs/navigationBar/Chat-colored.svg";
 import PostsColored from "assets/svgs/navigationBar/Posts-colored.svg";
 import Typography from "@mui/material/Typography";
 import NotificationIcon from "assets/svgs/navigationBar/Notification.svg";
+import NotificationColoredIcon from "assets/svgs/navigationBar/Notification-colored.svg";
 
 const DesktopListNavigations = ({
   setSelectedNavigationItemIndex,
@@ -29,7 +30,7 @@ const DesktopListNavigations = ({
       flexDirection={"row-reverse"}
     >
       <Icon
-        icon={selectedNavigationItemIndex === 2 ? NotificationIcon : NotificationIcon}
+        icon={selectedNavigationItemIndex === 2 ? NotificationColoredIcon : NotificationIcon}
         text={"notification"}
         onClick={handleSelectItem}
         selectedItemIndex={selectedNavigationItemIndex}
@@ -66,7 +67,7 @@ const Icon = ({ icon, text, onClick, selectedItemIndex, index }) => {
       onClick={() => onClick(index, text)}
       sx={{ cursor: "pointer" }}
     >
-      <img src={icon.src} />
+      <img src={icon.src} style={{height: '25px'}}/>
       {selectedItemIndex === index && (
         <Typography
           sx={{

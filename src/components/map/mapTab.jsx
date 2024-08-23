@@ -34,7 +34,7 @@ const MapTab = ({
   const locations = useSelector(uniqueLocationSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const initialCordinate = mainAddress?.location.coordinates || [0, 0];
-  const zoom = mainAddress ? 14 : 0;
+  const zoom = mainAddress ? 16 : 0;
   const myCordinate = mainAddress?.location?.coordinates;
   const [open, setOpen] = useState(null);
   const [isMyPosts, setIsMyPosts] = useState(false);

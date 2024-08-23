@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import { MAP_API_KEY } from "constants";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import MarkerIcon from "assets/svgs/Location-red.svg";
-import MyMarkerIcon from "assets/svgs/Location-red.svg";
+import MyMarkerIcon from "assets/svgs/Location-gray.svg";
 
 let addedCordinates = [];
 
@@ -49,6 +49,8 @@ export default function Map({
           },
         },
       ],
+      // bearing: -12,
+      pitch: 50,
     });
     map.current.setStyle(maptilersdk.MapStyle.STREETS.PASTEL);
     map.current.scrollZoom.setWheelZoomRate(1);
@@ -129,8 +131,8 @@ export default function Map({
     if (myCordinate[0]) {
       var el = document.createElement("div");
       el.style.backgroundImage = `url(${MyMarkerIcon.src})`;
-      el.style.width = "55px";
-      el.style.height = "65px";
+      el.style.width = "34px";
+      el.style.height = "40px";
       el.className = "marker";
       el.style.display = "block";
       el.style.padding = "0";
