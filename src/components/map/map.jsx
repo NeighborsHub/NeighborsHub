@@ -21,6 +21,7 @@ export default function Map({
   handleMyMarkerClicked,
   center = [0, 0],
   zoom = 0,
+  pitch,
   handleZoomChanged,
   handleCenterChanged,
   handleBounds,
@@ -29,6 +30,7 @@ export default function Map({
   const map = useRef(null);
   const [API_KEY] = useState(MAP_API_KEY);
 
+
   useEffect(() => {
     if (map.current) return; // stops map from intializing more than once
     maptilersdk.config.apiKey = API_KEY;
@@ -36,7 +38,6 @@ export default function Map({
       container: mapContainer.current,
       style: maptilersdk.MapStyle.STREETS.LIGHT,
       center,
-      zoom,
       geolocateControl: true,
       layers: [
         {
@@ -50,8 +51,13 @@ export default function Map({
         },
       ],
       // bearing: -12,
-      pitch: 50,
+      pitch,
+      maxBounds: [
+        [-180, -60],
+        [179, 80],
+      ],
     });
+    map.current.setRenderWorldCopies(false);
     map.current.setStyle(maptilersdk.MapStyle.STREETS.PASTEL);
     map.current.scrollZoom.setWheelZoomRate(1);
     map.current.scrollZoom.setZoomRate(1);
