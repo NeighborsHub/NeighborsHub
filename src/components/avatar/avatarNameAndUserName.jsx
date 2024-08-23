@@ -2,7 +2,12 @@ import Grid from "@mui/material/Grid";
 import Avatar from "components/avatar/avatar";
 import Typography from "@mui/material/Typography";
 
-const AvatarNameAndUserName = ({ avatarSrc, onClick, name, userName }) => {
+const AvatarNameAndUserName = ({
+  avatarSrc,
+  onClick,
+  name = "",
+  userName = "",
+}) => {
   return (
     <Grid sx={{ display: "flex" }} onClick={onClick}>
       <Grid

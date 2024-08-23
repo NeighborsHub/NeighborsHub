@@ -51,9 +51,9 @@ export default function Map({
         },
       ],
       // bearing: -12,
-      pitch,
+      // pitch,
       maxBounds: [
-        [-180, -60],
+        [-179, -60],
         [179, 80],
       ],
     });
