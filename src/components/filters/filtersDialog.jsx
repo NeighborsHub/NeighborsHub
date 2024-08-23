@@ -115,7 +115,18 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
           <Grid sx={{ px: 4 }} container direction={"column"}>
             <Grid>
               <Chip
-                label={state.distance[1] + " KM"}
+                label={state.distance[0] + " M"}
+                sx={{
+                  mr: 1,
+                  mb: 1,
+                  backgroundColor: "rgba(255, 216, 22, 1)",
+                  color: "black",
+                  width: "auto",
+                  fontFamily: "Saira",
+                }}
+              />
+              <Chip
+                label={state.distance[1] + " M"}
                 sx={{
                   mr: 1,
                   mb: 1,

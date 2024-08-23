@@ -4,28 +4,24 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Divider from "@mui/material/Divider";
 import { useRouter, usePathname } from "next/navigation";
-
+import FmdGoodIcon from "@mui/icons-material/FmdGood";
 const path = {
-  "/": 0,
-  "/app/": 1,
-  "/about-us/": 2,
+  "/": 1,
+  "/app/": 3,
+  "/about-us/": 5,
 };
 
 const HeaderRouterButtons = () => {
   const router = useRouter();
-  const [navigationValue, setNavigationValue] = useState(0);
   const pathname = usePathname();
-
-  useEffect(() => {
-    setNavigationValue(path[pathname]);
-  }, []);
+  const [navigationValue, setNavigationValue] = useState(path[pathname]);
 
   return (
     <Grid sx={{ display: "flex", justifyContent: "flex-start" }}>
       <BottomNavigation
         showLabels
-        value={navigationValue + 1}
-        onChange={(event, newValue) => {
+        value={navigationValue}
+        onChange={(a, newValue) => {
           setNavigationValue(newValue);
         }}
         sx={{ backgroundColor: "transparent!important" }}
@@ -37,6 +33,15 @@ const HeaderRouterButtons = () => {
             color: "black!important",
             "&.MuiButtonBase-root": {
               alignItems: "flex-start",
+              pl: 1,
+              transition: "100ms",
+            },
+            "&:hover": {
+              fontWeight: "bold",
+            },
+            "& .Mui-selected": {
+              fontSize: "12px",
+              fontWeight: "bold",
             },
           }}
           label="Home"
@@ -44,15 +49,32 @@ const HeaderRouterButtons = () => {
         />
         <Divider orientation="vertical" sx={{ m: 0 }} />
         <BottomNavigationAction
-          label="App"
+          label="Discover"
           onClick={() => router.push("/app")}
           sx={{
             width: "100px",
             color: "black!important",
             "&.MuiButtonBase-root": {
-              alignItems: "flex-start",
+              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              pl: 1,
+              transition: "100ms",
+            },
+            "&:hover": {
+              color: "#EC1313!important",
+              fontWeight: "bold",
+            },
+            "& .Mui-selected": {
+              fontSize: "12px",
+              fontWeight: "bold",
             },
           }}
+          icon={
+            <FmdGoodIcon
+              sx={{ fontSize: "20px!important", mr: "2px", color: "#EC1313" }}
+            />
+          }
         />
         <Divider orientation="vertical" sx={{ m: 0 }} />
         <BottomNavigationAction
@@ -63,6 +85,15 @@ const HeaderRouterButtons = () => {
             color: "black!important",
             "&.MuiButtonBase-root": {
               alignItems: "flex-start",
+              pl: 1,
+              transition: "100ms",
+            },
+            "&:hover": {
+              fontWeight: "bold",
+            },
+            "& .Mui-selected": {
+              fontSize: "12px",
+              fontWeight: "bold",
             },
           }}
         />
