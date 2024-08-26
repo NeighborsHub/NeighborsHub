@@ -91,7 +91,7 @@ const ResponsiveProfile = () => {
               @{myInfo.username}
             </Typography>
           </Grid>
-          <Grid container justifyContent={"center"} sx={{ mt: 2 }}>
+          <Grid container justifyContent={"center"} sx={{ my: 2 }}>
             <Button
               sx={{
                 background:

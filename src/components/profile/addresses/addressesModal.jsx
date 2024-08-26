@@ -75,7 +75,6 @@ const AddressesModal = ({ open, handleClose }) => {
         container
         alignItems={"space-between"}
         alignContent={"center"}
-        sx={{ minHeight: "300px", height: "400px" }}
       >
         {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
         {state.status === STATUS.MAP ? (

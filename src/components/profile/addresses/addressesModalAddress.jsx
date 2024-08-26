@@ -3,8 +3,8 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import IconButton from "@mui/material/IconButton";
+import Divider from "@mui/material/Divider";
+import InputLabel from "@mui/material/InputLabel";
 
 const AddressesModalAddress = ({
   handleBack,
@@ -24,57 +24,97 @@ const AddressesModalAddress = ({
 
   return (
     <Grid
-      sx={{ height: "100%" }}
+      sx={{ height: "100%", px: 4, py: 2 }}
       container
       direction={"column"}
       justifyContent={"flex-start"}
     >
       <Grid>
-        <IconButton onClick={handleBack}>
-          <KeyboardBackspaceIcon />
-        </IconButton>
-      </Grid>
-      <Grid container justifyContent={"center"}>
-        <Typography textAlign={"center"} sx={{ color: "gray" }}>
-          Is this Address yours? You can edit it if there is error on it.
+        <Typography
+          textAlign={"left"}
+          sx={{
+            fontFamily: "Saira",
+            fontSize: "13px",
+            color: "black!important",
+            fontWeight: "bold",
+          }}
+        >
+          Submit Your Details Address
         </Typography>
       </Grid>
-      <Grid container direction={"column"} sx={{ mt: 3, px: 1, flex: 1 }}>
+      <Grid>
+        <Divider sx={{ height: "3px", my: 0.5 }} />
+      </Grid>
+      <Grid
+        container
+        direction={"column"}
+        sx={{
+          mt: 2,
+          p: 2,
+          py: 2,
+          flex: 1,
+          border: "1px solid #D9D9D9",
+          borderRadius: "12px",
+        }}
+      >
+        <InputLabel shrink htmlFor="bootstrap-input123">
+          Address
+        </InputLabel>
         <TextField
-          value={address}
-          label={"address"}
           fullWidth
+          id="bootstrap-input123"
+          value={address}
           onChange={handleAddressChanged}
           // onChange={(e) => handleAddressListChange(key, e.target.value)}
-          sx={{ mb: 2 }}
           multiline
         />
+        <InputLabel shrink htmlFor="bootstrap-input122" sx={{ mt: 3 }}>
+          Building NO. & etc.
+        </InputLabel>
         <TextField
+          fullWidth
+          id="bootstrap-input122"
+          // onChange={(e) => handleAddressListChange(key, e.target.value)}
+          multiline
           value={addressDetails}
           label={"Details of address like building number and etc"}
-          fullWidth
           onChange={handleAddressDetailsChanged}
           // onChange={(e) => handleAddressListChange(key, e.target.value)}
-          sx={{ mb: 2 }}
         />
-        {/* {Object.keys(addressList).map((key) => (
-              <TextField
-                key={key}
-                value={addressList[key]}
-                label={key}
-                fullWidth
-                onChange={(e) =>
-                  handleAddressListChange(key, e.target.value)
-                }
-                sx={{ mb: 2 }}
-              />
-            ))} */}
       </Grid>
-      <Grid container sx={{ px: 1 }}>
+      <Grid container sx={{ mt: 1 }} alignItems={"center"}>
         <Button
-          variant="contained"
-          fullWidth
+          sx={{
+            borderRadius: "10px",
+            height: "33px!important",
+            minHeight: 0,
+            color: "white!important",
+            background:
+              "conic-gradient(from 180deg at 50% 50%, #202328 0deg, #5A6579 164.35deg, #202328 357.31deg, #202328 360deg)!important",
+            "&:hover": {
+              background:
+                "conic-gradient(from 180deg at 50% 50%, #202328 0deg, #5A6579 164.35deg, #202328 357.31deg, #202328 360deg)",
+            },
+            flex: 1,
+            mr: 0.5,
+          }}
+          type="submit"
+          color="secondary"
+          name="otpLogin"
+          onClick={handleBack}
+        >
+          Back
+        </Button>
+        <Button
           onClick={() => handleSubmit(address, addressDetails)}
+          sx={{
+            height: "33px!important",
+            minHeight: 0,
+            color: "black!important",
+            backgroundColor: "rgba(255, 216, 22, 1)",
+            flex: 1,
+            ml: 0.5,
+          }}
         >
           Submit
         </Button>

@@ -21,7 +21,7 @@ export default function Map({
   handleMyMarkerClicked,
   center = [0, 0],
   zoom = 0,
-  pitch,
+  pitch = 0,
   handleZoomChanged,
   handleCenterChanged,
   handleBounds,
@@ -29,7 +29,6 @@ export default function Map({
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [API_KEY] = useState(MAP_API_KEY);
-
 
   useEffect(() => {
     if (map.current) return; // stops map from intializing more than once

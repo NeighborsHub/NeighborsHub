@@ -1,5 +1,5 @@
 "use client";
-
+import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -14,11 +14,18 @@ import BlackLogoutIcon from "assets/svgs/Profile/BlackLogout.svg";
 import BlackNotificationIcon from "assets/svgs/Profile/BlackNotification.svg";
 import IosSwitch from "components/switch/iosSwitch";
 import Profile from "assets/svgs/Profile/Profile.svg";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+
+const routes = {
+  0: "/app/profile/edit-profile/",
+  1: "/app/profile/contact-data/",
+  2: "/app/profile/addresses/",
+};
 
 const ProfileNavigation = ({ desktopVersion = true }) => {
   const router = useRouter();
-
+  const pathname = usePathname();
+  const [activeItem, setActiveItem] = useState(0);
   const handleLogout = () => {
     dispatch(logoutAction())
       .then(() => {
@@ -54,12 +61,15 @@ const ProfileNavigation = ({ desktopVersion = true }) => {
             backgroundColor: "#F7F7F7",
             borderRadius: "10px",
             border: "1px solid rgba(229, 229, 229, 1)",
+            overflow: "hidden",
           }}
         >
           <ListItemButton
             onClick={() => handlePushToRoute("/app/profile/edit-profile")}
             sx={{
               "&.MuiButtonBase-root": {
+                backgroundColor:
+                  pathname === "/app/profile/edit-profile/" ? "#FFD816" : "",
                 p: 1,
               },
             }}
@@ -99,6 +109,8 @@ const ProfileNavigation = ({ desktopVersion = true }) => {
             sx={{
               "&.MuiButtonBase-root": {
                 p: 1,
+                backgroundColor:
+                  pathname === "/app/profile/contact-data/" ? "#FFD816" : "",
               },
             }}
           >
@@ -137,6 +149,8 @@ const ProfileNavigation = ({ desktopVersion = true }) => {
             sx={{
               "&.MuiButtonBase-root": {
                 p: 1,
+                backgroundColor:
+                pathname === "/app/profile/addresses/" ? "#FFD816" : "",
               },
             }}
           >
@@ -170,7 +184,7 @@ const ProfileNavigation = ({ desktopVersion = true }) => {
             )}
           </ListItemButton>
           <Divider sx={{ m: 0 }} />
-          <ListItemButton
+          {/* <ListItemButton
             onClick={() => handlePushToRoute("/app/profile")}
             sx={{
               "&.MuiButtonBase-root": {
@@ -206,7 +220,7 @@ const ProfileNavigation = ({ desktopVersion = true }) => {
             {!desktopVersion && (
               <ArrowForwardIosIcon sx={{ color: "#D9D9D9" }} />
             )}
-          </ListItemButton>
+          </ListItemButton> */}
         </Grid>
       </Grid>
       <Grid container sx={{ mt: 4 }}>
