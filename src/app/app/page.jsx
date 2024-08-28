@@ -25,6 +25,9 @@ import NavigationBar from "components/navigationBar/navigationBar";
 import ResponsiveHeader from "components/header/ResponsiveHeader";
 import Header from "components/header";
 import DesktopListNavigations from "components/navigationBar/desktopListNavigations";
+import Button from "@mui/material/Button";
+import AddNewPostPlusIcon from "assets/svgs/AddNewPostPlus.svg";
+import { useRouter } from "next/navigation";
 
 let controller;
 
@@ -45,6 +48,7 @@ const App = () => {
   const params = useSearchParams();
   const [selectedNavigationItemIndex, setSelectedNavigationItemIndex] =
     useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
@@ -162,6 +166,10 @@ const App = () => {
     setPushToChat(bool);
   };
 
+  const handlePushToAddPost = () => {
+    router.push("/app/add-new-post");
+  };
+
   return (
     <Grid
       container
@@ -172,6 +180,7 @@ const App = () => {
         justifyContent: "center",
         flexDirection: "column",
         px: "0!important",
+        position: "relative",
       }}
       direction={"column"}
     >
@@ -185,7 +194,13 @@ const App = () => {
         <Grid container justifyContent={"center"} item xs>
           {mainAddress ? (
             <>
-              <Grid sx={{ overflowY: "auto" }} container item lg={8} md={6}>
+              <Grid
+                sx={{ overflowY: "auto", position: "relative" }}
+                container
+                item
+                lg={8}
+                md={6}
+              >
                 {!loading && (
                   <MapTab
                     filters={dialogFilters}
@@ -196,6 +211,26 @@ const App = () => {
                     longBounds={longBounds}
                   />
                 )}
+                <Button
+                  sx={{
+                    position: "absolute",
+                    bottom: "25px",
+                    right: "10px",
+                    backgroundColor: "#FFD816",
+                    zIndex: 1400,
+                    color: "black!important",
+                    borderRadius: "12px",
+                    "&:hover ": { backgroundColor: "#FFD816" },
+                    "&:active": { backgroundColor: "#FFD816" },
+                  }}
+                  onClick={handlePushToAddPost}
+                >
+                  <img
+                    src={AddNewPostPlusIcon.src}
+                    style={{ marginRight: "10px" }}
+                  />
+                  Add New Post
+                </Button>
               </Grid>
               <Grid
                 sx={{
@@ -235,7 +270,7 @@ const App = () => {
             </>
           ) : (
             <Grid
-              sx={{ height: "100%", overflowY: "auto" }}
+              sx={{ height: "100%", overflowY: "auto" , position: 'relative' }}
               container
               item
               xs={12}
@@ -250,6 +285,26 @@ const App = () => {
                   longBounds={longBounds}
                 />
               )}
+              <Button
+                sx={{
+                  position: "absolute",
+                  bottom: "25px",
+                  right: "10px",
+                  backgroundColor: "#FFD816",
+                  zIndex: 1400,
+                  color: "black!important",
+                  borderRadius: "12px",
+                  "&:hover ": { backgroundColor: "#FFD816" },
+                  "&:active": { backgroundColor: "#FFD816" },
+                }}
+                onClick={handlePushToAddPost}
+              >
+                <img
+                  src={AddNewPostPlusIcon.src}
+                  style={{ marginRight: "10px" }}
+                />
+                Add New Post
+              </Button>
             </Grid>
           )}
         </Grid>
@@ -266,21 +321,73 @@ const App = () => {
             xs
           >
             {tabValue === 0 ? (
-              <MapTab
-                filters={dialogFilters}
-                handleBounds={handleBounds}
-                search={search}
-                handleChangeTab={handleChangeTab}
-                latBounds={latBounds}
-                longBounds={longBounds}
-              />
+              <Grid container sx={{ position: "relative" }} item xs>
+                <MapTab
+                  filters={dialogFilters}
+                  handleBounds={handleBounds}
+                  search={search}
+                  handleChangeTab={handleChangeTab}
+                  latBounds={latBounds}
+                  longBounds={longBounds}
+                />
+                <Button
+                  sx={{
+                    position: "absolute",
+                    bottom: "50px",
+                    right: "15px",
+                    backgroundColor: "#FFD816",
+                    zIndex: 1400,
+                    color: "black!important",
+                    borderRadius: "12px",
+                    minHeight: "40px",
+                    maxHeight: "40px",
+                    minWidth: "40px",
+                    maxWidth: "40px",
+                    p: 1.5,
+                    "&:hover ": { backgroundColor: "#FFD816" },
+                    "&:active": { backgroundColor: "#FFD816" },
+                  }}
+                  onClick={handlePushToAddPost}
+                >
+                  <img
+                    src={AddNewPostPlusIcon.src}
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                </Button>
+              </Grid>
             ) : tabValue === 1 ? (
-              <PostsTab
-                posts={posts}
-                handleGetMorePosts={handleGetMorePosts}
-                scrollParentId="appPostLists"
-                handleChangeTab={handleChangeTab}
-              />
+              <Grid container sx={{ position: "relative" }} item xs>
+                <PostsTab
+                  posts={posts}
+                  handleGetMorePosts={handleGetMorePosts}
+                  scrollParentId="appPostLists"
+                  handleChangeTab={handleChangeTab}
+                />
+                <Button
+                  sx={{
+                    position: "absolute",
+                    bottom: "50px",
+                    right: "15px",
+                    backgroundColor: "#FFD816",
+                    zIndex: 1400,
+                    color: "black!important",
+                    borderRadius: "12px",
+                    minHeight: "40px",
+                    maxHeight: "40px",
+                    minWidth: "40px",
+                    maxWidth: "40px",
+                    p: 1.5,
+                    "&:hover ": { backgroundColor: "#FFD816" },
+                    "&:active": { backgroundColor: "#FFD816" },
+                  }}
+                  onClick={handlePushToAddPost}
+                >
+                  <img
+                    src={AddNewPostPlusIcon.src}
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                </Button>
+              </Grid>
             ) : tabValue === 2 ? (
               <Chat />
             ) : null}

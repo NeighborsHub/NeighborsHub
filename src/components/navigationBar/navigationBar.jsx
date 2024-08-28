@@ -43,6 +43,7 @@ const NavigationBar = ({ onChange = () => {} }) => {
         zIndex: "100",
         border: "1px solid rgba(229, 229, 229, 1)",
         boxShadow: "0px -1px 10px 0px rgba(0, 0, 0, 0.1)",
+        
       }}
       justifyContent={"space-evenly"}
       flexDirection={"row-reverse"}

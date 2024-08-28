@@ -142,7 +142,7 @@ const Post = ({
               }}
               variant="h6"
             >
-              {data.title}
+              {data.title.slice(0, 30)}
             </Typography>
             {/* //////////////////////////////////////// Description ///////////////////////////////////// */}
             <Typography

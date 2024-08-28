@@ -62,15 +62,15 @@ export default function Map({
     map.current.scrollZoom.setWheelZoomRate(1);
     map.current.scrollZoom.setZoomRate(1);
     // map.current.addControl(new maptilersdk.NavigationControl(), "top-right");
-    map.current.addControl(
-      new maptilersdk.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true,
-        },
-        trackUserLocation: true,
-      }),
-      "bottom-right"
-    );
+    // map.current.addControl(
+    //   new maptilersdk.GeolocateControl({
+    //     positionOptions: {
+    //       enableHighAccuracy: true,
+    //     },
+    //     trackUserLocation: true,
+    //   }),
+    //   "bottom-right"
+    // );
     //////////////////////////////////////////////////////////////////////////
     if (onClick) {
       var marker = new maptilersdk.Marker();
@@ -142,6 +142,7 @@ export default function Map({
       el.className = "marker";
       el.style.display = "block";
       el.style.padding = "0";
+      el.style.fill= '#16b2ff'
 
       const marker = new maplibregl.Marker({ element: el })
         .setLngLat(myCordinate)

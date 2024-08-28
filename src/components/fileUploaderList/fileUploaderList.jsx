@@ -3,6 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
+import PlusGray from "assets/svgs/Plus-gray.svg";
 
 const FileUploaderList = ({
   files,
@@ -10,7 +11,7 @@ const FileUploaderList = ({
   handleRemoveFromList,
 }) => {
   return (
-    <Grid container>
+    <Grid container justifyContent={"center"}>
       {files.map((item, index) => (
         <UploadedFileThumbnail
           file={item}
@@ -56,7 +57,7 @@ const FileUploader = ({ handleAddFile }) => {
         multiple
         accept="image/png, image/gif, image/jpeg, video/mp4, video/x-m4v, video/*"
       />
-      <AddIcon
+      <Grid
         sx={{
           position: "absolute",
           top: 0,
@@ -64,11 +65,14 @@ const FileUploader = ({ handleAddFile }) => {
           left: 0,
           right: 0,
           margin: "auto",
-          fontSize: "36px",
-          color: "gray",
           cursor: "pointer",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-      />
+      >
+        <img src={PlusGray.src} style={{ width: "30px", height: "30px" }} />
+      </Grid>
     </Grid>
   );
 };

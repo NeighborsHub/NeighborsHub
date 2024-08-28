@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import SubHeader from "components/header/subHeader";
 import TextField from "components/inputs/textfiled";
@@ -27,12 +27,19 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import DesktopVersionWithNavigationAndHeader from "components/profile/desktopVersionWithNavigationAndHeader";
 import DesktopAddresses from "components/profile/addresses/addresses";
 import CustomListItem from "./customListItem";
+import { getMyAddressesAction } from "store/actions/userActions";
+
 const Addresses = () => {
   const theme = useTheme();
   const desktopVersion = useMediaQuery(theme.breakpoints.up("lg"));
   const addresses = useSelector(myAddressesSelector);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMyAddressesAction());
+  }, []);
 
   return desktopVersion ? (
     <DesktopVersionWithNavigationAndHeader>
