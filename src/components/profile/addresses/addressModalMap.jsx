@@ -24,7 +24,7 @@ const AddressModalMap = ({ handleSubmit }) => {
           }}
         >
           Select your location on map and submit
-        </Typography>
+        </Typography> 
       </Grid>
       <Grid>
         <Divider sx={{ height: "3px", my: 0.5 }} />
