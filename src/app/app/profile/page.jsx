@@ -13,7 +13,7 @@ const Profile = () => {
     <ResponsiveProfile />
   ) : (
     <DesktopVersionWithNavigationAndHeader>
-      {router.push("/app/profile/edit-profile")}
+      {/* {router.push("/app/profile/edit-profile")} */}
     </DesktopVersionWithNavigationAndHeader>
   );
 };

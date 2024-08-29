@@ -35,7 +35,7 @@ const AvatarNameAndUserNameWithMenu = () => {
   };
 
   const menuItems = [
-    { text: "Profile", onClick: () => handlePushToARoute("/app/profile/") },
+    { text: "Profile", onClick: () => handlePushToARoute("/app/profile/edit-profile") },
     { text: "My Posts", onClick: () => handlePushToARoute("/app/my-posts") },
     { text: "Log Out", onClick: () => handleLogout() },
   ];

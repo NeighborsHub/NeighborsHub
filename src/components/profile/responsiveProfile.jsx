@@ -1,26 +1,10 @@
 "use client";
-
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { myInfoSelector } from "store/slices/userSlices";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import CallIcon from "assets/svgs/Profile/Call.svg";
-import AddressIcon from "assets/svgs/Profile/Address.svg";
-import NotificationIcon from "assets/svgs/Profile/Notification.svg";
-import BlackLogoutIcon from "assets/svgs/Profile/BlackLogout.svg";
-import BlackNotificationIcon from "assets/svgs/Profile/BlackNotification.svg";
-import Switch from "@mui/material/Switch";
-import IosSwitch from "components/switch/iosSwitch";
-import { alpha } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
 import SubHeader from "components/header/subHeader";
 import ProfileNavigation from "components/profile/profileNavigation";
