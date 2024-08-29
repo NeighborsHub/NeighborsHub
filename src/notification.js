@@ -36,6 +36,7 @@ function withSnackbarNotifications(WrappedComponent) {
           // }}
           maxSnack={3}
           hideIconVariant
+          autoHideDuration={2000}
           // Components={{
           //   success: StyledSuccess,
           //   error: StyledError,

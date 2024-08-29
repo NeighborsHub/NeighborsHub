@@ -28,6 +28,7 @@ import DesktopListNavigations from "components/navigationBar/desktopListNavigati
 import Button from "@mui/material/Button";
 import AddNewPostPlusIcon from "assets/svgs/AddNewPostPlus.svg";
 import { useRouter } from "next/navigation";
+import AddNewPostTab from "components/posts/addNewPostTab";
 
 let controller;
 
@@ -184,6 +185,8 @@ const App = () => {
       }}
       direction={"column"}
     >
+      {/* /////////////////////////////////////// Desktop ////////////////////////////////// */}
+
       <Hidden mdDown>
         <Header />
         <AppHeader
@@ -211,26 +214,6 @@ const App = () => {
                     longBounds={longBounds}
                   />
                 )}
-                <Button
-                  sx={{
-                    position: "absolute",
-                    bottom: "25px",
-                    right: "10px",
-                    backgroundColor: "#FFD816",
-                    zIndex: 1400,
-                    color: "black!important",
-                    borderRadius: "12px",
-                    "&:hover ": { backgroundColor: "#FFD816" },
-                    "&:active": { backgroundColor: "#FFD816" },
-                  }}
-                  onClick={handlePushToAddPost}
-                >
-                  <img
-                    src={AddNewPostPlusIcon.src}
-                    style={{ marginRight: "10px" }}
-                  />
-                  Add New Post
-                </Button>
               </Grid>
               <Grid
                 sx={{
@@ -270,7 +253,7 @@ const App = () => {
             </>
           ) : (
             <Grid
-              sx={{ height: "100%", overflowY: "auto" , position: 'relative' }}
+              sx={{ height: "100%", overflowY: "auto", position: "relative" }}
               container
               item
               xs={12}
@@ -285,30 +268,11 @@ const App = () => {
                   longBounds={longBounds}
                 />
               )}
-              <Button
-                sx={{
-                  position: "absolute",
-                  bottom: "25px",
-                  right: "10px",
-                  backgroundColor: "#FFD816",
-                  zIndex: 1400,
-                  color: "black!important",
-                  borderRadius: "12px",
-                  "&:hover ": { backgroundColor: "#FFD816" },
-                  "&:active": { backgroundColor: "#FFD816" },
-                }}
-                onClick={handlePushToAddPost}
-              >
-                <img
-                  src={AddNewPostPlusIcon.src}
-                  style={{ marginRight: "10px" }}
-                />
-                Add New Post
-              </Button>
             </Grid>
           )}
         </Grid>
       </Hidden>
+      {/* /////////////////////////////////////// Responsive ////////////////////////////////// */}
       <Hidden mdUp>
         <Grid container direction={"column"} item xs>
           <ResponsiveHeader />
@@ -330,30 +294,6 @@ const App = () => {
                   latBounds={latBounds}
                   longBounds={longBounds}
                 />
-                <Button
-                  sx={{
-                    position: "absolute",
-                    bottom: "50px",
-                    right: "15px",
-                    backgroundColor: "#FFD816",
-                    zIndex: 1400,
-                    color: "black!important",
-                    borderRadius: "12px",
-                    minHeight: "40px",
-                    maxHeight: "40px",
-                    minWidth: "40px",
-                    maxWidth: "40px",
-                    p: 1.5,
-                    "&:hover ": { backgroundColor: "#FFD816" },
-                    "&:active": { backgroundColor: "#FFD816" },
-                  }}
-                  onClick={handlePushToAddPost}
-                >
-                  <img
-                    src={AddNewPostPlusIcon.src}
-                    style={{ width: "100%", height: "100%" }}
-                  />
-                </Button>
               </Grid>
             ) : tabValue === 1 ? (
               <Grid container sx={{ position: "relative" }} item xs>
@@ -363,36 +303,16 @@ const App = () => {
                   scrollParentId="appPostLists"
                   handleChangeTab={handleChangeTab}
                 />
-                <Button
-                  sx={{
-                    position: "absolute",
-                    bottom: "50px",
-                    right: "15px",
-                    backgroundColor: "#FFD816",
-                    zIndex: 1400,
-                    color: "black!important",
-                    borderRadius: "12px",
-                    minHeight: "40px",
-                    maxHeight: "40px",
-                    minWidth: "40px",
-                    maxWidth: "40px",
-                    p: 1.5,
-                    "&:hover ": { backgroundColor: "#FFD816" },
-                    "&:active": { backgroundColor: "#FFD816" },
-                  }}
-                  onClick={handlePushToAddPost}
-                >
-                  <img
-                    src={AddNewPostPlusIcon.src}
-                    style={{ width: "100%", height: "100%" }}
-                  />
-                </Button>
               </Grid>
             ) : tabValue === 2 ? (
+              <Grid container sx={{ position: "relative" }} item xs>
+                <AddNewPostTab handleChangeTab={handleChangeTab} />
+              </Grid>
+            ) : tabValue === 3 ? (
               <Chat />
             ) : null}
           </Grid>
-          <NavigationBar onChange={handleChangeTab} />
+          <NavigationBar onChange={handleChangeTab} currentValue={tabValue} />
         </Grid>
       </Hidden>
     </Grid>

@@ -69,7 +69,7 @@ const PostsList = ({
             scrollableTarget={scrollParentId}
           >
             {posts.results.map((item) => (
-              <Grid sx={{ mb: 1 }} key={item.id}>
+              <Grid sx={{ my: 1 }} key={item.id}>
                 <Post
                   showLocationOnMap={showLocationOnMap}
                   handleOpenModal={() => handleOpenModal(item)}

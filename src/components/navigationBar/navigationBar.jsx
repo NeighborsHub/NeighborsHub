@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Map from "assets/svgs/navigationBar/Map.svg";
 import Chat from "assets/svgs/navigationBar/Chat.svg";
@@ -11,7 +11,7 @@ import PostsColored from "assets/svgs/navigationBar/Posts-colored.svg";
 import Typography from "@mui/material/Typography";
 import { useRouter, usePathname } from "next/navigation";
 
-const NavigationBar = ({ onChange = () => {} }) => {
+const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
@@ -24,6 +24,10 @@ const NavigationBar = ({ onChange = () => {} }) => {
   //     ? 2
   //     : null
   // );
+
+  useEffect(() => {
+    currentValue && setSelectedItemIndex(currentValue);
+  }, [currentValue]);
 
   const handleSelectItem = (index, path) => {
     setSelectedItemIndex(index);
@@ -43,7 +47,6 @@ const NavigationBar = ({ onChange = () => {} }) => {
         zIndex: "100",
         border: "1px solid rgba(229, 229, 229, 1)",
         boxShadow: "0px -1px 10px 0px rgba(0, 0, 0, 0.1)",
-        
       }}
       justifyContent={"space-evenly"}
       flexDirection={"row-reverse"}
@@ -63,11 +66,18 @@ const NavigationBar = ({ onChange = () => {} }) => {
         index={1}
       />
       <Icon
-        icon={selectedItemIndex === 2 ? ChatColored : Chat}
-        text={"chat"}
+        icon={selectedItemIndex === 2 ? AddColored : Add}
+        text={"Add Post"}
         onClick={handleSelectItem}
         selectedItemIndex={selectedItemIndex}
         index={2}
+      />
+      <Icon
+        icon={selectedItemIndex === 3 ? ChatColored : Chat}
+        text={"chat"}
+        onClick={handleSelectItem}
+        selectedItemIndex={selectedItemIndex}
+        index={3}
       />
     </Grid>
   );

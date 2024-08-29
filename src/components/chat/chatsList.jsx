@@ -53,6 +53,12 @@ const ChatsList = ({ isFullWidth }) => {
           placeholder="Search"
           disabled
           fullWidth
+          sx={{
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: "1px solid #E5E5E5!important",
+              borderRadius: '12px'
+            },
+          }}
         />
       </Grid>
 

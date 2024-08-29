@@ -10,10 +10,10 @@ const PostTab = ({ posts = [], handlePushToChat, ...props }) => {
   return (
     <Grid
       container
-      sx={{ px: 1, position: "relative", overflow: "hidden", flex: 1 }}
+      sx={{ px: 1, position: "relative", overflow: "hidden", flex: 1  }}
       direction={"column"}
     >
-      <Grid container direction={"column"} item xs sx={{ overflow: "auto" }}>
+      <Grid container direction={"column"} item xs sx={{ overflow: "auto"}}>
         <PostList showLocationOnMap {...props} posts={posts} />
       </Grid>
     </Grid>

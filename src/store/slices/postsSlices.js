@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   posts: {},
   locationPosts: {},
-  myPosts: {},
+  myPosts: [],
   uniqueLocation: [],
   categories: [],
   userPosts: {},
@@ -25,7 +25,7 @@ const postsSlices = createSlice({
       state.locationPosts = [];
     },
     addPost: (state, { payload }) => {
-      state.myPosts.results = [...state.myPosts.results, payload];
+      state.myPosts = [...state.myPosts, payload];
     },
     setMyPosts: (state, { payload }) => {
       state.myPosts = payload;

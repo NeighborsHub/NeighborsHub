@@ -5,9 +5,12 @@ import ListItemText from "@mui/material/ListItemText";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
 
-const CustomListItem = ({ data, setDrawerOpen, children }) => {
+const CustomListItem = ({ data, setDrawerOpen, children, onClick }) => {
   return (
-    <ListItemButton sx={{ p: 0, borderRadius: "10px", my: 1 }}>
+    <ListItemButton
+      sx={{ p: 0, borderRadius: "10px", my: 1 }}
+      onClick={onClick}
+    >
       {children}
       <ListItem
         secondaryAction={
