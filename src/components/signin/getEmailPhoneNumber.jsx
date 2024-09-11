@@ -146,9 +146,9 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
           fullWidth
           type="submit"
           name="otpLogin"
-          // disabled={
-          //   loading || !emailPhoneNumber.value || isNaN(emailPhoneNumber.value)
-          // }
+          disabled={
+            loading || !emailPhoneNumber.value || isNaN(emailPhoneNumber.value)
+          }
           onClick={handleSubmitOtp}
         >
           {loading ? (

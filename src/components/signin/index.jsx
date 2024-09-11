@@ -171,8 +171,34 @@ const Signup = () => {
                   borderRadius: "24px",
                 }}
               >
-                <Grid sx={{ mb: 3 }}>
-                  <SignInSignUpButtons />
+                {currentState === STATUS.GET_EMAIL_MOBILE && (
+                  <Grid sx={{ mb: 3 }}>
+                    <SignInSignUpButtons />
+                  </Grid>
+                )}
+                <Grid
+                  container
+                  direction={"column"}
+                  sx={{ display: { sm: "none", xs: "flex" } }}
+                >
+                  <Typography
+                    variant="h2"
+                    sx={{ color: "#000000", fontWeight: "normal" }}
+                  >
+                    Login
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      mt: 1,
+                      mb: 3,
+                      color: "black",
+                      fontSize: "15px",
+                      fontFamily: "Saira",
+                    }}
+                  >
+                    Welcome To Neighbors Hub! You can sign in here.
+                  </Typography>
                 </Grid>
                 {state[currentState]}{" "}
               </Grid>

@@ -5,6 +5,7 @@ import STATUS from "components/signup/status";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { passwordLoginAction } from "store/actions/authActions";
+import InputLabel from "@mui/material/InputLabel";
 const PasswordChecking = ({ password, setCurrentState, emailPhoneNumber }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -37,19 +38,22 @@ const PasswordChecking = ({ password, setCurrentState, emailPhoneNumber }) => {
       }}
       onSubmit={handleSubmit}
     >
+      <InputLabel shrink htmlFor="bootstrap-input">
+        Password
+      </InputLabel>
       <TextField
         fullWidth
         variant="outlined"
-        label="password"
         type="password"
         name="your password1"
         autocomplete="one-time-code"
         sx={{
-          mt: 1,
           borderRadius: "30px",
           "& .MuiOutlinedInput-notchedOutline": {
             fontSize: "12px",
             borderRadius: "10px!important",
+            borderColor: "#E6E6E6",
+            borderWidth: "2px",
           },
           "& .MuiInputBase-input": {
             padding: "12px 20px",
@@ -69,12 +73,17 @@ const PasswordChecking = ({ password, setCurrentState, emailPhoneNumber }) => {
           mt: 3,
           borderRadius: "10px",
           height: "47px",
-          fontSize: "13px",
-          backgroundColor: "#0298e8",
+          fontSize: "15px",
+          backgroundColor: "#FFD816",
+          color: "black!important",
+          "&:hover": {
+            backgroundColor: "#FFD816",
+            color: "black!important",
+          },
         }}
         fullWidth
-        variant="contained"
         type="submit"
+        disabled={!password.value}
       >
         Submit
       </Button>
@@ -83,14 +92,15 @@ const PasswordChecking = ({ password, setCurrentState, emailPhoneNumber }) => {
           mt: 2,
           borderRadius: "10px",
           height: "47px",
-          fontSize: "13px",
-          backgroundColor: "transparent",
-          border: "1px solid #e85a02",
-          color: "#e85a02",
+          fontSize: "15px",
+          background:
+            "conic-gradient(from 180deg at 50% 50%, #202328 0deg, #5A6579 164.35deg, #202328 357.31deg, #202328 360deg)",
+
+          color: "white!important",
           "&:hover": {
-            backgroundColor: "#f27527",
-            border: "1px solid #e85a02",
-            color: "white",
+            background:
+              "conic-gradient(from 180deg at 50% 50%, #202328 0deg, #5A6579 164.35deg, #202328 357.31deg, #202328 360deg)",
+            color: "white!important",
           },
         }}
         fullWidth
