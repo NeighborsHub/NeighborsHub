@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import LoginImage from "assets/images/landingPage.jpg";
 import Hidden from "@mui/material/Hidden";
+import SignInSignUpButtons from "components/signInSignUpButtons/signInSignUpButtons";
+import LoginSVG from "assets/svgs/LoginImage.svg";
 
 const Signup = () => {
   const [currentState, setCurrentState] = useState(STATUS.GET_EMAIL_MOBILE);
@@ -44,65 +46,159 @@ const Signup = () => {
   };
 
   return (
-    <Container
-      maxWidth="lg"
-      sx={{ flex: 1, display: "flex", flexDirection: "column" }}
+    <Grid
+      container
+      direction={"column"}
+      sx={{
+        backgroundColor: "#ebebeb",
+        minHeight: "100vh",
+        p: { sm: 8, xs: 0 },
+      }}
+      justifyContent={"center"}
     >
-      <Card
+      <Container
+        maxWidth="lg"
         sx={{
-          // p: 2,
-          boxShadow: "0 3px 10px 2px #f2f2f2",
-          borderRadius: "20px",
-          height: "100%",
+          p: { sm: 2, xs: 0 },
+          flex: 1,
+          alignItems: { sm: "center", xs: "flex-end" },
           display: "flex",
         }}
       >
-        <Grid
+        <Hidden smUp>
+          <Grid
+            item
+            container
+            justifyContent={"center"}
+            sx={{
+              overflow: "hidden",
+              position: "fixed",
+              top: 0,
+              display: { xs: "flex", sm: "none" },
+            }}
+          >
+            <img src={LoginSVG.src} style={{ minWidth: "105%" }} />
+          </Grid>
+        </Hidden>
+        <Card
           container
-          item
-          lg={6}
-          md={6}
-          xs={12}
-          sx={{ p: { lg: 6, md: 4, sm: 10, xs: 2 } }}
-          direction="column"
+          alignItems="center"
+          alignContent="center"
+          sx={{
+            borderRadius: { sm: "25px", xs: 0 },
+            boxShadow: "none",
+            display: "flex",
+            flex: 1,
+            flexDirection: "row",
+            p: { lg: 6, md: 6, sm: 6, xs: 0 },
+            backgroundColor: {
+              xs: "transparent!important",
+              sm: "white!important",
+            },
+            "&.MuiPaper-root": {
+              backgroundColor: {
+                xs: "transparent!important",
+                sm: "white!important",
+              },
+            },
+          }}
         >
           <Grid
             container
+            item
+            md
+            xs={12}
+            direction="column"
+            alignItems={"center"}
             justifyContent={"center"}
-            direction={"column"}
-            sx={{ flex: 1 }}
+            sx={{
+              flexGrow: 0,
+              backgroundColor: {
+                xs: "transparent!important",
+                sm: "white!important",
+              },
+            }}
           >
-            <Typography
-              variant="h2"
-              textAlign={"center"}
-              sx={{ color: "black" }}
+            <Grid
+              container
+              justifyContent={"center"}
+              alignItems={"center"}
+              direction={"column"}
+              sx={{
+                flex: 1,
+                flexGrow: 0,
+                backgroundColor: {
+                  xs: "transparent!important",
+                  sm: "white!important",
+                },
+              }}
             >
-              Sign In
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              textAlign={"center"}
-              sx={{ mt: 1, mb: 3, color: "darkengray" }}
-            >
-              Welcome to Neighbors Hub! You can sign in here.
-            </Typography>
-            {state[currentState]}{" "}
+              <Grid
+                conainer
+                direction={"column"}
+                smDown
+                sx={{ display: { sm: "flex", xs: "none" } }}
+              >
+                <Typography
+                  variant="h2"
+                  textAlign={"center"}
+                  sx={{ color: "#000000" }}
+                >
+                  Welcome Back
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  textAlign={"center"}
+                  sx={{
+                    mt: 1,
+                    mb: 3,
+                    color: "#999999",
+                    fontSize: "15px",
+                    fontFamily: "Saira",
+                  }}
+                >
+                  Hi My Friend. Please Enter Your
+                </Typography>
+              </Grid>
+              <Grid
+                container
+                direction={"column"}
+                alignItems={"center"}
+                sx={{
+                  backgroundColor: "white!important",
+                  py: { xs: 4, sm: 0 },
+                  px: { sm: "auto", xs: 2 },
+                  borderRadius: "24px",
+                }}
+              >
+                <Grid sx={{ mb: 3 }}>
+                  <SignInSignUpButtons />
+                </Grid>
+                {state[currentState]}{" "}
+              </Grid>
+            </Grid>
           </Grid>
-        </Grid>
-        <Hidden mdDown>
+          {/* <Hidden lgDown> */}
           <Grid
             item
+            container
             lg={6}
-            md={6}
+            justifyContent={"center"}
             sx={{
-              p: 2,
-              backgroundImage: `url(${LoginImage.src})`,
-              backgroundSize: "cover",
+              // p: 2,
+              // backgroundSize: "cover",
+              // aspectRatio: 2,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              display: { lg: "flex", xs: "none" },
             }}
-          ></Grid>
-        </Hidden>
-      </Card>
-    </Container>
+          >
+            <img src={LoginSVG.src} style={{ maxWidth: "100%" }} />
+          </Grid>
+          {/* </Hidden> */}
+        </Card>
+      </Container>
+    </Grid>
   );
 };
 
