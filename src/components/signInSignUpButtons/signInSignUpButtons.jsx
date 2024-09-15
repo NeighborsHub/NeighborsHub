@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 
 import Grid from "@mui/material/Grid";
 
-const SignInSignUpButtons = () => {
-  const [value, setValue] = React.useState(0);
+const SignInSignUpButtons = ({ initialValue = 0 }) => {
+  const [value, setValue] = React.useState(initialValue);
   const router = useRouter();
   const handleChange = (_, value) => {
     router.push(value === 0 ? "/signin" : "/signup");

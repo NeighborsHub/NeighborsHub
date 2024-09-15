@@ -26,6 +26,7 @@ import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import InputAdornment from "@mui/material/InputAdornment";
+import InputLabel from "@mui/material/InputLabel";
 
 let interval = null;
 
@@ -86,93 +87,116 @@ const SetUserName = ({
 
   return (
     <>
-      <form style={{ width: "100%" }} onSubmit={handleSubmit}>
-        <TextField
-          sx={{
-            mt: 1,
-            borderRadius: "30px",
-            "& .MuiOutlinedInput-notchedOutline": {
-              fontSize: "12px",
-              borderRadius: "10px!important",
-            },
-            "& .MuiInputBase-input": {
-              padding: "12px 20px",
-            },
-          }}
-          InputLabelProps={{
-            sx: {
-              color: "darkenGray",
-              fontSize: "12px",
-              fontWeight: "bold",
-            },
-          }}
-          fullWidth
-          variant="outlined"
-          label="username"
-          name="userName"
-          autocomplete="one-time-code"
-          onChange={handleUserNameChecking}
-          value={userName}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="start">
-                {!isFirstTyping &&
-                  (loading ? (
-                    <HourglassEmptyIcon />
-                  ) : isUserNameExist ? (
-                    <CheckCircleOutlinedIcon sx={{ fill: "green" }} />
-                  ) : (
-                    <HighlightOffOutlinedIcon sx={{ fill: "red" }} />
-                  ))}
-              </InputAdornment>
-            ),
-          }}
-        />
-        {isUserNameExist && isChecked && (
-          <Typography sx={{ fontSize: "14px", color: "red" }}>
-            This username is not available
-          </Typography>
-        )}
-        <Button
-          sx={{
-            mt: 3,
-            borderRadius: "10px",
-            height: "47px",
-            fontSize: "13px",
-            backgroundColor: "#0298e8",
-          }}
-          fullWidth
-          variant="contained"
-          type="submit"
-          // disabled={isUserNameExist || !isChecked}
+      <form
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          flex: 1,
+          alignItems: "center",
+          // justifyContent: "center",
+        }}
+        onSubmit={handleSubmit}
+      >
+        <Grid
+          container
+          direction={"column"}
+          sx={{ flex: 1, width: { lg: "70%", md: "50%", sm: "100%" } }}
         >
-          Submit
-        </Button>
-        {!isGoogle && (
-          <Button
+          <InputLabel shrink htmlFor="bootstrap-input">
+            Username
+          </InputLabel>
+          <TextField
             sx={{
-              mt: 2,
-              borderRadius: "10px",
-              height: "47px",
-              fontSize: "13px",
-              backgroundColor: "transparent",
-              border: "1px solid #e85a02",
-              color: "#e85a02",
-              "&:hover": {
-                backgroundColor: "#f27527",
-                border: "1px solid #e85a02",
-                color: "white",
+              borderRadius: "30px",
+              "& .MuiOutlinedInput-notchedOutline": {
+                fontSize: "12px",
+                borderRadius: "10px!important",
+                borderColor: "#E6E6E6",
+                borderWidth: "2px",
+              },
+              "& .MuiInputBase-input": {
+                padding: "12px 20px",
+              },
+            }}
+            InputLabelProps={{
+              sx: {
+                color: "darkenGray",
+                fontSize: "12px",
+                fontWeight: "bold",
               },
             }}
             fullWidth
             variant="outlined"
-            // disabled={loading}
-            color="secondary"
-            onClick={handleBack}
+            name="userName"
+            autocomplete="one-time-code"
+            onChange={handleUserNameChecking}
+            value={userName}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  {!isFirstTyping &&
+                    (loading ? (
+                      <HourglassEmptyIcon />
+                    ) : isUserNameExist ? (
+                      <CheckCircleOutlinedIcon sx={{ fill: "green" }} />
+                    ) : (
+                      <HighlightOffOutlinedIcon sx={{ fill: "red" }} />
+                    ))}
+                </InputAdornment>
+              ),
+            }}
+          />
+          {isUserNameExist && isChecked && (
+            <Typography sx={{ fontSize: "14px", color: "red" }}>
+              This username is not available
+            </Typography>
+          )}
+          <Button
+            sx={{
+              mt: 3,
+              borderRadius: "10px",
+              height: "47px",
+              fontSize: "15px",
+              backgroundColor: "#FFD816",
+              color: "black!important",
+              "&:hover": {
+                backgroundColor: "#FFD816",
+                color: "black!important",
+              },
+            }}
+            fullWidth
+            type="submit"
+            // disabled={isUserNameExist || !isChecked}
           >
-            Back
+            Submit
           </Button>
-        )}
+          {!isGoogle && (
+            <Button
+              sx={{
+                mt: 2,
+                borderRadius: "10px",
+                height: "47px",
+                fontSize: "15px",
+                background:
+                  "conic-gradient(from 180deg at 50% 50%, #202328 0deg, #5A6579 164.35deg, #202328 357.31deg, #202328 360deg)",
+
+                color: "white!important",
+                "&:hover": {
+                  background:
+                    "conic-gradient(from 180deg at 50% 50%, #202328 0deg, #5A6579 164.35deg, #202328 357.31deg, #202328 360deg)",
+                  color: "white!important",
+                },
+              }}
+              fullWidth
+              // disabled={loading}
+              color="secondary"
+              onClick={handleBack}
+            >
+              Back
+            </Button>
+          )}
+        </Grid>
       </form>
     </>
   );

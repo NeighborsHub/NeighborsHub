@@ -66,7 +66,7 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
       direction="column"
       justifyContent={"space-between"}
       alignItems={"center"}
-      sx={{ flex: 1, width: { lg: "50%", md: "50%", sm: "100%" } }}
+      sx={{ flex: 1, width: { lg: "70%", md: "50%", sm: "100%" } }}
     >
       <Grid container direction={"column"} justifyContent={"center"}>
         <InputLabel shrink htmlFor="bootstrap-input">

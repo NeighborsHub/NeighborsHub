@@ -21,6 +21,9 @@ import GoogleGLogo from "assets/svgs/google__G__logo.svg";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { googleAuthAction } from "store/actions/authActions";
 import { useRouter } from "next/navigation";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import EmailIcon from "assets/svgs/Email.svg";
 
 const GetEmailPhoneNumber = ({
   emailPhoneNumber,
@@ -30,6 +33,7 @@ const GetEmailPhoneNumber = ({
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,101 +56,135 @@ const GetEmailPhoneNumber = ({
 
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
-      dispatch(googleAuthAction({ code: tokenResponse.access_token })).then((res) => {
-        if (!res.is_register) {
-          setCurrentState(STATUS.PASSWORD_SETTING);
-          setIsGoogle(true);
-        } else {
-          router.push("/app");
+      dispatch(googleAuthAction({ code: tokenResponse.access_token })).then(
+        (res) => {
+          if (!res.is_register) {
+            setCurrentState(STATUS.PASSWORD_SETTING);
+            setIsGoogle(true);
+          } else {
+            router.push("/app");
+          }
         }
-      });
+      );
     },
   });
 
   return (
     <>
-      <form style={{ width: "100%" }} onSubmit={handleSubmit}>
-        <TextField
-          sx={{
-            borderRadius: "30px",
-            "& .MuiOutlinedInput-notchedOutline": {
-              fontSize: "12px",
-              borderRadius: "10px!important",
-            },
-            "& .MuiInputBase-input": {
-              padding: "12px 20px",
-            },
-          }}
-          InputLabelProps={{
-            sx: {
-              color: "darkenGray",
-              fontSize: "12px",
-              fontWeight: "bold",
-            },
-          }}
-          fullWidth
-          variant="outlined"
-          label="Email Or Phone Number"
-          // autocomplete="off"
-          name="your phone"
-          {...emailPhoneNumber}
-        />
-        <Button
-          sx={{
-            mt: 2,
-            borderRadius: "10px",
-            height: "47px",
-            fontSize: "13px",
-            backgroundColor: "#0298e8",
-          }}
-          fullWidth
-          variant="contained"
-          type="submit"
-          // disabled={loading}
-        >
-          {/* {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"} */}
-          Submit
-        </Button>
-      </form>
-      <Divider sx={{ my: 3 }} />
+      <Grid
+        container
+        direction="column"
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        sx={{ flex: 1, width: { lg: "70%", md: "50%", sm: "100%" } }}
+      >
+        <Grid container direction={"column"} justifyContent={"center"}>
+          <InputLabel shrink htmlFor="bootstrap-input">
+            Email Or Phone Number
+          </InputLabel>
 
-      <Grid container justifyContent={"center"}>
-        {/* <GoogleLogin
+          <TextField
+            fullWidth
+            variant="outlined"
+            // autocomplete="off"
+            name="your phone"
+            sx={{
+              borderRadius: "30px",
+              "& .MuiOutlinedInput-notchedOutline": {
+                fontSize: "12px",
+                borderRadius: "10px!important",
+                borderColor: "#E6E6E6",
+                borderWidth: "2px",
+              },
+              "& .MuiInputBase-input": {
+                padding: "12px 20px",
+              },
+            }}
+            InputLabelProps={{
+              sx: {
+                color: "darkenGray",
+                fontSize: "12px",
+                fontWeight: "bold",
+              },
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <img src={EmailIcon.src} />
+                </InputAdornment>
+              ),
+            }}
+            {...emailPhoneNumber}
+            // size="small"
+          />
+          <Button
+            sx={{
+              mt: 2,
+              borderRadius: "10px",
+              height: "47px",
+              fontSize: "15px",
+              backgroundColor: "#FFD816",
+              color: "black!important",
+              "&:hover": {
+                backgroundColor: "#FFD816",
+                color: "black!important",
+              },
+            }}
+            fullWidth
+            type="submit"
+            disabled={loading || !emailPhoneNumber.value}
+            name="passwordLogin"
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+        </Grid>
+        <Grid container alignItems={"center"} sx={{ my: 2 }}>
+          <Divider
+            sx={{ my: 3, flex: 1, height: "2px", backgroundColor: "#999999" }}
+          />
+          <Typography
+            sx={{
+              width: "40px",
+              textAlign: "center",
+              color: "#999999",
+              fontSize: "18px",
+              fontWeight: "bold",
+            }}
+          >
+            or
+          </Typography>
+          <Divider
+            sx={{ my: 3, flex: 1, height: "2px", backgroundColor: "#999999" }}
+          />
+        </Grid>
+
+        <Grid container justifyContent={"center"}>
+          {/* <GoogleLogin
           onSuccess={handleGoogleLogin}
           onError={handleGoogleLoginFailuer}
           useOneTap
         /> */}
-        <Button
-          variant="outlined"
-          fullWidth
-          sx={{
-            color: "black",
-            border: "1px solid gray",
-            // width: "70%",
-            fontSize: "14px",
-            py: 1,
-            borderRadius: "10px",
-            height: "47px",
-          }}
-          onClick={() => login()}
-        >
-          <img src={GoogleGLogo.src} />
-          <Typography sx={{ fontSize: "13px", ml: 1 }}>
-            Sign Up with google
-          </Typography>
-        </Button>
-      </Grid>
-      <Divider sx={{ my: 3 }} />
-      <Grid sx={{ mt: 2 }} container justifyContent={"center"}>
-        <Typography
-          sx={{ mr: 1, fontSize: "14px" }}
-        >{`You have already submited? `}</Typography>
-        <Link href="/signin">
-          <Typography
-            color="primary"
-            sx={{ fontSize: "14px" }}
-          >{`login here`}</Typography>
-        </Link>
+          <Button
+            variant="outlined"
+            fullWidth
+            sx={{
+              color: "#666666",
+              background:
+                "linear-gradient(270deg, rgba(32, 35, 40, 0.1) 0%, rgba(90, 101, 121, 0.1) 50%, rgba(32, 35, 40, 0.1) 100%)",
+              borderColor: "transparent!important",
+              py: 1,
+              borderRadius: "10px",
+              height: "40px",
+            }}
+            onClick={() => login()}
+          >
+            <img src={GoogleGLogo.src} />
+            <Typography sx={{ fontSize: "15px", ml: 1 }}>
+              Sign up with google
+            </Typography>
+          </Button>
+        </Grid>
       </Grid>
     </>
   );

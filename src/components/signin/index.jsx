@@ -9,10 +9,9 @@ import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import LoginImage from "assets/images/landingPage.jpg";
+import LoginImage from "assets/svgs/LoginImage.svg";
 import Hidden from "@mui/material/Hidden";
 import SignInSignUpButtons from "components/signInSignUpButtons/signInSignUpButtons";
-import LoginSVG from "assets/svgs/LoginImage.svg";
 
 const Signup = () => {
   const [currentState, setCurrentState] = useState(STATUS.GET_EMAIL_MOBILE);
@@ -77,7 +76,7 @@ const Signup = () => {
               display: { xs: "flex", sm: "none" },
             }}
           >
-            <img src={LoginSVG.src} style={{ minWidth: "105%" }} />
+            <img src={LoginImage.src} style={{ minWidth: "105%" }} />
           </Grid>
         </Hidden>
         <Card
@@ -219,7 +218,7 @@ const Signup = () => {
               display: { lg: "flex", xs: "none" },
             }}
           >
-            <img src={LoginSVG.src} style={{ maxWidth: "100%" }} />
+            <img src={LoginImage.src} style={{ maxWidth: "100%" }} />
           </Grid>
           {/* </Hidden> */}
         </Card>
