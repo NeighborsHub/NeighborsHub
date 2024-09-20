@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 
 const instance = axios.create();
 
-
 const AxiosInterceptor = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -38,7 +37,6 @@ const AxiosInterceptor = ({ children }) => {
       console.log(error, "errorrrr");
       if (error.code === "ERR_CANCELED") return;
       if (error.response?.status === 403) {
-        
         localStorage.removeItem("token");
         // router.push("/signin");
         // snackActions.error("You need to login again");
@@ -46,9 +44,11 @@ const AxiosInterceptor = ({ children }) => {
       } else if (error.response?.status === 404) {
         snackActions.error("Server Error");
       } else {
-        // !config.withoutSnack &&
-        const errorMessage = error.response?.data?.message || "Connection to Server Failed"
-        snackActions.error(errorMessage);
+        if (!config.withoutSnack) {
+          const errorMessage =
+            error.response?.data?.message || "Connection to Server Failed";
+          snackActions.error(errorMessage);
+        }
       }
 
       return Promise.reject(error);

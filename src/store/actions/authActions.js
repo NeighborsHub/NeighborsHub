@@ -3,7 +3,7 @@ import { startLoading, endLoading } from "store/slices/appSlices";
 import { snackActions } from "utils/SnackbarUtils";
 import { getMyAddressesAction } from "store/actions/userActions";
 import { authenticated } from "store/slices/authSlices";
-import { clearStoreActionAction } from "store/actions/appActions";
+import { clearStoreAction } from "store/actions/appActions";
 export const googleAuthAction = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.auth
