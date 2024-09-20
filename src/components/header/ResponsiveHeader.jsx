@@ -10,11 +10,14 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import LeftResponsiveDrawer from "components/drawer/leftResponsiveDrawer";
 import { useSelector } from "react-redux";
-
+import DensitySmallIcon from "@mui/icons-material/DensitySmall";
+import { authSelector } from "store/slices/authSlices";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 const ResponsiveHeader = () => {
   const myInfo = useSelector(myInfoSelector);
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const isAuth = useSelector(authSelector);
 
   const handleOpenDrawer = () => {
     setDrawerOpen(true);
@@ -29,26 +32,41 @@ const ResponsiveHeader = () => {
         px: 2,
         height: "65px",
         boxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.1)",
-        zIndex: 100
+        zIndex: 100,
       }}
       alignItems={"center"}
     >
-      <Grid
-        sx={{
-          p: "2px",
-          border: "1px solid #F2F2F2",
-          borderRadius: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          visibility: !myInfo.avatar && "hidden",
-        }}
-      >
-        <Avatar
-          src={myInfo.avatar?.avatar_thumbnail}
-          onClick={handleOpenDrawer}
-        />
-      </Grid>
+      {isAuth ? (
+        <Grid
+          sx={{
+            p: "2px",
+            border: "1px solid #F2F2F2",
+            borderRadius: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Avatar
+            src={myInfo.avatar?.avatar_thumbnail || <PersonOutlineIcon />}
+            onClick={handleOpenDrawer}
+          />
+        </Grid>
+      ) : (
+        <Grid
+          sx={{
+            p: "2px",
+            borderRadius: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <IconButton onClick={handleOpenDrawer}>
+            <DensitySmallIcon />
+          </IconButton>
+        </Grid>
+      )}
       <Grid sx={{ display: "flex" }}>
         <Typography
           sx={{ fontFamily: "Saira", color: "#000000", fontWeight: "700" }}

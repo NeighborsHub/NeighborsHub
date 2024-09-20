@@ -1,17 +1,27 @@
+import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import ChatsList from "components/chat/chatsList";
 import Conversation from "components/chat/conversation";
-import { useSearchParams } from "next/navigation";
 
 const Chat = ({ isFullWidth }) => {
-  const params = useSearchParams();
+  const [conversationId, setConversationId] = useState(null);
+
+  const handleSetConversationId = (conversationId) => {
+    setConversationId(conversationId);
+  };
 
   return (
     <Grid container direction={"column"} item xs>
-      {params.get("status") === "conversation" ? (
-        <Conversation />
+      {conversationId ? (
+        <Conversation
+          conversationId={conversationId}
+          handleSetConversationId={handleSetConversationId}
+        />
       ) : (
-        <ChatsList isFullWidth={isFullWidth} />
+        <ChatsList
+          isFullWidth={isFullWidth}
+          handleSetConversationId={handleSetConversationId}
+        />
       )}
     </Grid>
   );

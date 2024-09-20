@@ -13,11 +13,11 @@ import { useRouter } from "next/navigation";
 import { logoutAction } from "store/actions/authActions";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const SubHeader = ({ title, backPath, children }) => {
+const SubHeader = ({ title, backPath, children, handleBack }) => {
   const router = useRouter();
 
   const handlePushToPreviousPage = () => {
-    router.push(backPath);
+    handleBack?.() || router.push(backPath);
   };
 
   return (
@@ -27,9 +27,10 @@ const SubHeader = ({ title, backPath, children }) => {
       sx={{
         backgroundColor: "white!important",
         px: 2,
-        height: "65px",
+        height: "50px",
         boxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.1)",
-        mb: 2,
+        zIndex: "1000",
+        // mb: 2,
       }}
       alignItems={"center"}
     >

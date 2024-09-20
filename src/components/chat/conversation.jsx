@@ -8,15 +8,12 @@ import { createConversationAction } from "store/actions/chatActions";
 import { useSelector, useDispatch } from "react-redux";
 import { myInfoSelector } from "store/slices/userSlices";
 import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { useInputHandler } from "hooks/useInputHandler";
+import SubHeader from "components/header/subHeader";
 
-const Conversation = () => {
+const Conversation = ({ conversationId, handleSetConversationId }) => {
   const socket = useContext(SocketContext);
-  const params = useSearchParams();
-  const conversationId = params.get("conversationId");
-  const userId = params.get("userId");
-  const postId = params.get("postId");
+  // const userId = data.userId;
   const myInfo = useSelector(myInfoSelector);
   const dispatch = useDispatch();
   const [isInView, setIsInView] = useState(true);
@@ -67,10 +64,12 @@ const Conversation = () => {
 
   return (
     <Grid container direction="column" sx={{ position: "relative" }} item xs>
+      <SubHeader handleBack={() => handleSetConversationId(null)} />
       <ConversationMessages
         ref={messageListRef}
         isInView={isInView}
         scrollToBottom={scrollToBottom}
+        conversationId={conversationId}
       />
       <ConversationInput
         handleSendMessage={handleSendMessage}

@@ -3,37 +3,19 @@ import ChatsListItem from "components/chat/ChatsListItem";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-import IconButton from "@mui/material/IconButton";
 import { useInputHandler } from "hooks/useInputHandler";
-import { useSearchParams } from "next/navigation";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useRouteQuery } from "utils/route";
 import { useEffect, useState } from "react";
 import { chatsSelector } from "store/slices/chatSlices";
 import { getMyChatsAction } from "store/actions/chatActions";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "@mui/material/Button";
-import SubHeader from "components/header/subHeader";
 
-const ChatsList = ({ isFullWidth }) => {
+const ChatsList = ({ handleSetConversationId }) => {
   const search = useInputHandler("");
   const dispatch = useDispatch();
-  const routeQuery = useRouteQuery();
   const chats = useSelector(chatsSelector);
-  const handleGoToConversation = ({ conversationId }) =>
-    routeQuery(
-      {
-        status: "conversation",
-        conversationId,
-      },
-      "/app/chat"
-    );
-  const handleGoToPostsList = () =>
-    routeQuery({
-      status: "posts",
-    });
 
-  const handleSubmit = () => {};
+  const handleItemClicked = (conversationId) =>
+    handleSetConversationId(conversationId);
 
   useEffect(() => {
     dispatch(getMyChatsAction());
@@ -56,7 +38,7 @@ const ChatsList = ({ isFullWidth }) => {
           sx={{
             "& .MuiOutlinedInput-notchedOutline": {
               border: "1px solid #E5E5E5!important",
-              borderRadius: '12px'
+              borderRadius: "12px",
             },
           }}
         />
@@ -105,9 +87,7 @@ const ChatsList = ({ isFullWidth }) => {
                   <ChatsListItem
                     key={index}
                     data={item}
-                    onClick={() =>
-                      handleGoToConversation({ conversationId: item.room_id })
-                    }
+                    onClick={() => handleItemClicked(item.room_id)}
                   />
                 ))}
               </Grid>

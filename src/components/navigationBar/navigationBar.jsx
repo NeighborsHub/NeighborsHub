@@ -18,25 +18,41 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
   const pathname = usePathname();
   const isAuth = useSelector(authSelector);
 
-  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-  // const [selectedItemIndex, setSelectedItemIndex] = useState(
-  //   pathname === "/app/map/"
-  //     ? 0
-  //     : pathname === "/app/posts/"
-  //     ? 1
-  //     : pathname === "/app/chat/"
-  //     ? 2
-  //     : null
-  // );
+  // const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(
+    pathname === "/app/map/"
+      ? 0
+      : pathname === "/app/posts/"
+      ? 1
+      : pathname === "/app/add-new-post/"
+      ? 2
+      : pathname === "/app/chats/"
+      ? 3
+      : 0
+  );
 
   useEffect(() => {
     currentValue && setSelectedItemIndex(currentValue);
   }, [currentValue]);
 
+  useEffect(() => {
+    setSelectedItemIndex(
+      pathname === "/app/map/"
+        ? 0
+        : pathname === "/app/posts/"
+        ? 1
+        : pathname === "/app/add-new-post/"
+        ? 2
+        : pathname === "/app/chats/"
+        ? 3
+        : 0
+    );
+  }, [pathname]);
+
   const handleSelectItem = (index, path) => {
-    setSelectedItemIndex(index);
+    // setSelectedItemIndex(index);
     onChange({}, index);
-    // router.push("/app/" + path);
+    router.push("/app/" + path);
   };
   return (
     <Grid
@@ -61,6 +77,7 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
         onClick={handleSelectItem}
         selectedItemIndex={selectedItemIndex}
         index={0}
+        path={"map"}
       />
       {isAuth && (
         <Icon
@@ -69,6 +86,7 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
           onClick={handleSelectItem}
           selectedItemIndex={selectedItemIndex}
           index={1}
+          path={"posts"}
         />
       )}
       <Icon
@@ -77,14 +95,16 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
         onClick={handleSelectItem}
         selectedItemIndex={selectedItemIndex}
         index={2}
+        path={"add-new-post"}
       />
       {isAuth && (
         <Icon
           icon={selectedItemIndex === 3 ? ChatColored : Chat}
-          text={"chat"}
+          text={"chats"}
           onClick={handleSelectItem}
           selectedItemIndex={selectedItemIndex}
           index={3}
+          path={"chats"}
         />
       )}
     </Grid>
@@ -93,7 +113,7 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
 
 export default NavigationBar;
 
-const Icon = ({ icon, text, onClick, selectedItemIndex, index }) => {
+const Icon = ({ icon, text, onClick, selectedItemIndex, index, path }) => {
   return (
     <Grid
       container
@@ -102,7 +122,7 @@ const Icon = ({ icon, text, onClick, selectedItemIndex, index }) => {
       alignItems={"center"}
       item
       xs
-      onClick={() => onClick(index, text)}
+      onClick={() => onClick(index, path)}
       sx={{ cursor: "pointer" }}
     >
       <img src={icon.src} style={{ fill: "red" }} />

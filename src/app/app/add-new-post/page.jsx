@@ -24,6 +24,7 @@ import { authSelector } from "store/slices/authSlices";
 import NavigationBar from "components/navigationBar/navigationBar";
 import Hidden from "@mui/material/Hidden";
 import SubHeader from "components/header/subHeader";
+import ResponsiveHeader from "components/header/ResponsiveHeader";
 
 const AddNewPost = ({ open, handleClose }) => {
   const dispatch = useDispatch();
@@ -127,24 +128,12 @@ const AddNewPost = ({ open, handleClose }) => {
       )}
       <Hidden mdUp>
         <Grid container direction={"column"} item xs>
-          <SubHeader title={"Add New Post"} backPath={"/app"}>
-            {isAuth && (
-              <Button
-                sx={{
-                  backgroundColor: "#FFD816",
-                  color: "black!important",
-                  maxHeight: "33px!important",
-                  minHeight: 0,
-                }}
-              >
-                Done
-              </Button>
-            )}
-          </SubHeader>
+          <ResponsiveHeader />
+
           <Grid
             container
             justifyContent={"center"}
-            sx={{ flex: 1, overflowY: "auto", px: 2 }}
+            sx={{ flex: 1, overflowY: "auto", px: 2, mt: 2 }}
             id="appPostLists"
             item
             xs
@@ -186,10 +175,30 @@ const AddNewPost = ({ open, handleClose }) => {
                 onClick={() => setAddressListModalOpen(true)}
                 value={selectedAddress?.street}
               />
+              <Button
+                sx={{
+                  mt: 2,
+                  borderRadius: "10px",
+                  height: "47px",
+                  fontSize: "15px",
+                  backgroundColor: "#FFD816",
+                  color: "black!important",
+                  "&:hover": {
+                    backgroundColor: "#FFD816",
+                    color: "black!important",
+                  },
+                }}
+                fullWidth
+                type="submit"
+                name="passwordLogin"
+              >
+                Submit
+              </Button>
             </Grid>
           </Grid>
         </Grid>
       </Hidden>
+      <NavigationBar />
     </Grid>
   );
 };

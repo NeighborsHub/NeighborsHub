@@ -13,17 +13,13 @@ import { messagesSelector } from "store/slices/chatSlices";
 import { useSearchParams } from "next/navigation";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CircularProgress from "@mui/material/CircularProgress";
-
+import ChatBackgroundImage from "assets/images/ChatBackground.png";
 const MessageContainer = forwardRef(function Test(
-  { isInView, scrollToBottom },
+  { isInView, scrollToBottom, conversationId },
   messageListRef
 ) {
   const dispatch = useDispatch();
   const messages = useSelector(messagesSelector);
-  // const reversedMessages = [].concat(messages.results).reverse();
-  const [flag, setFlag] = useState(true);
-  const params = useSearchParams();
-  const conversationId = params.get("conversationId");
   const [page, setPage] = useState(0);
   const limit = 10;
 
@@ -54,7 +50,16 @@ const MessageContainer = forwardRef(function Test(
   };
 
   return (
-    <Grid container direction={"column"} item xs sx={{ overflowY: "auto" }}>
+    <Grid
+      container
+      direction={"column"}
+      item
+      xs
+      sx={{
+        overflowY: "auto",
+        backgroundImage: `url(${ChatBackgroundImage.src})`,
+      }}
+    >
       <Grid
         sx={{
           px: 1,

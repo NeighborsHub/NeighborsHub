@@ -32,7 +32,7 @@ import AddNewPostTab from "components/posts/addNewPostTab";
 
 let controller;
 
-const App = () => {
+const Map = () => {
   const [tabValue, setTabValue] = useState(0);
   const dispatch = useDispatch();
   const myAddressCordinate = useSelector(myAddressesSelector);
@@ -172,151 +172,30 @@ const App = () => {
   };
 
   return (
-    <Grid
-      container
-      item
-      xs
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        px: "0!important",
-        position: "relative",
-      }}
-      direction={"column"}
-    >
+    <Grid container item xs direction={"column"}>
       {/* /////////////////////////////////////// Desktop ////////////////////////////////// */}
+      <Grid container item xs direction={"column"}>
+        <ResponsiveHeader />
+        {/* <AppHeader
+        handleSearch={handleSearch}
+        dialogFilters={dialogFilters}
+        handleSubmitFilters={handleSubmitFilters}
+      /> */}
+        <Grid container item xs>
+          <MapTab
+            filters={dialogFilters}
+            handleBounds={handleBounds}
+            search={search}
+            handleChangeTab={handleChangeTab}
+            latBounds={latBounds}
+            longBounds={longBounds}
+          />
+        </Grid>
+      </Grid>
 
-      <Hidden mdDown>
-        <Header />
-        <AppHeader
-          handleSearch={handleSearch}
-          dialogFilters={dialogFilters}
-          handleSubmitFilters={handleSubmitFilters}
-        />
-        <Grid container justifyContent={"center"} item xs>
-          {mainAddress ? (
-            <>
-              <Grid
-                sx={{ overflowY: "auto", position: "relative" }}
-                container
-                item
-                lg={8}
-                md={6}
-              >
-                {!loading && (
-                  <MapTab
-                    filters={dialogFilters}
-                    handleBounds={handleBounds}
-                    search={search}
-                    handleChangeTab={handleChangeTab}
-                    latBounds={latBounds}
-                    longBounds={longBounds}
-                  />
-                )}
-              </Grid>
-              <Grid
-                sx={{
-                  height: "100%",
-                  overflowY: "auto",
-                  boxShadow: "-4px 6px 12px 0px rgba(0, 0, 0, 0.25)",
-                  zIndex: "100",
-                }}
-                container
-                item
-                lg={4}
-                md={6}
-                id="appPostLists"
-                direction={"column"}
-              >
-                <Grid sx={{ m: 1, mr: "13px" }}>
-                  <DesktopListNavigations
-                    selectedNavigationItemIndex={selectedNavigationItemIndex}
-                    setSelectedNavigationItemIndex={
-                      setSelectedNavigationItemIndex
-                    }
-                  />
-                </Grid>
-                {selectedNavigationItemIndex == 1 ? (
-                  <Chat isFullWidth />
-                ) : selectedNavigationItemIndex == 0 ? (
-                  <PostsTab
-                    filters={dialogFilters}
-                    posts={posts}
-                    handleGetMorePosts={handleGetMorePosts}
-                    scrollParentId="appPostLists"
-                    handlePushToChat={handlePushToChat}
-                    handleChangeTab={handleChangeTab}
-                  />
-                ) : null}
-              </Grid>
-            </>
-          ) : (
-            <Grid
-              sx={{ height: "100%", overflowY: "auto", position: "relative" }}
-              container
-              item
-              xs={12}
-            >
-              {!loading && (
-                <MapTab
-                  filters={dialogFilters}
-                  handleBounds={handleBounds}
-                  search={search}
-                  handleChangeTab={handleChangeTab}
-                  latBounds={latBounds}
-                  longBounds={longBounds}
-                />
-              )}
-            </Grid>
-          )}
-        </Grid>
-      </Hidden>
-      {/* /////////////////////////////////////// Responsive ////////////////////////////////// */}
-      <Hidden mdUp>
-        <Grid container direction={"column"} item xs>
-          <ResponsiveHeader />
-          <Grid
-            container
-            justifyContent={"center"}
-            sx={{ flex: 1, overflowY: "auto" }}
-            id="appPostLists"
-            item
-            xs
-          >
-            {tabValue === 0 ? (
-              <Grid container sx={{ position: "relative" }} item xs>
-                <MapTab
-                  filters={dialogFilters}
-                  handleBounds={handleBounds}
-                  search={search}
-                  handleChangeTab={handleChangeTab}
-                  latBounds={latBounds}
-                  longBounds={longBounds}
-                />
-              </Grid>
-            ) : tabValue === 1 ? (
-              <Grid container sx={{ position: "relative" }} item xs>
-                <PostsTab
-                  posts={posts}
-                  handleGetMorePosts={handleGetMorePosts}
-                  scrollParentId="appPostLists"
-                  handleChangeTab={handleChangeTab}
-                />
-              </Grid>
-            ) : tabValue === 2 ? (
-              <Grid container sx={{ position: "relative" }} item xs>
-                <AddNewPostTab handleChangeTab={handleChangeTab} />
-              </Grid>
-            ) : tabValue === 3 || tabValue === 4 ? (
-              <Chat />
-            ) : null}
-          </Grid>
-          <NavigationBar onChange={handleChangeTab} currentValue={tabValue} />
-        </Grid>
-      </Hidden>
+      <NavigationBar />
     </Grid>
   );
 };
 
-export default App;
+export default Map;

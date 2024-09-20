@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 
 const ChatInput = ({ handleSendMessage, message }) => {
   return (
-    <Grid container item sx={{ p: 1 }}>
+    <Grid container item sx={{ borderTop: "1px solid #D9D9D9" }}>
       <form style={{ width: "100%" }} onSubmit={handleSendMessage}>
         <TextField
           autocomplete="off"
@@ -16,6 +16,8 @@ const ChatInput = ({ handleSendMessage, message }) => {
           sx={{
             backgroundColor: "white",
             borderRadius: "10px",
+            borderColor: "#D9D9D9!important",
+            p: 0.5,
             "& .MuiOutlinedInput-notchedOutline": {
               fontSize: "12px",
               display: "none",
