@@ -9,14 +9,14 @@ import { chatsSelector } from "store/slices/chatSlices";
 import { getMyChatsAction } from "store/actions/chatActions";
 import { useDispatch, useSelector } from "react-redux";
 import NavigationBar from "components/navigationBar/navigationBar";
+import ResponsiveHeader from "components/header/responsiveHeader";
 
-const ChatsList = ({ handleSetConversationId }) => {
+const ChatsList = ({ handleSetData }) => {
   const search = useInputHandler("");
   const dispatch = useDispatch();
   const chats = useSelector(chatsSelector);
 
-  const handleItemClicked = (conversationId) =>
-    handleSetConversationId(conversationId);
+  const handleItemClicked = (data) => handleSetData(data);
 
   useEffect(() => {
     dispatch(getMyChatsAction());
@@ -24,6 +24,7 @@ const ChatsList = ({ handleSetConversationId }) => {
 
   return (
     <Grid container direction={"column"} item xs>
+      <ResponsiveHeader />
       <Grid container sx={{ px: 2, mb: 2, mt: 2 }}>
         <TextField
           InputProps={{
@@ -88,7 +89,7 @@ const ChatsList = ({ handleSetConversationId }) => {
                   <ChatsListItem
                     key={index}
                     data={item}
-                    onClick={() => handleItemClicked(item.room_id)}
+                    onClick={() => handleItemClicked(item)}
                   />
                 ))}
               </Grid>

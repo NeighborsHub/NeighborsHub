@@ -17,7 +17,7 @@ const ChatInput = ({ handleSendMessage, message }) => {
             backgroundColor: "white",
             borderRadius: "10px",
             borderColor: "#D9D9D9!important",
-            p: 0.5,
+            // p: 0.5,
             "& .MuiOutlinedInput-notchedOutline": {
               fontSize: "12px",
               display: "none",

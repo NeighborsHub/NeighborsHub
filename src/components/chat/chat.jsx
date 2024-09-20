@@ -4,23 +4,22 @@ import ChatsList from "components/chat/chatsList";
 import Conversation from "components/chat/conversation";
 
 const Chat = ({ isFullWidth }) => {
-  const [conversationId, setConversationId] = useState(null);
-
-  const handleSetConversationId = (conversationId) => {
-    setConversationId(conversationId);
+  const [data, setData] = useState({});
+  const handleSetData = (data) => {
+    setData(data);
   };
 
   return (
     <Grid container direction={"column"} item xs>
-      {conversationId ? (
+      {data ? (
         <Conversation
-          conversationId={conversationId}
-          handleSetConversationId={handleSetConversationId}
+          data={data}
+          handleSetData={handleSetData}
         />
       ) : (
         <ChatsList
           isFullWidth={isFullWidth}
-          handleSetConversationId={handleSetConversationId}
+          handleSetData={handleSetData}
         />
       )}
     </Grid>

@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInputHandler } from "hooks/useInputHandler";
 import SubHeader from "components/header/subHeader";
 
-const Conversation = ({ conversationId, handleSetConversationId }) => {
+const Conversation = ({ conversationId, handleSetData, data }) => {
   const socket = useContext(SocketContext);
   // const userId = data.userId;
   const myInfo = useSelector(myInfoSelector);
@@ -64,12 +64,12 @@ const Conversation = ({ conversationId, handleSetConversationId }) => {
 
   return (
     <Grid container direction="column" sx={{ position: "relative" }} item xs>
-      <SubHeader handleBack={() => handleSetConversationId(null)} />
+      <SubHeader handleBack={() => handleSetData(null)} title={data.name} />
       <ConversationMessages
         ref={messageListRef}
         isInView={isInView}
         scrollToBottom={scrollToBottom}
-        conversationId={conversationId}
+        conversationId={data.room_id}
       />
       <ConversationInput
         handleSendMessage={handleSendMessage}
