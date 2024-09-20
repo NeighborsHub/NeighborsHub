@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { chatsSelector } from "store/slices/chatSlices";
 import { getMyChatsAction } from "store/actions/chatActions";
 import { useDispatch, useSelector } from "react-redux";
+import NavigationBar from "components/navigationBar/navigationBar";
 
 const ChatsList = ({ handleSetConversationId }) => {
   const search = useInputHandler("");
@@ -104,6 +105,7 @@ const ChatsList = ({ handleSetConversationId }) => {
           </Grid>
         </Grid>
       </Grid>
+      <NavigationBar />
     </Grid>
   );
 };
