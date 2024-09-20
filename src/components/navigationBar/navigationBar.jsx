@@ -10,10 +10,14 @@ import AddColored from "assets/svgs/navigationBar/Add-colored.svg";
 import PostsColored from "assets/svgs/navigationBar/Posts-colored.svg";
 import Typography from "@mui/material/Typography";
 import { useRouter, usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { authSelector } from "store/slices/authSlices";
 
 const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const isAuth = useSelector(authSelector);
+
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   // const [selectedItemIndex, setSelectedItemIndex] = useState(
   //   pathname === "/app/map/"
@@ -58,13 +62,15 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
         selectedItemIndex={selectedItemIndex}
         index={0}
       />
-      <Icon
-        icon={selectedItemIndex === 1 ? PostsColored : Posts}
-        text={"posts"}
-        onClick={handleSelectItem}
-        selectedItemIndex={selectedItemIndex}
-        index={1}
-      />
+      {isAuth && (
+        <Icon
+          icon={selectedItemIndex === 1 ? PostsColored : Posts}
+          text={"posts"}
+          onClick={handleSelectItem}
+          selectedItemIndex={selectedItemIndex}
+          index={1}
+        />
+      )}
       <Icon
         icon={selectedItemIndex === 2 ? AddColored : Add}
         text={"Add Post"}
@@ -72,13 +78,15 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
         selectedItemIndex={selectedItemIndex}
         index={2}
       />
-      <Icon
-        icon={selectedItemIndex === 3 ? ChatColored : Chat}
-        text={"chat"}
-        onClick={handleSelectItem}
-        selectedItemIndex={selectedItemIndex}
-        index={3}
-      />
+      {isAuth && (
+        <Icon
+          icon={selectedItemIndex === 3 ? ChatColored : Chat}
+          text={"chat"}
+          onClick={handleSelectItem}
+          selectedItemIndex={selectedItemIndex}
+          index={3}
+        />
+      )}
     </Grid>
   );
 };

@@ -11,8 +11,13 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Hidden from "@mui/material/Hidden";
-import LoginImage from "assets/svgs/LoginImage.svg";
+import LoginImage from "assets/images/loginImage.jpg";
 import SignInSignUpButtons from "components/signInSignUpButtons/signInSignUpButtons";
+import Button from "@mui/material/Button";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { useRouter } from "next/navigation";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Signup = () => {
   const [currentState, setCurrentState] = useState(STATUS.GET_EMAIL_MOBILE);
@@ -21,6 +26,7 @@ const Signup = () => {
   const otp = useInputHandler("");
   const password = useInputHandler("");
   const [userName, setUserName] = useState("");
+  const router = useRouter();
 
   const state = {
     [STATUS.GET_EMAIL_MOBILE]: (
@@ -56,6 +62,10 @@ const Signup = () => {
         userName={userName}
       />
     ),
+  };
+
+  const handleBackToHome = () => {
+    router.push("/");
   };
 
   return (
@@ -130,8 +140,25 @@ const Signup = () => {
                 xs: "transparent!important",
                 sm: "white!important",
               },
+              position: "relative",
             }}
           >
+            <Grid
+              container
+              justifyContent={"flex-start"}
+              sx={{ position: "absolute", top: "30px", left: "30px" }}
+            >
+              <Button
+                sx={{ fontWeight: "light", color: "black!important" }}
+                onClick={handleBackToHome}
+              >
+                {" "}
+                <KeyboardBackspaceIcon
+                  sx={{ mr: 0.5, color: "black!important" }}
+                />
+                Home
+              </Button>
+            </Grid>
             <Grid
               container
               justifyContent={"center"}
@@ -190,6 +217,19 @@ const Signup = () => {
                   borderRadius: "24px",
                 }}
               >
+                <Hidden smUp>
+                  <Grid container justifyContent={"flex-end"}>
+                    <IconButton
+                      sx={{
+                        fontWeight: "light",
+                        p: "0!important",
+                      }}
+                      onClick={handleBackToHome}
+                    >
+                      <CloseIcon sx={{ mr: 0.5, color: "lightGray" }} />
+                    </IconButton>
+                  </Grid>
+                </Hidden>
                 {currentState === STATUS.GET_EMAIL_MOBILE && (
                   <Grid sx={{ mb: 3 }}>
                     <SignInSignUpButtons initialValue={1} />
