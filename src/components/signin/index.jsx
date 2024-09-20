@@ -171,7 +171,13 @@ const Signup = () => {
                   textAlign={"center"}
                   sx={{ color: "#000000" }}
                 >
-                  Welcome Back
+                  {currentState === STATUS.GET_EMAIL_MOBILE
+                    ? "Welcome Back"
+                    : currentState === STATUS.OTP_CHECKING
+                    ? "You Are Almost There"
+                    : currentState === STATUS.PASSWORD_CHECKING
+                    ? "You Are Almost There"
+                    : null}
                 </Typography>
                 <Typography
                   variant="subtitle1"
@@ -184,7 +190,13 @@ const Signup = () => {
                     fontFamily: "Saira",
                   }}
                 >
-                  Hi My Friend. Please Enter Your
+                  {currentState === STATUS.GET_EMAIL_MOBILE
+                    ? "Hi My Friend. Please Enter Your User Name, Email Or Phone Number"
+                    : currentState === STATUS.OTP_CHECKING
+                    ? "Enter The Code Sent To You"
+                    : currentState === STATUS.PASSWORD_CHECKING
+                    ? "Enter Your Password"
+                    : null}
                 </Typography>
               </Grid>
               <Grid

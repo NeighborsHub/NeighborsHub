@@ -130,26 +130,27 @@ const LeftResponsiveDrawer = ({ children, open, setOpen }) => {
           </Grid>
         </>
       )}
-
-      <Grid
-        container
-        direction={"column"}
-        sx={{ backgroundColor: "#F7F7F7", borderRadius: "10px", mt: 6 }}
-      >
-        <ListItemButton onClick={() => handlePushToRoute("/signin")}>
-          <ListItemText
-            primary="Sign in / Sign up"
-            sx={{
-              "& .MuiTypography-root": {
-                fontFamily: "Saira!important",
-                fontSize: "16px",
-                color: "black!important",
-              },
-            }}
-          />
-          <ArrowForwardIosIcon sx={{ color: "#D9D9D9" }} />
-        </ListItemButton>
-      </Grid>
+      {!isAuth && (
+        <Grid
+          container
+          direction={"column"}
+          sx={{ backgroundColor: "#F7F7F7", borderRadius: "10px", mt: 6 }}
+        >
+          <ListItemButton onClick={() => handlePushToRoute("/signin")}>
+            <ListItemText
+              primary="Sign in / Sign up"
+              sx={{
+                "& .MuiTypography-root": {
+                  fontFamily: "Saira!important",
+                  fontSize: "16px",
+                  color: "black!important",
+                },
+              }}
+            />
+            <ArrowForwardIosIcon sx={{ color: "#D9D9D9" }} />
+          </ListItemButton>
+        </Grid>
+      )}
 
       <Grid container direction={"column"} sx={{ mt: 6, flex: 1 }}>
         <List>
