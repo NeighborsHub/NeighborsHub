@@ -1,3 +1,4 @@
+'use client';
 import Grid from "@mui/material/Grid";
 import ChatsListItem from "components/chat/ChatsListItem";
 import TextField from "@mui/material/TextField";
@@ -9,7 +10,7 @@ import { chatsSelector } from "store/slices/chatSlices";
 import { getMyChatsAction } from "store/actions/chatActions";
 import { useDispatch, useSelector } from "react-redux";
 import NavigationBar from "components/navigationBar/navigationBar";
-import ResponsiveHeader from 'components/header/responsiveHeader.jsx';
+import ResponsiveHeader from "components/header/responsiveHeader.jsx";
 
 const ChatsList = ({ handleSetData }) => {
   const search = useInputHandler("");
