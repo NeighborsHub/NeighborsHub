@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import ChatsList from "components/chat/chatsList";
 import Conversation from "components/chat/conversation";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Chat = ({ isFullWidth }) => {
   const [data, setData] = useState({});
