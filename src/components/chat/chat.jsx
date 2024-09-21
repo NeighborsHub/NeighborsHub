@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import ChatsList from "components/chat/chatsList";
