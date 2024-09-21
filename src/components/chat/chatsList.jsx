@@ -9,7 +9,7 @@ import { chatsSelector } from "store/slices/chatSlices";
 import { getMyChatsAction } from "store/actions/chatActions";
 import { useDispatch, useSelector } from "react-redux";
 import NavigationBar from "components/navigationBar/navigationBar";
-import ResponsiveHeader from "components/header/responsiveHeader";
+// import ResponsiveHeader from "components/header/responsiveHeader";
 
 const ChatsList = ({ handleSetData }) => {
   const search = useInputHandler("");
@@ -24,7 +24,7 @@ const ChatsList = ({ handleSetData }) => {
 
   return (
     <Grid container direction={"column"} item xs>
-      <ResponsiveHeader />
+      {/* <ResponsiveHeader /> */}
       <Grid container sx={{ px: 2, mb: 2, mt: 2 }}>
         <TextField
           InputProps={{
