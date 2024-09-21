@@ -1,6 +1,5 @@
 "use client";
 import Grid from "@mui/material/Grid";
-import Chat from "components/chat/chat";
 import SubHeader from "components/header/subHeader";
 import Button from "@mui/material/Button";
 import TextField from "components/inputs/textfiled";
