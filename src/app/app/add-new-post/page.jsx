@@ -93,7 +93,7 @@ const AddNewPost = ({ open, handleClose }) => {
             alignItems: "center",
             textAlign: "center",
             flexDirection: "column",
-            zIndex: 1000,
+            zIndex: 99,
             p: 2,
           }}
           container

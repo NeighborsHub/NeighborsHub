@@ -59,10 +59,11 @@ const Signup = () => {
       direction={"column"}
       sx={{
         backgroundColor: "#ebebeb",
-        minHeight: "100vh",
-        p: { sm: 8, xs: 0 },
+        p: { sm: 1, xs: 0, boxSizing: "border-box" },
       }}
       justifyContent={"center"}
+      item
+      xs
     >
       <Container
         maxWidth="lg"
@@ -98,7 +99,7 @@ const Signup = () => {
             display: "flex",
             flex: 1,
             flexDirection: "row",
-            p: { lg: 6, md: 6, sm: 6, xs: 0 },
+            p: { lg: 3, md: 3, sm: 3, xs: 0 },
             backgroundColor: {
               xs: "transparent!important",
               sm: "white!important",
@@ -121,6 +122,7 @@ const Signup = () => {
             justifyContent={"center"}
             sx={{
               flexGrow: 0,
+              position: "relative",
               backgroundColor: {
                 xs: "transparent!important",
                 sm: "white!important",
@@ -131,7 +133,7 @@ const Signup = () => {
               <Grid
                 container
                 justifyContent={"flex-start"}
-                sx={{ position: "absolute", top: "30px", left: "30px" }}
+                sx={{ position: "absolute", top: "0", left: "0" }}
               >
                 <Button
                   sx={{ fontWeight: "light", color: "black!important" }}
@@ -261,7 +263,7 @@ const Signup = () => {
             item
             container
             lg={6}
-            justifyContent={"center"}
+            justifyContent={"flex-end"}
             sx={{
               // p: 2,
               // backgroundSize: "cover",

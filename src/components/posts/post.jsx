@@ -312,7 +312,7 @@ const Post = ({
                   },
                 }}
               >
-                Contact
+                Chat
               </IconButton>
             </Grid>
           )}
