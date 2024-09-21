@@ -9,7 +9,7 @@ import { chatsSelector } from "store/slices/chatSlices";
 import { getMyChatsAction } from "store/actions/chatActions";
 import { useDispatch, useSelector } from "react-redux";
 import NavigationBar from "components/navigationBar/navigationBar";
-import ResponsiveHeader from 'components/header/responsiveHeader';
+import ResponsiveHeader from 'components/header/responsiveHeader.jsx';
 
 const ChatsList = ({ handleSetData }) => {
   const search = useInputHandler("");
