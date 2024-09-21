@@ -1,13 +1,8 @@
 "use client";
-import Chat from "components/chat/chat";
-import Grid from "@mui/material/Grid";
+import App from "app/app/page";
 
 const Chats = () => {
-  return (
-    <Grid container direction={"column"} item xs>
-      <Chat />
-    </Grid>
-  );
+  return <App />;
 };
 
 export default Chats;

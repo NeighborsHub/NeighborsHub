@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Chat from "assets/svgs/navigationBar/Chat.svg";
 import Posts from "assets/svgs/navigationBar/Posts.svg";
@@ -7,14 +6,17 @@ import PostsColored from "assets/svgs/navigationBar/Posts-colored.svg";
 import Typography from "@mui/material/Typography";
 import NotificationIcon from "assets/svgs/navigationBar/Notification.svg";
 import NotificationColoredIcon from "assets/svgs/navigationBar/Notification-colored.svg";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const DesktopListNavigations = ({
-  setSelectedNavigationItemIndex,
-  selectedNavigationItemIndex,
-}) => {
+const DesktopListNavigations = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const currentState = new URLSearchParams(searchParams.toString()).get(
+    "state"
+  );
+
   const handleSelectItem = (index, path) => {
-    setSelectedNavigationItemIndex(index);
-    // router.push("/app/" + path);
+    router.push(`/app?state=${path}`, { shallow: true });
   };
 
   return (
@@ -30,25 +32,29 @@ const DesktopListNavigations = ({
       flexDirection={"row-reverse"}
     >
       <Icon
-        icon={selectedNavigationItemIndex === 2 ? NotificationColoredIcon : NotificationIcon}
-        text={"notification"}
+        icon={
+          currentState === "notifications"
+            ? NotificationColoredIcon
+            : NotificationIcon
+        }
+        text={"notifications"}
         onClick={handleSelectItem}
-        selectedItemIndex={selectedNavigationItemIndex}
         index={2}
+        isSelected={currentState === "notifications"}
       />
       <Icon
-        icon={selectedNavigationItemIndex === 1 ? ChatColored : Chat}
-        text={"chat"}
+        icon={currentState === "chats" ? ChatColored : Chat}
+        text={"chats"}
         onClick={handleSelectItem}
-        selectedItemIndex={selectedNavigationItemIndex}
         index={1}
+        isSelected={currentState === "chats"}
       />
       <Icon
-        icon={selectedNavigationItemIndex === 0 ? PostsColored : Posts}
+        icon={currentState === "posts" || !currentState ? PostsColored : Posts}
         text={"posts"}
         onClick={handleSelectItem}
-        selectedItemIndex={selectedNavigationItemIndex}
         index={0}
+        isSelected={currentState === "posts" || !currentState}
       />
     </Grid>
   );
@@ -56,7 +62,7 @@ const DesktopListNavigations = ({
 
 export default DesktopListNavigations;
 
-const Icon = ({ icon, text, onClick, selectedItemIndex, index }) => {
+const Icon = ({ icon, text, onClick, isSelected, index }) => {
   return (
     <Grid
       container
@@ -67,8 +73,8 @@ const Icon = ({ icon, text, onClick, selectedItemIndex, index }) => {
       onClick={() => onClick(index, text)}
       sx={{ cursor: "pointer" }}
     >
-      <img src={icon.src} style={{height: '25px'}}/>
-      {selectedItemIndex === index && (
+      <img src={icon.src} style={{ height: "25px" }} />
+      {isSelected && (
         <Typography
           sx={{
             fontSize: "12px",

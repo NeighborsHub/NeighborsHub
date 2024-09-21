@@ -19,3 +19,11 @@ export const categories = {
     icon: "",
   },
 };
+
+export const PATHS = {
+  0: "/app/map/",
+  1: "/app/posts/",
+  2: "/app/add-new-post/",
+  3: "/app/notifications/",
+  4: "/app/chats/",
+};

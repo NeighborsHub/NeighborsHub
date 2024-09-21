@@ -48,6 +48,10 @@ const Post = ({
     !isPostPage && router.push(`/app/post?id=${id}`);
   };
 
+  const handlePushToChat = (data) =>{
+    router.push()
+  }
+
   return (
     <Suspense>
       <Grid
@@ -296,7 +300,7 @@ const Post = ({
               </IconButton>
               <IconButton
                 variant="contained"
-                onClick={() => handleRedirectToPostPage(data.id)}
+                onClick={() => handlePushToChat(data)}
                 sx={{
                   backgroundColor: "#FFD816",
                   mt: 1,

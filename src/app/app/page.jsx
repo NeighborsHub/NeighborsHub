@@ -1,23 +1,21 @@
 "use client";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import MapTab from "components/map/mapTab";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import PostsTab from "components/posts/postsTab";
 import Chat from "components/chat/chat";
 import { useDispatch } from "react-redux";
-import Hidden from "@mui/material/Hidden";
 import { myAddressesSelector } from "store/slices/userSlices";
 import { useSelector } from "react-redux";
 import { getMyAddressesAction, myInfoAction } from "store/actions/userActions";
+import { isMobileAction } from "store/actions/appActions";
 import {
   getPostsAction,
   getCategoriesAction,
   addPostsAction,
 } from "store/actions/postsActions";
 import { postsSelector } from "store/slices/postsSlices";
-
+import { authSelector } from "store/slices/authSlices";
 import { getUniqueLocationAction } from "store/actions/postsActions";
 import AppHeader from "components/header/appHeader";
 import { useSearchParams } from "next/navigation";
@@ -25,17 +23,17 @@ import NavigationBar from "components/navigationBar/navigationBar";
 import ResponsiveHeader from "components/header/ResponsiveHeader";
 import Header from "components/header";
 import DesktopListNavigations from "components/navigationBar/desktopListNavigations";
-import Button from "@mui/material/Button";
-import AddNewPostPlusIcon from "assets/svgs/AddNewPostPlus.svg";
-import { useRouter } from "next/navigation";
-import AddNewPostTab from "components/posts/addNewPostTab";
-
+import { useRouter, usePathname } from "next/navigation";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 let controller;
 
 const App = () => {
+  const theme = useTheme();
   const [tabValue, setTabValue] = useState(0);
   const dispatch = useDispatch();
   const myAddressCordinate = useSelector(myAddressesSelector);
+  const isAuthenticated = useSelector(authSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const [dialogFilters, setDialogFilters] = useState({});
   const initialCordinate = mainAddress?.location.coordinates || [0, 0];
@@ -46,10 +44,15 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [pushToChat, setPushToChat] = useState(false);
   const [isPan, setIsPan] = useState(false);
-  const params = useSearchParams();
+  const searchParams = useSearchParams();
+  const currentState = new URLSearchParams(searchParams.toString()).get(
+    "state"
+  );
+  console.log(currentState, "tttttttttt");
   const [selectedNavigationItemIndex, setSelectedNavigationItemIndex] =
     useState(0);
   const router = useRouter();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     setLoading(true);
@@ -77,6 +80,10 @@ const App = () => {
     search,
     isPan,
   ]);
+
+  useEffect(() => {
+    dispatch(isMobileAction(isMobile));
+  }, []);
 
   function getPostsFun() {
     dispatch(
@@ -186,135 +193,94 @@ const App = () => {
       direction={"column"}
     >
       {/* /////////////////////////////////////// Desktop ////////////////////////////////// */}
-
-      <Hidden mdDown>
-        <Header />
-        <AppHeader
-          handleSearch={handleSearch}
-          dialogFilters={dialogFilters}
-          handleSubmitFilters={handleSubmitFilters}
-        />
-        <Grid container justifyContent={"center"} item xs>
-          {mainAddress ? (
-            <>
-              <Grid
-                sx={{ overflowY: "auto", position: "relative" }}
-                container
-                item
-                lg={8}
-                md={6}
-              >
-                {!loading && (
-                  <MapTab
-                    filters={dialogFilters}
-                    handleBounds={handleBounds}
-                    search={search}
-                    handleChangeTab={handleChangeTab}
-                    latBounds={latBounds}
-                    longBounds={longBounds}
-                  />
-                )}
-              </Grid>
-              <Grid
-                sx={{
-                  height: "100%",
-                  overflowY: "auto",
-                  boxShadow: "-4px 6px 12px 0px rgba(0, 0, 0, 0.25)",
-                  zIndex: "100",
-                }}
-                container
-                item
-                lg={4}
-                md={6}
-                id="appPostLists"
-                direction={"column"}
-              >
-                <Grid sx={{ m: 1, mr: "13px" }}>
-                  <DesktopListNavigations
-                    selectedNavigationItemIndex={selectedNavigationItemIndex}
-                    setSelectedNavigationItemIndex={
-                      setSelectedNavigationItemIndex
-                    }
-                  />
-                </Grid>
-                {selectedNavigationItemIndex == 1 ? (
-                  <Chat isFullWidth />
-                ) : selectedNavigationItemIndex == 0 ? (
-                  <PostsTab
-                    filters={dialogFilters}
-                    posts={posts}
-                    handleGetMorePosts={handleGetMorePosts}
-                    scrollParentId="appPostLists"
-                    handlePushToChat={handlePushToChat}
-                    handleChangeTab={handleChangeTab}
-                  />
-                ) : null}
-              </Grid>
-            </>
-          ) : (
-            <Grid
-              sx={{ height: "100%", overflowY: "auto", position: "relative" }}
-              container
-              item
-              xs={12}
-            >
-              {!loading && (
-                <MapTab
-                  filters={dialogFilters}
-                  handleBounds={handleBounds}
-                  search={search}
-                  handleChangeTab={handleChangeTab}
-                  latBounds={latBounds}
-                  longBounds={longBounds}
-                />
-              )}
-            </Grid>
-          )}
-        </Grid>
-      </Hidden>
-      {/* /////////////////////////////////////// Responsive ////////////////////////////////// */}
-      <Hidden mdUp>
-        <Grid container direction={"column"} item xs>
-          <ResponsiveHeader />
+      {isMobile ? (
+        <ResponsiveHeader />
+      ) : (
+        <>
+          <Header />
+          <AppHeader
+            handleSearch={handleSearch}
+            dialogFilters={dialogFilters}
+            handleSubmitFilters={handleSubmitFilters}
+          />
+        </>
+      )}
+      <Grid container justifyContent={"center"} item xs>
+        {!isMobile && (
           <Grid
+            sx={{ overflowY: "auto", position: "relative" }}
             container
-            justifyContent={"center"}
-            sx={{ flex: 1, overflowY: "auto" }}
-            id="appPostLists"
             item
             xs
           >
-            {tabValue === 0 ? (
-              <Grid container sx={{ position: "relative" }} item xs>
-                <MapTab
-                  filters={dialogFilters}
-                  handleBounds={handleBounds}
-                  search={search}
-                  handleChangeTab={handleChangeTab}
-                  latBounds={latBounds}
-                  longBounds={longBounds}
+            {!loading && (
+              <MapTab
+                filters={dialogFilters}
+                handleBounds={handleBounds}
+                search={search}
+                handleChangeTab={handleChangeTab}
+                latBounds={latBounds}
+                longBounds={longBounds}
+              />
+            )}
+          </Grid>
+        )}
+        {isAuthenticated && (
+          <Grid
+            sx={{
+              height: "100%",
+              overflowY: "auto",
+              boxShadow: "-4px 6px 12px 0px rgba(0, 0, 0, 0.25)",
+              zIndex: "100",
+            }}
+            container
+            item
+            lg={4}
+            md={6}
+            id="appPostLists"
+            direction={"column"}
+          >
+            {!isMobile && (
+              <Grid sx={{ m: 1, mr: "13px" }}>
+                <DesktopListNavigations
+                  selectedNavigationItemIndex={selectedNavigationItemIndex}
+                  setSelectedNavigationItemIndex={
+                    setSelectedNavigationItemIndex
+                  }
                 />
               </Grid>
-            ) : tabValue === 1 ? (
-              <Grid container sx={{ position: "relative" }} item xs>
-                <PostsTab
-                  posts={posts}
-                  handleGetMorePosts={handleGetMorePosts}
-                  scrollParentId="appPostLists"
-                  handleChangeTab={handleChangeTab}
-                />
-              </Grid>
-            ) : tabValue === 2 ? (
-              <Grid container sx={{ position: "relative" }} item xs>
-                <AddNewPostTab handleChangeTab={handleChangeTab} />
-              </Grid>
-            ) : tabValue === 3 || tabValue === 4 ? (
-              <Chat />
+            )}
+            {currentState === "map" ? (
+              <MapTab
+                filters={dialogFilters}
+                handleBounds={handleBounds}
+                search={search}
+                handleChangeTab={handleChangeTab}
+                latBounds={latBounds}
+                longBounds={longBounds}
+              />
+            ) : currentState === "posts" || !currentState ? (
+              <PostsTab
+                filters={dialogFilters}
+                posts={posts}
+                handleGetMorePosts={handleGetMorePosts}
+                scrollParentId="appPostLists"
+                handlePushToChat={handlePushToChat}
+                handleChangeTab={handleChangeTab}
+              />
+            ) : currentState === "chats" ? (
+              <Chat isFullWidth />
+            ) : currentState === "notifications" ? (
+              <></>
+            ) : currentState === "add-new-posts" ? (
+              <></>
             ) : null}
           </Grid>
-          <NavigationBar onChange={handleChangeTab} currentValue={tabValue} />
-        </Grid>
-      </Hidden>
+        )}
+      </Grid>
+      {isMobile && (
+        <NavigationBar onChange={handleChangeTab} currentValue={tabValue} />
+      )}
     </Grid>
   );
 };

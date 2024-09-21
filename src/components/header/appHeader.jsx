@@ -24,8 +24,6 @@ const AppHeader = ({
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const search = useInputHandler("");
 
-  console.log(dialogFilters, "tttttttttt");
-
   const handleOpenFilterDialog = () => {
     setOpenFilterDialog(true);
   };
