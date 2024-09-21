@@ -43,11 +43,15 @@ const DesktopListNavigations = () => {
         isSelected={currentState === "notifications"}
       />
       <Icon
-        icon={currentState === "chats" ? ChatColored : Chat}
+        icon={
+          currentState === "chats" || currentState === "conversation"
+            ? ChatColored
+            : Chat
+        }
         text={"chats"}
         onClick={handleSelectItem}
         index={1}
-        isSelected={currentState === "chats"}
+        isSelected={currentState === "chats" || currentState === "conversation"}
       />
       <Icon
         icon={currentState === "posts" || !currentState ? PostsColored : Posts}

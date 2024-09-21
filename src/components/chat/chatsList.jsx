@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Grid from "@mui/material/Grid";
 import ChatsListItem from "components/chat/ChatsListItem";
 import TextField from "@mui/material/TextField";
@@ -9,16 +9,17 @@ import { useEffect, useState } from "react";
 import { chatsSelector } from "store/slices/chatSlices";
 import { getMyChatsAction } from "store/actions/chatActions";
 import { useDispatch, useSelector } from "react-redux";
-import NavigationBar from "components/navigationBar/navigationBar";
-import ResponsiveHeader from "components/header/ResponsiveHeader";
+import { useRouter } from "next/navigation";
 
-
-const ChatsList = ({ handleSetData }) => {
+const ChatsList = ({}) => {
   const search = useInputHandler("");
   const dispatch = useDispatch();
   const chats = useSelector(chatsSelector);
+  const router = useRouter();
 
-  const handleItemClicked = (data) => handleSetData(data);
+  const handleItemClicked = (data) => {
+    router.push("/app?state=conversation");
+  };
 
   useEffect(() => {
     dispatch(getMyChatsAction());
@@ -26,7 +27,6 @@ const ChatsList = ({ handleSetData }) => {
 
   return (
     <Grid container direction={"column"} item xs>
-      <ResponsiveHeader />
       <Grid container sx={{ px: 2, mb: 2, mt: 2 }}>
         <TextField
           InputProps={{
@@ -108,7 +108,6 @@ const ChatsList = ({ handleSetData }) => {
           </Grid>
         </Grid>
       </Grid>
-      <NavigationBar />
     </Grid>
   );
 };

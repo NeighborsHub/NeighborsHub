@@ -109,7 +109,7 @@ const MapTab = ({
   };
 
   return (
-    <Grid container alignContent={"flex-start"}>
+    <Grid container alignContent={"flex-start"} sx={{ height: "100%" }}>
       <Map
         locations={locations}
         center={initialCordinate}

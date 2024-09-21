@@ -9,7 +9,7 @@ import ChatColored from "assets/svgs/navigationBar/Chat-colored.svg";
 import AddColored from "assets/svgs/navigationBar/Add-colored.svg";
 import PostsColored from "assets/svgs/navigationBar/Posts-colored.svg";
 import Typography from "@mui/material/Typography";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import { authSelector } from "store/slices/authSlices";
 
@@ -17,42 +17,15 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
   const router = useRouter();
   const pathname = usePathname();
   const isAuth = useSelector(authSelector);
-
-  // const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-  const [selectedItemIndex, setSelectedItemIndex] = useState(
-    pathname === "/app/map/"
-      ? 0
-      : pathname === "/app/posts/"
-      ? 1
-      : pathname === "/app/add-new-post/"
-      ? 2
-      : pathname === "/app/chats/"
-      ? 3
-      : 0
+  const searchParams = useSearchParams();
+  const currentState = new URLSearchParams(searchParams.toString()).get(
+    "state"
   );
 
-  useEffect(() => {
-    currentValue && setSelectedItemIndex(currentValue);
-  }, [currentValue]);
-
-  useEffect(() => {
-    setSelectedItemIndex(
-      pathname === "/app/map/"
-        ? 0
-        : pathname === "/app/posts/"
-        ? 1
-        : pathname === "/app/add-new-post/"
-        ? 2
-        : pathname === "/app/chats/"
-        ? 3
-        : 0
-    );
-  }, [pathname]);
+  // const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
   const handleSelectItem = (index, path) => {
-    // setSelectedItemIndex(index);
-    onChange({}, index);
-    router.push("/app/" + path);
+    router.push(`/app?state=${path}`);
   };
   return (
     <Grid
@@ -72,39 +45,45 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
       flexDirection={"row-reverse"}
     >
       <Icon
-        icon={selectedItemIndex === 0 ? MapColored : Map}
+        icon={currentState === "map" || !currentState ? MapColored : Map}
         text={"map"}
         onClick={handleSelectItem}
-        selectedItemIndex={selectedItemIndex}
         index={0}
         path={"map"}
+        isSelected={currentState === "map"}
       />
       {isAuth && (
         <Icon
-          icon={selectedItemIndex === 1 ? PostsColored : Posts}
+          icon={currentState === "posts" ? PostsColored : Posts}
           text={"posts"}
           onClick={handleSelectItem}
-          selectedItemIndex={selectedItemIndex}
           index={1}
           path={"posts"}
+          isSelected={currentState === "posts"}
         />
       )}
       <Icon
-        icon={selectedItemIndex === 2 ? AddColored : Add}
+        icon={currentState === "add-new-post" ? AddColored : Add}
         text={"Add Post"}
         onClick={handleSelectItem}
-        selectedItemIndex={selectedItemIndex}
         index={2}
         path={"add-new-post"}
+        isSelected={currentState === "add-new-post"}
       />
       {isAuth && (
         <Icon
-          icon={selectedItemIndex === 3 ? ChatColored : Chat}
+          icon={
+            currentState === "chats" || currentState === "conversation"
+              ? ChatColored
+              : Chat
+          }
           text={"chats"}
           onClick={handleSelectItem}
-          selectedItemIndex={selectedItemIndex}
           index={3}
           path={"chats"}
+          isSelected={
+            currentState === "chats" || currentState === "conversation"
+          }
         />
       )}
     </Grid>
@@ -113,7 +92,7 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
 
 export default NavigationBar;
 
-const Icon = ({ icon, text, onClick, selectedItemIndex, index, path }) => {
+const Icon = ({ icon, text, onClick, isSelected, index, path }) => {
   return (
     <Grid
       container
@@ -126,7 +105,7 @@ const Icon = ({ icon, text, onClick, selectedItemIndex, index, path }) => {
       sx={{ cursor: "pointer" }}
     >
       <img src={icon.src} style={{ fill: "red" }} />
-      {selectedItemIndex === index && (
+      {isSelected && (
         <Typography
           sx={{
             fontSize: "12px",

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import MapTab from "components/map/mapTab";
 import PostsTab from "components/posts/postsTab";
-import Chat from "components/chat/chat";
+import ChatList from "components/chat/chatsList";
 import { useDispatch } from "react-redux";
 import { myAddressesSelector } from "store/slices/userSlices";
 import { useSelector } from "react-redux";
@@ -23,9 +23,12 @@ import NavigationBar from "components/navigationBar/navigationBar";
 import ResponsiveHeader from "components/header/ResponsiveHeader";
 import Header from "components/header";
 import DesktopListNavigations from "components/navigationBar/desktopListNavigations";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import AddNewPost from "components/addNewPost/addNewPost";
+import Notifications from "components/notifications/notifications";
+import Converstion from "components/chat/conversation";
 let controller;
 
 const App = () => {
@@ -48,7 +51,6 @@ const App = () => {
   const currentState = new URLSearchParams(searchParams.toString()).get(
     "state"
   );
-  console.log(currentState, "tttttttttt");
   const [selectedNavigationItemIndex, setSelectedNavigationItemIndex] =
     useState(0);
   const router = useRouter();
@@ -250,16 +252,24 @@ const App = () => {
                 />
               </Grid>
             )}
-            {currentState === "map" ? (
-              <MapTab
-                filters={dialogFilters}
-                handleBounds={handleBounds}
-                search={search}
-                handleChangeTab={handleChangeTab}
-                latBounds={latBounds}
-                longBounds={longBounds}
-              />
-            ) : currentState === "posts" || !currentState ? (
+            {currentState === "map" || (isMobile && !currentState) ? (
+              <Grid
+                container
+                direction={"column"}
+                item
+                xs
+                sx={{ height: "100%" }}
+              >
+                <MapTab
+                  filters={dialogFilters}
+                  handleBounds={handleBounds}
+                  search={search}
+                  handleChangeTab={handleChangeTab}
+                  latBounds={latBounds}
+                  longBounds={longBounds}
+                />
+              </Grid>
+            ) : currentState === "posts" || (!isMobile && !currentState) ? (
               <PostsTab
                 filters={dialogFilters}
                 posts={posts}
@@ -269,11 +279,13 @@ const App = () => {
                 handleChangeTab={handleChangeTab}
               />
             ) : currentState === "chats" ? (
-              <Chat isFullWidth />
+              <ChatList isFullWidth />
             ) : currentState === "notifications" ? (
-              <></>
+              <Notifications />
             ) : currentState === "add-new-posts" ? (
-              <></>
+              <AddNewPost />
+            ) : currentState === "chat" ? (
+              <Converstion />
             ) : null}
           </Grid>
         )}
