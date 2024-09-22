@@ -22,6 +22,8 @@ import { useState } from "react";
 import { myAddressesSelector } from "store/slices/userSlices";
 import IconButton from "@mui/material/IconButton";
 import Save from "components/posts/items/Save";
+import Hidden from "@mui/material/Hidden";
+import LocalDistanceIcon from "assets/svgs/LocalDistance.svg";
 
 const Post = ({
   handleOpenModal,
@@ -31,6 +33,7 @@ const Post = ({
   handleClosePostListOnModal,
   isPostPage,
   handleChangeTab,
+  children,
 }) => {
   const myInfo = useSelector(myInfoSelector);
   const isAuth = useSelector(authSelector);
@@ -48,9 +51,9 @@ const Post = ({
     !isPostPage && router.push(`/app/post?id=${id}`);
   };
 
-  const handlePushToChat = (data) =>{
-    router.push()
-  }
+  const handlePushToChat = (data) => {
+    router.push();
+  };
 
   return (
     <Suspense>
@@ -63,77 +66,98 @@ const Post = ({
         }}
       >
         {/* //////////////////////////////////////// User Avatar And Name ///////////////////////////////////// */}
-        <Grid
-          sx={{
-            borderBottom: "1px solid #EBEBEC",
-            px: 2,
-            py: 1,
-            height: "52px",
-          }}
-          container
-          alignItems={"center"}
-        >
-          {!isMyPost && <User data={data} />}
-        </Grid>
+        <Hidden mdUp>
+          <Grid
+            sx={{
+              borderBottom: "1px solid #EBEBEC",
+              px: 2,
+              py: 1,
+              height: "52px",
+            }}
+            container
+            alignItems={"center"}
+          >
+            {!isMyPost && <User data={data} />}
+          </Grid>
+        </Hidden>
 
         <Grid contianer direction={"column"} sx={{ p: 2 }}>
-          {Boolean(data.media?.length) && (
-            <Grid
-              container
-              sx={{
-                backgroundColor: "#ebf3ff",
-                border: "8px",
-                overflow: "hidden",
-              }}
-              justifyContent={"center"}
-              alignItems={"center"}
-            >
-              {data.media?.length >= 1 ? (
-                <Carousel
-                  showArrows
-                  showThumbs={false}
-                  showStatus={false}
-                  width={"100%"}
-                >
-                  {data.media.map((item, index) => (
-                    <div key={index}>
-                      {["jpg", "jpeg", "png", "gif"].includes(
-                        item.file.split(".").pop()
-                      ) ? (
-                        <img
-                          src={item?.file}
-                          style={{
-                            width: "100%",
-                            height: "300px",
-                            objectFit: "contain",
-                          }}
-                          key={index}
-                        />
-                      ) : (
-                        <video
-                          src={item?.file}
-                          width={"90%"}
-                          height={"300px"}
-                          style={{ objectFit: "contain" }}
-                          controls
-                        />
-                      )}
-                    </div>
-                  ))}
-                </Carousel>
-              ) : (
-                // <LandscapeIcon sx={{ fontSize: 300, color: "gray" }} />
-                <img
-                  src={SamplePostImage.src}
-                  style={{
-                    width: "100%",
-                    height: "300px",
-                    objectFit: "contain",
-                  }}
-                />
-              )}
-            </Grid>
-          )}
+          <Grid container item sx={{ maxHeight: "300px" }}>
+            {Boolean(data.media?.length) && (
+              <Grid
+                container
+                sx={{
+                  backgroundColor: "#ebf3ff",
+                  borderRadius: "12px",
+                  overflow: "hidden",
+                  height: "100%",
+                }}
+                justifyContent={"center"}
+                alignItems={"center"}
+                item
+                xs={isPostPage ? 8 : 12}
+              >
+                {data.media?.length >= 1 ? (
+                  <Carousel
+                    showArrows
+                    showThumbs={false}
+                    showStatus={false}
+                    width={"100%"}
+                  >
+                    {data.media.map((item, index) => (
+                      <div key={index}>
+                        {["jpg", "jpeg", "png", "gif"].includes(
+                          item.file.split(".").pop()
+                        ) ? (
+                          <img
+                            src={item?.file}
+                            style={{
+                              width: "100%",
+                              height: "300px",
+                              objectFit: "contain",
+                            }}
+                            key={index}
+                          />
+                        ) : (
+                          <video
+                            src={item?.file}
+                            width={"90%"}
+                            height={"300px"}
+                            style={{ objectFit: "contain" }}
+                            controls
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </Carousel>
+                ) : (
+                  <img
+                    src={SamplePostImage.src}
+                    style={{
+                      width: "100%",
+                      height: "300px",
+                      objectFit: "contain",
+                    }}
+                  />
+                )}
+              </Grid>
+            )}
+            {isPostPage && (
+              <Grid
+                container
+                item
+                sx={{
+                  borderRadius: "12px",
+                  overflow: "hidden",
+                  height: "100%",
+                  ml: 2,
+                }}
+                xs
+              >
+                {children}
+              </Grid>
+            )}
+          </Grid>
 
           <Grid container direction={"column"}>
             {/* //////////////////////////////////////// Title ///////////////////////////////////// */}
@@ -146,7 +170,7 @@ const Post = ({
               }}
               variant="h6"
             >
-              {data.title.slice(0, 30)}
+              {data.title?.slice(0, 30)}
             </Typography>
             {/* //////////////////////////////////////// Description ///////////////////////////////////// */}
             <Typography
@@ -184,7 +208,7 @@ const Post = ({
             </Grid>
             {/* //////////////////////////////////////// Distance ///////////////////////////////////// */}
 
-            {/* <Grid
+            <Grid
               container
               item
               xs={12}
@@ -201,10 +225,10 @@ const Post = ({
                   justifyContent={"flex-start"}
                   alignItems={"center"}
                 >
-                  <SocialDistanceIcon />
+                  <img src={LocalDistanceIcon.src} />
                   <Typography
                     variant="body2"
-                    sx={{ fontWeight: "bold", ml: 1 }}
+                    sx={{ color: "#999999", fontSize: "12px", ml: 1 }}
                   >
                     {data.distance} meter away from your{" "}
                   </Typography>
@@ -216,12 +240,17 @@ const Post = ({
                   >
                     <Button
                       sx={{
-                        fontSize: "14px",
+                        fontSize: "12px",
                         textTransform: "lowercase",
                         padding: 0,
+                        m: 0,
                         width: "auto",
                         minWidth: "auto",
-                        pl: "5px",
+                        marginTop: "2px",
+                        pl: "3px",
+                        color: "black!important",
+                        fontWeight: "normal!important",
+                        minHeight: 0,
                       }}
                       onClick={() => setAddressTooltipOpen(true)}
                     >
@@ -230,34 +259,54 @@ const Post = ({
                   </Tooltip>
                 </Grid>
               )}
-            </Grid> */}
+            </Grid>
 
             {/* //////////////////////////////////////// Actions ///////////////////////////////////// */}
-            <Grid container justifyContent={"flex-end"} sx={{ mt: 2 }}>
-              <Grid container item xs>
-                {!isMyPost && isAuth && <LikesDislikes data={data} />}
-              </Grid>
-              <Grid container item xs justifyContent={"flex-end"}>
-                <Save />
-                <Share />
-
-                {/* {!isMyPost && (
+            <Grid container justifyContent={"flex-start"} sx={{ mt: 2 }}>
+              {isPostPage ? (
+                <Grid container>
+                  {!isMyPost && isAuth && <LikesDislikes data={data} />}
+                  <Grid sx={{ display: "flex" }}>
+                    <Save />
+                    <Share />
+                  </Grid>
+                </Grid>
+              ) : (
+                <>
+                  <Grid container item xs>
+                    {!isMyPost && isAuth && <LikesDislikes data={data} />}
+                  </Grid>
+                  <Grid container item xs justifyContent={"flex-end"}>
+                    <Save />
+                    <Share />
+                    {(showLocationOnMap || isMyPost) && (
+                      <Dots
+                        showLocationOnMap={!isMyPost}
+                        isMyPost={isMyPost}
+                        handleOpenModal={handleOpenModal}
+                        data={data}
+                        handleClosePostsList={handleClosePostsList}
+                      />
+                    )}
+                    {/* {!isMyPost && (
                   <Contact
                     data={data}
                     handleClosePostListOnModal={handleClosePostListOnModal}
                     handleChangeTab={handleChangeTab}
                   />
                 )} */}
-                {(showLocationOnMap || isMyPost) && (
-                  <Dots
-                    showLocationOnMap={!isMyPost}
-                    isMyPost={isMyPost}
-                    handleOpenModal={handleOpenModal}
-                    data={data}
-                    handleClosePostsList={handleClosePostsList}
-                  />
-                )}
-              </Grid>
+                    {(showLocationOnMap || isMyPost) && (
+                      <Dots
+                        showLocationOnMap={!isMyPost}
+                        isMyPost={isMyPost}
+                        handleOpenModal={handleOpenModal}
+                        data={data}
+                        handleClosePostsList={handleClosePostsList}
+                      />
+                    )}
+                  </Grid>
+                </>
+              )}
             </Grid>
 
             {/* //////////////////////////////////////// Categories ///////////////////////////////////// */}

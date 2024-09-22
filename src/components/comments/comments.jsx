@@ -16,6 +16,7 @@ import { postCommentsSelector } from "store/slices/postsSlices";
 import { useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import InfiniteScroll from "react-infinite-scroll-component";
+import InputLabel from "@mui/material/InputLabel";
 
 const Comments = ({ postId }) => {
   const comment = useInputHandler("");
@@ -46,56 +47,72 @@ const Comments = ({ postId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmitComment} style={{ width: "100%" }}>
+    <form
+      onSubmit={handleSubmitComment}
+      style={{
+        width: "100%",
+        height: "100%",
+        border: "1px solid rgba(217, 217, 217, 0.5)",
+        borderRadius: "12px",
+        flex: 1,
+        padding: "16px",
+      }}
+    >
       <Grid
         container
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        sx={{ my: 2, px: { sm: 5, xs: 1 } }}
+        // alignItems={"center"}
+
+        direction={"column"}
       >
-        <Avatar src={myInfo.avatar?.avatar_thumbnail} />
-        <TextField
-          variant="outlined"
-          label="Your Comment"
-          // autocomplete="off"
-          sx={{
-            flex: 1,
-            mx: 1,
-            borderRadius: "30px",
-            "& .MuiOutlinedInput-notchedOutline": {
-              fontSize: "12px",
-              borderRadius: "10px!important",
-            },
-            "& .MuiInputBase-input": {
-              padding: "12px 20px",
-            },
-          }}
-          InputLabelProps={{
-            sx: {
-              color: "darkenGray",
-              fontSize: "12px",
-              fontWeight: "bold",
-            },
-          }}
-          {...comment}
-          // size="small"
-        />
-        <Button
-          sx={{
-            borderRadius: "10px",
-            height: "47px",
-            fontSize: "13px",
-            backgroundColor: "#0298e8",
-          }}
-          variant="contained"
-          type="submit"
-          disabled={!comment.value}
-        >
-          Send
-        </Button>
+        <InputLabel shrink sx={{ mt: 1 }}>
+          Replay
+        </InputLabel>
+        <Grid container sx={{ position: "relative" }}>
+          <TextField
+            variant="outlined"
+            // autocomplete="off"
+            sx={{
+              flex: 1,
+              borderRadius: "30px",
+              "& .MuiOutlinedInput-notchedOutline": {
+                fontSize: "12px",
+                borderRadius: "10px!important",
+              },
+              "& .MuiInputBase-input": {
+                padding: "12px 20px",
+              },
+            }}
+            InputLabelProps={{
+              sx: {
+                color: "darkenGray",
+                fontSize: "12px",
+                fontWeight: "bold",
+              },
+            }}
+            {...comment}
+            // size="small"
+          />
+          <Button
+            sx={{
+              borderRadius: "10px",
+              height: "40px",
+              fontSize: "13px",
+              backgroundColor: "#FFD816!important",
+              color: "black!important",
+              position: "absolute",
+              right: 0,
+              mt: "2px",
+              mr: "2px",
+            }}
+            type="submit"
+            disabled={!comment.value}
+          >
+            Submit
+          </Button>
+        </Grid>
       </Grid>
       {postComments.results && (
-        <Grid container direction={"column"}>
+        <Grid container direction={"column"} sx={{ mt: 2 }}>
           <InfiniteScroll
             dataLength={postComments.results?.length}
             next={() => handleGetMoreComments(page + 1, limit)}

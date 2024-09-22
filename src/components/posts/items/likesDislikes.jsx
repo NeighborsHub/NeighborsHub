@@ -57,7 +57,7 @@ const LikesDislikes = ({ data }) => {
   };
 
   return (
-    <Grid item container>
+    <Grid sx={{ display: "flex" }}>
       <IconButton
         onClick={handleLike}
         sx={{
@@ -67,12 +67,16 @@ const LikesDislikes = ({ data }) => {
           backgroundColor: "#FDE7E7",
           height: "35px",
           width: "50px",
-          '&:hover':{
+          "&:hover": {
             backgroundColor: "#fcbbbb",
-          }
+          },
         }}
       >
-        <Grid sx={{display: 'flex'}} alignItems={"center"} justifyContent={"center"}>
+        <Grid
+          sx={{ display: "flex" }}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
           {lastClicked === "like" ? (
             <img src={Like.src} />
           ) : (
@@ -102,12 +106,16 @@ const LikesDislikes = ({ data }) => {
           backgroundColor: "#FDE7E7",
           height: "35px",
           width: "50px",
-          '&:hover':{
+          "&:hover": {
             backgroundColor: "#fcbbbb",
-          }
+          },
         }}
       >
-        <Grid sx={{display: 'flex'}} alignItems={"center"} justifyContent={"space-around"}>
+        <Grid
+          sx={{ display: "flex" }}
+          alignItems={"center"}
+          justifyContent={"space-around"}
+        >
           {lastClicked === "dislike" ? (
             <img src={Dislike.src} />
           ) : (

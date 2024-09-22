@@ -9,7 +9,7 @@ const CommentItem = ({ data, myInfo }) => {
         container
         justifyContent={"flex-start"}
         alignItems={"center"}
-        sx={{ py: 1, px: { sm: 5, xs: 1 }, borderTop: "1px solid #e8e9eb" }}
+        sx={{ py: 1 }}
       >
         <Avatar src={data.avatar?.avatar_thumbnail} />
         <Grid item xs container direction={"column"}>
