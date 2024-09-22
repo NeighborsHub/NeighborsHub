@@ -22,6 +22,7 @@ import { useState } from "react";
 import { myAddressesSelector } from "store/slices/userSlices";
 import IconButton from "@mui/material/IconButton";
 import Save from "components/posts/items/Save";
+import Chat from "components/posts/items/chat";
 import Hidden from "@mui/material/Hidden";
 import LocalDistanceIcon from "assets/svgs/LocalDistance.svg";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -67,26 +68,28 @@ const Post = ({
         sx={{
           border: "1px solid rgba(217, 217, 217, 0.5)",
           borderRadius: "12px",
-          overflow: 'auto'
+          overflow: "auto",
         }}
       >
         {/* //////////////////////////////////////// User Avatar And Name ///////////////////////////////////// */}
-        <Hidden mdUp>
-          <Grid
-            sx={{
-              borderBottom: "1px solid #EBEBEC",
-              px: 2,
-              py: 1,
-              height: "52px",
-            }}
-            container
-            alignItems={"center"}
-          >
-            {!isMyPost && <User data={data} />}
-          </Grid>
-        </Hidden>
+        {!isPostPage && (
+          <Hidden mdUp>
+            <Grid
+              sx={{
+                borderBottom: "1px solid #EBEBEC",
+                px: 2,
+                py: 1,
+                height: "52px",
+              }}
+              container
+              alignItems={"center"}
+            >
+              {!isMyPost && <User data={data} />}
+            </Grid>
+          </Hidden>
+        )}
 
-        <Grid contianer direction={"column"} sx={{ p: { sm: 1, md: 2 } }}>
+        <Grid contianer direction={"column"} sx={{ p: { xs: 1, md: 2 } }}>
           <Grid container item sx={{ maxHeight: "300px" }}>
             {Boolean(data.media?.length) && (
               <Grid
@@ -274,6 +277,7 @@ const Post = ({
                   <Grid sx={{ display: "flex" }}>
                     <Save />
                     <Share />
+                    <Chat />
                     <Dots
                       showLocationOnMap={!isMyPost}
                       isMyPost={isMyPost}

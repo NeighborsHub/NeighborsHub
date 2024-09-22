@@ -88,7 +88,6 @@ const Dots = ({
         }
         sx={{
           px: 0,
-          ml: 1,
           borderRadius: "10px",
           height: "35px",
           width: "35px",
