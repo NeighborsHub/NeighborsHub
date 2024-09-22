@@ -56,6 +56,8 @@ const Comments = ({ postId }) => {
         borderRadius: "12px",
         flex: 1,
         padding: "16px",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Grid
@@ -111,7 +113,7 @@ const Comments = ({ postId }) => {
           </Button>
         </Grid>
       </Grid>
-      {postComments.results && (
+      {postComments.results > 0 ? (
         <Grid container direction={"column"} sx={{ mt: 2 }}>
           <InfiniteScroll
             dataLength={postComments.results?.length}
@@ -133,6 +135,10 @@ const Comments = ({ postId }) => {
               <CommentItem data={item} key={item.id} myInfo={myInfo} />
             ))}
           </InfiniteScroll>
+        </Grid>
+      ) : (
+        <Grid container item xs alignItems={"center"} justifyContent={"center"}>
+          <Typography sx={{ color: "#999999" , fontSize: '16px' }}>No Comment</Typography>
         </Grid>
       )}
     </form>
