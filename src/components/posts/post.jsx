@@ -73,20 +73,18 @@ const Post = ({
       >
         {/* //////////////////////////////////////// User Avatar And Name ///////////////////////////////////// */}
         {!isPostPage && (
-          <Hidden mdUp>
-            <Grid
-              sx={{
-                borderBottom: "1px solid #EBEBEC",
-                px: 2,
-                py: 1,
-                height: "52px",
-              }}
-              container
-              alignItems={"center"}
-            >
-              {!isMyPost && <User data={data} />}
-            </Grid>
-          </Hidden>
+          <Grid
+            sx={{
+              borderBottom: "1px solid #EBEBEC",
+              px: 2,
+              py: 1,
+              height: "52px",
+            }}
+            container
+            alignItems={"center"}
+          >
+            {!isMyPost && <User data={data} />}
+          </Grid>
         )}
 
         <Grid contianer direction={"column"} sx={{ p: { xs: 1, md: 2 } }}>
