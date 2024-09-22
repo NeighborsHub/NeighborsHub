@@ -58,6 +58,8 @@ const Comments = ({ postId }) => {
         padding: "16px",
         display: "flex",
         flexDirection: "column",
+        boxSizing: 'border-box',
+        overflowY: 'auto'
       }}
     >
       <Grid
@@ -113,7 +115,7 @@ const Comments = ({ postId }) => {
           </Button>
         </Grid>
       </Grid>
-      {postComments.results > 0 ? (
+      {postComments.results?.length > 0 ? (
         <Grid container direction={"column"} sx={{ mt: 2 }}>
           <InfiniteScroll
             dataLength={postComments.results?.length}

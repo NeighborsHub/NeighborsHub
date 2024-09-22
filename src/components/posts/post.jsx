@@ -24,6 +24,8 @@ import IconButton from "@mui/material/IconButton";
 import Save from "components/posts/items/Save";
 import Hidden from "@mui/material/Hidden";
 import LocalDistanceIcon from "assets/svgs/LocalDistance.svg";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const Post = ({
   handleOpenModal,
@@ -42,6 +44,8 @@ const Post = ({
   const [addressTooltipOpen, setAddressTooltipOpen] = useState(false);
   const myAddressCordinate = useSelector(myAddressesSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.down("lg"));
 
   const handleOpenDrawer = () => {
     drawerState[1](true);
@@ -63,6 +67,7 @@ const Post = ({
         sx={{
           border: "1px solid rgba(217, 217, 217, 0.5)",
           borderRadius: "12px",
+          overflow: 'auto'
         }}
       >
         {/* //////////////////////////////////////// User Avatar And Name ///////////////////////////////////// */}
@@ -81,7 +86,7 @@ const Post = ({
           </Grid>
         </Hidden>
 
-        <Grid contianer direction={"column"} sx={{ p: 2 }}>
+        <Grid contianer direction={"column"} sx={{ p: { sm: 1, md: 2 } }}>
           <Grid container item sx={{ maxHeight: "300px" }}>
             {Boolean(data.media?.length) && (
               <Grid
@@ -95,7 +100,7 @@ const Post = ({
                 justifyContent={"center"}
                 alignItems={"center"}
                 item
-                xs={isPostPage ? 8 : 12}
+                xs={!isPostPage ? 12 : isMd ? 12 : 8}
               >
                 {data.media?.length >= 1 ? (
                   <Carousel
@@ -150,7 +155,7 @@ const Post = ({
                   borderRadius: "12px",
                   overflow: "hidden",
                   height: "100%",
-                  ml: 2,
+                  ml: Boolean(data.media?.length) ? 2 : 0,
                 }}
                 xs
               >
@@ -269,6 +274,13 @@ const Post = ({
                   <Grid sx={{ display: "flex" }}>
                     <Save />
                     <Share />
+                    <Dots
+                      showLocationOnMap={!isMyPost}
+                      isMyPost={isMyPost}
+                      handleOpenModal={handleOpenModal}
+                      data={data}
+                      handleClosePostsList={handleClosePostsList}
+                    />
                   </Grid>
                 </Grid>
               ) : (
@@ -295,15 +307,6 @@ const Post = ({
                     handleChangeTab={handleChangeTab}
                   />
                 )} */}
-                    {(showLocationOnMap || isMyPost) && (
-                      <Dots
-                        showLocationOnMap={!isMyPost}
-                        isMyPost={isMyPost}
-                        handleOpenModal={handleOpenModal}
-                        data={data}
-                        handleClosePostsList={handleClosePostsList}
-                      />
-                    )}
                   </Grid>
                 </>
               )}
