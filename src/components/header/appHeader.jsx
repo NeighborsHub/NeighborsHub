@@ -26,13 +26,12 @@ const AppHeader = ({ handleSearch = () => {}, dialogFilters }) => {
   const orderedFilters = [
     ...filters.categories,
     `${filters.distance[0]} - ${filters.distance[1]}`,
-    `${
-      filters.is_seen
-        ? "Seen Posts"
-        : filters.is_seen === false
-        ? "Unseen Posts"
-        : undefined
-    }`,
+
+    filters.is_seen
+      ? "Seen Posts"
+      : filters.is_seen === false
+      ? "Unseen Posts"
+      : undefined,
   ];
 
   const handleOpenFilterDialog = () => {
