@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { APIS_BASE_URL } from "services/constants";
 import { useDispatch } from "react-redux";
 import { startLoading, endLoading } from "store/slices/appSlices";
@@ -11,13 +11,13 @@ const instance = axios.create();
 const AxiosInterceptor = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  useEffect(() => {
+  useLayoutEffect(() => {
     const reqInterceptor = async (config) => {
       !config.withoutLoading && dispatch(startLoading());
       const extendedConfig = {
         baseURL: config.baseURL || APIS_BASE_URL,
         headers: {
-          Authorization: config.token || localStorage.getItem("token"),
+          Authorization: localStorage.getItem("token"),
           "Content-Type": config.isFormData
             ? "multipart/form-data"
             : "application/json",
@@ -33,8 +33,8 @@ const AxiosInterceptor = ({ children }) => {
     };
 
     const resErrInterceptor = (error) => {
-      dispatch(endLoading());
       console.log(error, "errorrrr");
+      dispatch(endLoading());
       if (error.code === "ERR_CANCELED") return;
       if (error.response?.status === 403) {
         localStorage.removeItem("token");
@@ -44,7 +44,7 @@ const AxiosInterceptor = ({ children }) => {
       } else if (error.response?.status === 404) {
         snackActions.error("Server Error");
       } else {
-        if (!config.withoutSnack) {
+        if (!error.config.withoutSnack) {
           const errorMessage =
             error.response?.data?.message || "Connection to Server Failed";
           snackActions.error(errorMessage);

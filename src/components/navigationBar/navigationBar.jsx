@@ -45,21 +45,27 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
       flexDirection={"row-reverse"}
     >
       <Icon
-        icon={currentState === "map" || !currentState ? MapColored : Map}
+        icon={currentState === "map" || pathname === "/app/" ? MapColored : Map}
         text={"map"}
         onClick={handleSelectItem}
         index={0}
         path={"map"}
-        isSelected={currentState === "map"}
+        isSelected={currentState === "map" || pathname === "/app/"}
       />
       {isAuth && (
         <Icon
-          icon={currentState === "posts" ? PostsColored : Posts}
+          icon={
+            currentState === "posts" || pathname.includes("/app/post/")
+              ? PostsColored
+              : Posts
+          }
           text={"posts"}
           onClick={handleSelectItem}
           index={1}
           path={"posts"}
-          isSelected={currentState === "posts"}
+          isSelected={
+            currentState === "posts" || pathname.includes("/app/post/")
+          }
         />
       )}
       <Icon

@@ -16,6 +16,7 @@ import Hidden from "@mui/material/Hidden";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import ResponsiveHeader from "components/header/ResponsiveHeader";
+import NavigationBar from "components/navigationBar/navigationBar";
 
 const PostPage = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const PostPage = () => {
   const locations = post.address?.location.coordinates || [0, 0];
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down("md"));
+  const isMd = useMediaQuery(theme.breakpoints.down("lg"));
 
   useEffect(() => {
     dispatch(getPostAction({ id: postId }));
@@ -131,9 +133,14 @@ const PostPage = () => {
               </Grid>
             </Grid>
           </Hidden>
-          <Comments postId={post.id} />
+          <Grid container direction={"column"} sx={{ height: "100%" }}>
+            <Comments postId={post.id} />
+          </Grid>
         </Grid>
       </Grid>
+      <Hidden mdUp>
+        <NavigationBar />
+      </Hidden>
     </Grid>
   );
 };

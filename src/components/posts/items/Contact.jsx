@@ -43,7 +43,12 @@ const Contact = ({
   };
 
   return (
-    <Grid onClick={handleClosePostListOnModal}>
+    <Grid
+      onClick={handleClosePostListOnModal}
+      sx={{
+        mx: 0.5,
+      }}
+    >
       <Chip
         onClick={() => handleGoToConversation()}
         // onClick={(e) => setContactOpen(e.currentTarget)}

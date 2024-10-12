@@ -14,7 +14,7 @@ const Chat = ({ onClick }) => {
         alignItems: "center",
         p: 0,
         border: "1px solid #f2e41d",
-        mx: 1,
+        mx: 0.5,
         "&:hover": {
           backgroundColor: "#FFD816",
         },

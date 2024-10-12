@@ -14,6 +14,7 @@ const Share = () => {
         justifyContent: "center",
         alignItems: "center",
         p: 0,
+        mx: 0.5,
         "&:hover": {
           backgroundColor: "#d6dbff",
         },

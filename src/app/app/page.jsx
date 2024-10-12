@@ -29,6 +29,9 @@ import { useTheme } from "@mui/material/styles";
 import AddNewPost from "components/addNewPost/addNewPost";
 import Notifications from "components/notifications/notifications";
 import Converstion from "components/chat/conversation";
+
+import { filtersSelector } from "store/slices/postsSlices";
+
 let controller;
 
 const App = () => {
@@ -38,7 +41,7 @@ const App = () => {
   const myAddressCordinate = useSelector(myAddressesSelector);
   const isAuthenticated = useSelector(authSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
-  const [dialogFilters, setDialogFilters] = useState({});
+  const dialogFilters = useSelector(filtersSelector);
   const initialCordinate = mainAddress?.location.coordinates || [0, 0];
   const posts = useSelector(postsSelector);
   const [latBounds, setLatBounds] = useState([0, 0]);
@@ -92,14 +95,10 @@ const App = () => {
       getPostsAction({
         user_latitude: initialCordinate[1] || undefined,
         user_longitude: initialCordinate[0] || undefined,
-        from_distance: dialogFilters?.filters?.distance
-          ? dialogFilters?.distance?.[0]
-          : undefined,
-        to_distance: dialogFilters?.filters?.distance
-          ? dialogFilters?.distance?.[1]
-          : undefined,
-        category: dialogFilters.filters?.categories
-          ? dialogFilters.selectedCategories.toString()
+        from_distance: dialogFilters?.distance?.[0],
+        to_distance: dialogFilters?.distance?.[1],
+        category: dialogFilters.categories.length
+          ? dialogFilters.categories.toString()
           : undefined,
         search: search || undefined,
         is_seen:
@@ -119,14 +118,10 @@ const App = () => {
         user_longitude: initialCordinate[0] || undefined,
         offset: page * limit,
         limit,
-        from_distance: dialogFilters?.filters?.distance
-          ? dialogFilters?.distance?.[0]
-          : undefined,
-        to_distance: dialogFilters?.filters?.distance
-          ? dialogFilters?.distance?.[1]
-          : undefined,
-        category: dialogFilters.filters?.categories
-          ? dialogFilters.selectedCategories.toString()
+        from_distance: dialogFilters?.distance?.[0],
+        to_distance: dialogFilters?.distance?.[1],
+        category: dialogFilters.categories.length
+          ? dialogFilters.categories.toString()
           : undefined,
         search: search || undefined,
       })
@@ -142,9 +137,11 @@ const App = () => {
           in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
           offset: 0,
           limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 15,
-          category: dialogFilters.filters?.categories
-            ? dialogFilters.selectedCategories.toString()
+          category: dialogFilters.categories.length
+            ? dialogFilters.categories.toString()
             : undefined,
+          from_distance: dialogFilters?.distance?.[0],
+          to_distance: dialogFilters?.distance?.[1],
           search: search || undefined,
           isPan,
         },
@@ -155,10 +152,6 @@ const App = () => {
 
   const handleChangeTab = (e, value) => {
     setTabValue(value);
-  };
-
-  const handleSubmitFilters = (state) => {
-    setDialogFilters(state);
   };
 
   function handleBounds(long1, long2, lat1, lat2, isPan) {
@@ -203,7 +196,6 @@ const App = () => {
           <AppHeader
             handleSearch={handleSearch}
             dialogFilters={dialogFilters}
-            handleSubmitFilters={handleSubmitFilters}
           />
         </>
       )}
@@ -284,7 +276,7 @@ const App = () => {
               <Notifications />
             ) : currentState === "add-new-posts" ? (
               <AddNewPost />
-            ) : currentState === "chat" ? (
+            ) : currentState === "conversation" ? (
               <Converstion />
             ) : null}
           </Grid>

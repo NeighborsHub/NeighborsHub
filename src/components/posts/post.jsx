@@ -27,6 +27,7 @@ import Hidden from "@mui/material/Hidden";
 import LocalDistanceIcon from "assets/svgs/LocalDistance.svg";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { useRouteQuery } from "utils/route";
 
 const Post = ({
   handleOpenModal,
@@ -47,6 +48,7 @@ const Post = ({
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down("lg"));
+  const routeQuery = useRouteQuery();
 
   const handleOpenDrawer = () => {
     drawerState[1](true);
@@ -57,7 +59,15 @@ const Post = ({
   };
 
   const handlePushToChat = (data) => {
-    router.push();
+    routeQuery(
+      {
+        state: "conversation",
+        conversationId: data.common_chat,
+        userId: data.created_by.id,
+        postId: data.id,
+      },
+      "/app/"
+    );
   };
 
   return (
@@ -87,7 +97,7 @@ const Post = ({
           </Grid>
         )}
 
-        <Grid contianer direction={"column"} sx={{ p: { xs: 1, md: 2 } }}>
+        <Grid container direction={"column"} sx={{ p: { xs: 1, md: 2 } }}>
           <Grid container item sx={{ maxHeight: "300px" }}>
             {Boolean(data.media?.length) && (
               <Grid
@@ -200,7 +210,7 @@ const Post = ({
               alignItems={"center"}
               sx={{ mt: 1 }}
             >
-              <Grid sx={{ mt: 1 }} contianer justifyContent={"flex-start"} item>
+              <Grid sx={{ mt: 1 }} container justifyContent={"flex-start"} item>
                 <Typography
                   sx={{
                     color: "#999999",

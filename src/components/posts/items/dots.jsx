@@ -1,4 +1,3 @@
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 import Menu from "@mui/material/Menu";
@@ -23,7 +22,6 @@ import Block from "assets/svgs/Post/Block.svg";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import Divider from "@mui/material/Divider";
 
 const Dots = ({
   showLocationOnMap,
@@ -68,7 +66,7 @@ const Dots = ({
   };
 
   return (
-    <Grid>
+    <Grid sx={{ mx: 0.5 }}>
       <Chip
         onClick={(e) => (matchesMd ? handleOpenDrawer() : handleOpenMenu(e))}
         label={
@@ -103,78 +101,81 @@ const Dots = ({
         }}
       >
         {showLocationOnMap && (
-          <>
-            <MenuItem
-              onClick={() => {
-                handleOpenModal(data);
-                setAnchorEl(null);
+          <MenuItem
+            onClick={() => {
+              handleOpenModal(data);
+              setAnchorEl(null);
+            }}
+            sx={{
+              display: "flex",
+              alignItems: "flex-end",
+            }}
+            classes={{
+              "MuiMenuItem-root": {
+                color: "red",
+                backgroundColor: "red",
+              },
+            }}
+            divider
+          >
+            <LocationOnOutlinedIcon
+              sx={{
+                mr: 0.5,
+                fontSize: "28px!important",
+                color: "black!important",
               }}
-              sx={{ display: "flex", alignItems: "flex-end" }}
+            />
+            <Typography
+              sx={{
+                fontFamily: "Saira",
+                fontSize: "14px",
+                color: "black!important",
+              }}
             >
-              <LocationOnOutlinedIcon
-                sx={{
-                  mr: 0.5,
-                  fontSize: "28px!important",
-                  color: "black!important",
-                }}
-              />
-              <Typography
-                sx={{
-                  fontFamily: "Saira",
-                  fontSize: "14px",
-                  color: "black!important",
-                }}
-              >
-                Show On Map
-              </Typography>
-            </MenuItem>
-            <Divider />
-          </>
+              Show On Map
+            </Typography>
+          </MenuItem>
         )}
         {!isMyPost && (
-          <>
-            <MenuItem sx={{ display: "flex", alignItems: "flex-end" }}>
-              <img src={Block.src} style={{ width: "28px", height: "25px" }} />
-              <Typography
-                sx={{
-                  fontFamily: "Saira",
-                  fontSize: "14px",
-                  color: "black!important",
-                  ml: 1,
-                }}
-              >
-                Block
-              </Typography>
-            </MenuItem>
-            <Divider />
-            <MenuItem sx={{ display: "flex", alignItems: "flex-end" }}>
-              <img src={Report.src} style={{ width: "28px", height: "25px" }} />
-              <Typography
-                sx={{
-                  fontFamily: "Saira",
-                  fontSize: "14px",
-                  color: "black!important",
-                  ml: 1,
-                }}
-              >
-                Report
-              </Typography>
-            </MenuItem>
-          </>
+          <MenuItem sx={{ display: "flex", alignItems: "flex-end" }} divider>
+            <img src={Block.src} style={{ width: "28px", height: "25px" }} />
+            <Typography
+              sx={{
+                fontFamily: "Saira",
+                fontSize: "14px",
+                color: "black!important",
+                ml: 1,
+              }}
+            >
+              Block
+            </Typography>
+          </MenuItem>
+        )}
+        {!isMyPost && (
+          <MenuItem sx={{ display: "flex", alignItems: "flex-end" }}>
+            <img src={Report.src} style={{ width: "28px", height: "25px" }} />
+            <Typography
+              sx={{
+                fontFamily: "Saira",
+                fontSize: "14px",
+                color: "black!important",
+                ml: 1,
+              }}
+            >
+              Report
+            </Typography>
+          </MenuItem>
         )}
         {isMyPost && (
-          <>
-            <Divider />
-            <MenuItem
-              onClick={() => {
-                handleOpenConfirmationModal();
-                setAnchorEl(null);
-              }}
-              sx={{ color: "red" }}
-            >
-              <DeleteIcon /> Delete
-            </MenuItem>
-          </>
+          <MenuItem
+            onClick={() => {
+              handleOpenConfirmationModal();
+              setAnchorEl(null);
+            }}
+            sx={{ color: "red" }}
+          >
+            <DeleteIcon /> Delete
+          </MenuItem>
         )}
       </Menu>
       <ConfirmationModal

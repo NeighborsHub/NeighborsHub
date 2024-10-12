@@ -14,7 +14,12 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { getPostsAction } from "store/actions/postsActions";
 import { categoriesSelector } from "store/slices/postsSlices";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  filtersSelector,
+  defaultFilters,
+  updateFilters,
+} from "store/slices/postsSlices";
 
 function valuetext(value) {
   return value;
@@ -31,22 +36,11 @@ const marks = [
   },
 ];
 
-const defaultFilters = { location: false, distance: false };
-
-const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
+const FiltersDialog = ({ open, handleClose }) => {
+  const dispatch = useDispatch();
   const categories = useSelector(categoriesSelector);
-  const [state, setState] = useState({
-    filters: defaultFilters,
-    distance: [0, 1000],
-    selectedCategories: [],
-  });
-
-  const handleCheckbox = (e) => {
-    setState((prevState) => ({
-      ...prevState,
-      filters: { ...prevState.filters, [e.target.name]: e.target.checked },
-    }));
-  };
+  const filters = useSelector(filtersSelector);
+  const [state, setState] = useState(filters);
 
   const handleClear = () => {
     setState((prevState) => ({
@@ -54,7 +48,8 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
       filters: defaultFilters,
     }));
     handleClose();
-    handleSubmitFilters({ ...state, filters: defaultFilters });
+
+    dispatch(updateFilters(defaultFilters));
   };
 
   const handleSetDistance = (e, distance) => {
@@ -65,18 +60,18 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
   };
 
   const handleSelectCategories = (name) => {
-    const prevStatus = state.selectedCategories.find((item) => item === name);
+    const prevStatus = state.categories.find((item) => item === name);
     if (prevStatus) {
       setState((prevState) => ({
         ...prevState,
-        selectedCategories: prevState.selectedCategories.filter(
+        categories: prevState.categories.filter(
           (item) => item !== name
         ),
       }));
     } else {
       setState((prevState) => ({
         ...prevState,
-        selectedCategories: [...prevState.selectedCategories, name],
+        categories: [...prevState.categories, name],
       }));
     }
   };
@@ -86,6 +81,11 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
       ...prevState,
       is_seen: prevState.is_seen === bool ? undefined : bool,
     }));
+  };
+
+  const handleSubmitFilters = () => {
+    dispatch(updateFilters(state));
+    handleClose();
   };
 
   return (
@@ -178,7 +178,7 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
           </Grid>
           <Grid container sx={{ px: 4 }}>
             {categories.map((item) => {
-              const isSelected = state.selectedCategories.find(
+              const isSelected = state.categories.find(
                 (item2) => item2 === item.internal_code
               );
               return (
@@ -321,7 +321,7 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
               type="submit"
               // disabled={loading || !emailPhoneNumber.value}
               name="passwordLogin"
-              onClick={() => handleSubmitFilters(state)}
+              onClick={handleSubmitFilters}
             >
               Submit
             </Button>

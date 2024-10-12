@@ -15,14 +15,25 @@ import Chip from "@mui/material/Chip";
 import FilterCloseIcon from "assets/svgs/Close.svg";
 import LocationIcon from "assets/svgs/Location.svg";
 import ShopIcon from "assets/svgs/Shop.svg";
+import { useSelector } from "react-redux";
+import { filtersSelector } from "store/slices/postsSlices";
 
-const AppHeader = ({
-  handleSearch = () => {},
-  handleSubmitFilters = (e) => {},
-  dialogFilters,
-}) => {
+const AppHeader = ({ handleSearch = () => {}, dialogFilters }) => {
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const search = useInputHandler("");
+  const filters = useSelector(filtersSelector);
+
+  const orderedFilters = [
+    ...filters.categories,
+    `${filters.distance[0]} - ${filters.distance[1]}`,
+    `${
+      filters.is_seen
+        ? "Seen Posts"
+        : filters.is_seen === false
+        ? "Unseen Posts"
+        : undefined
+    }`,
+  ];
 
   const handleOpenFilterDialog = () => {
     setOpenFilterDialog(true);
@@ -109,36 +120,12 @@ const AppHeader = ({
               }
             />
           </IconButton>
-          <Chip
-            label={
-              <Grid container alignItems={"center"} sx={{ ml: "16px" }}>
-                Shop
-                <img src={ShopIcon.src} style={{ marginLeft: "6px" }} />
-              </Grid>
-            }
-            sx={{
-              ml: 1,
-              backgroundColor: "rgba(242, 242, 242, 1)",
-              border: "1px solid rgba(217, 217, 217, 1)",
-              color: "black!important",
-              fontFamily: "Saira",
-              borderRadius: "10px",
-              height: "32px",
-            }}
-            icon={
-              <IconButton>
-                <img src={FilterCloseIcon.src} sx={{ fill: "gray" }} />
-              </IconButton>
-            }
-            // onClick={(e) => handleSeenMessage(true)}
-          />
+          {orderedFilters.filter(Boolean).map((item, index) => (
+            <FilterChip text={item} key={index} />
+          ))}
           <FiltersDialog
             open={openFilterDialog}
             handleClose={handleFilterDialogClose}
-            handleSubmitFilters={(state) => {
-              handleSubmitFilters(state);
-              handleFilterDialogClose();
-            }}
           />
         </Grid>
       </Container>
@@ -147,3 +134,31 @@ const AppHeader = ({
 };
 
 export default AppHeader;
+
+const FilterChip = ({ text }) => {
+  return (
+    <Chip
+      label={
+        <Grid container alignItems={"center"} sx={{ ml: "16px" }}>
+          {text}
+          {/* <img src={ShopIcon.src} style={{ marginLeft: "6px" }} /> */}
+        </Grid>
+      }
+      sx={{
+        ml: 1,
+        backgroundColor: "rgba(242, 242, 242, 1)",
+        border: "1px solid rgba(217, 217, 217, 1)",
+        color: "black!important",
+        fontFamily: "Saira",
+        borderRadius: "10px",
+        height: "32px",
+      }}
+      icon={
+        <IconButton>
+          <img src={FilterCloseIcon.src} sx={{ fill: "gray" }} />
+        </IconButton>
+      }
+      // onClick={(e) => handleSeenMessage(true)}
+    />
+  );
+};

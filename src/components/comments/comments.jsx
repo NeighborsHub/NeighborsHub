@@ -51,114 +51,116 @@ const Comments = ({ postId }) => {
       onSubmit={handleSubmitComment}
       style={{
         width: "100%",
-        height: "100%",
         flex: 1,
         display: "flex",
         flexDirection: "column",
         boxSizing: "border-box",
-        overflowY: "auto",
+        height: "100%",
       }}
     >
       <Grid
         sx={{
           border: "1px solid rgba(217, 217, 217, 0.5)",
           borderRadius: "12px",
-          height: '100%',
-          minHeight: '200px',
+          height: "100%",
+          minHeight: "200px",
           p: { xs: 1, md: 2 },
+          overflowY: "auto",
         }}
         container
         direction={"column"}
       >
-        <Grid
-          container
-          // alignItems={"center"}
-
-          direction={"column"}
-        >
-          <InputLabel shrink sx={{ mt: 1 }}>
-            Replay
-          </InputLabel>
-          <Grid container sx={{ position: "relative" }}>
-            <TextField
-              variant="outlined"
-              // autocomplete="off"
-              sx={{
-                flex: 1,
-                borderRadius: "30px",
-                "& .MuiOutlinedInput-notchedOutline": {
-                  fontSize: "12px",
-                  borderRadius: "10px!important",
-                },
-                "& .MuiInputBase-input": {
-                  padding: "12px 20px",
-                },
-              }}
-              InputLabelProps={{
-                sx: {
-                  color: "darkenGray",
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                },
-              }}
-              {...comment}
-              // size="small"
-            />
-            <Button
-              sx={{
-                borderRadius: "10px",
-                height: "40px",
-                fontSize: "13px",
-                backgroundColor: "#FFD816!important",
-                color: "black!important",
-                position: "absolute",
-                right: 0,
-                mt: "2px",
-                mr: "2px",
-              }}
-              type="submit"
-              disabled={!comment.value}
-            >
-              Submit
-            </Button>
-          </Grid>
-        </Grid>
-        {postComments.results?.length > 0 ? (
-          <Grid container direction={"column"} sx={{ mt: 2 }}>
-            <InfiniteScroll
-              dataLength={postComments.results?.length}
-              next={() => handleGetMoreComments(page + 1, limit)}
-              hasMore={page * limit + limit <= postComments.count}
-              loader={
-                <Grid
-                  container
-                  justifyContent="center"
-                  alignItems="center"
-                  sx={{ py: 2, my: 2 }}
-                >
-                  <Typography>Wait For More Posts ...</Typography>
-                </Grid>
-              }
-              scrollableTarget={"postContainer"}
-            >
-              {postComments.results?.map((item) => (
-                <CommentItem data={item} key={item.id} myInfo={myInfo} />
-              ))}
-            </InfiniteScroll>
-          </Grid>
-        ) : (
+        <Grid container direction={"column"}>
           <Grid
             container
-            item
-            xs
-            alignItems={"center"}
-            justifyContent={"center"}
+            // alignItems={"center"}
+
+            direction={"column"}
           >
-            <Typography sx={{ color: "#999999", fontSize: "16px" }}>
-              No Comment
-            </Typography>
+            <InputLabel shrink sx={{ mt: 1 }}>
+              Replay
+            </InputLabel>
+            <Grid container sx={{ position: "relative" }}>
+              <TextField
+                variant="outlined"
+                // autocomplete="off"
+                sx={{
+                  flex: 1,
+                  borderRadius: "30px",
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    fontSize: "12px",
+                    borderRadius: "10px!important",
+                  },
+                  "& .MuiInputBase-input": {
+                    padding: "12px 20px",
+                  },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    color: "darkenGray",
+                    fontSize: "12px",
+                    fontWeight: "bold",
+                  },
+                }}
+                {...comment}
+                // size="small"
+              />
+              <Button
+                sx={{
+                  borderRadius: "10px",
+                  height: "40px",
+                  fontSize: "13px",
+                  backgroundColor: "#FFD816!important",
+                  color: "black!important",
+                  position: "absolute",
+                  right: 0,
+                  mt: "2px",
+                  mr: "2px",
+                }}
+                type="submit"
+                disabled={!comment.value}
+              >
+                Submit
+              </Button>
+            </Grid>
           </Grid>
-        )}
+          {postComments.results?.length > 0 ? (
+            <Grid container direction={"column"} sx={{ mt: 2 }}>
+              <InfiniteScroll
+                dataLength={postComments.results?.length}
+                next={() => handleGetMoreComments(page + 1, limit)}
+                hasMore={page * limit + limit <= postComments.count}
+                loader={
+                  <Grid
+                    container
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{ py: 2, my: 2 }}
+                  >
+                    <Typography>Wait For More Posts ...</Typography>
+                  </Grid>
+                }
+                scrollableTarget={"postContainer"}
+              >
+                {postComments.results?.map((item) => (
+                  <CommentItem data={item} key={item.id} myInfo={myInfo} />
+                ))}
+              </InfiniteScroll>
+            </Grid>
+          ) : (
+            <Grid
+              container
+              item
+              xs
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
+              <Typography sx={{ color: "#999999", fontSize: "16px" }}>
+                No Comment
+              </Typography>
+            </Grid>
+          )}
+        </Grid>
       </Grid>
     </form>
   );

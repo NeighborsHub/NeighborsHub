@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const defaultFilters = {
+  distance: [0, 500000],
+  categories: [],
+};
+
 const initialState = {
   posts: {},
   locationPosts: {},
@@ -9,6 +14,7 @@ const initialState = {
   userPosts: {},
   post: {},
   postComments: [],
+  filters: defaultFilters,
 };
 
 const postsSlices = createSlice({
@@ -124,6 +130,9 @@ const postsSlices = createSlice({
     addComment: (state, { payload }) => {
       state.postComments.results = [payload, ...state.postComments.results];
     },
+    updateFilters: (state, { payload }) => {
+      state.filters = payload;
+    },
   },
 });
 
@@ -154,6 +163,7 @@ export const {
   setPostComments,
   addPostComments,
   addComment,
+  updateFilters,
 } = postsSlices.actions;
 
 export const postsSelector = (state) => state.posts.posts;
@@ -164,5 +174,6 @@ export const categoriesSelector = (state) => state.posts.categories;
 export const userPostsSelector = (state) => state.posts.userPosts;
 export const postSelector = (state) => state.posts.post;
 export const postCommentsSelector = (state) => state.posts.postComments;
+export const filtersSelector = (state) => state.posts.filters;
 
 export default postsSlices.reducer;

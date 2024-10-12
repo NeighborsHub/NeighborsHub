@@ -83,7 +83,6 @@ const Signup = () => {
               overflow: "hidden",
               position: "fixed",
               top: 0,
-              display: { xs: "flex", sm: "none" },
             }}
           >
             <img src={LoginImage.src} style={{ minWidth: "105%" }} />
@@ -162,45 +161,42 @@ const Signup = () => {
                 },
               }}
             >
-              <Grid
-                conainer
-                direction={"column"}
-                smDown
-                sx={{ display: { sm: "flex", xs: "none" } }}
-              >
-                <Typography
-                  variant="h2"
-                  textAlign={"center"}
-                  sx={{ color: "#000000" }}
-                >
-                  {currentState === STATUS.GET_EMAIL_MOBILE
-                    ? "Welcome Back"
-                    : currentState === STATUS.OTP_CHECKING
-                    ? "You Are Almost There"
-                    : currentState === STATUS.PASSWORD_CHECKING
-                    ? "You Are Almost There"
-                    : null}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  textAlign={"center"}
-                  sx={{
-                    mt: 1,
-                    mb: 3,
-                    color: "#999999",
-                    fontSize: "15px",
-                    fontFamily: "Saira",
-                  }}
-                >
-                  {currentState === STATUS.GET_EMAIL_MOBILE
-                    ? "Hi My Friend. Please Enter Your User Name, Email Or Phone Number"
-                    : currentState === STATUS.OTP_CHECKING
-                    ? "Enter The Code Sent To You"
-                    : currentState === STATUS.PASSWORD_CHECKING
-                    ? "Enter Your Password"
-                    : null}
-                </Typography>
-              </Grid>
+              <Hidden smDown>
+                <Grid conainer direction={"column"} smDown>
+                  <Typography
+                    variant="h2"
+                    textAlign={"center"}
+                    sx={{ color: "#000000" }}
+                  >
+                    {currentState === STATUS.GET_EMAIL_MOBILE
+                      ? "Welcome Back"
+                      : currentState === STATUS.OTP_CHECKING
+                      ? "You Are Almost There"
+                      : currentState === STATUS.PASSWORD_CHECKING
+                      ? "You Are Almost There"
+                      : null}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    textAlign={"center"}
+                    sx={{
+                      mt: 1,
+                      mb: 3,
+                      color: "#999999",
+                      fontSize: "15px",
+                      fontFamily: "Saira",
+                    }}
+                  >
+                    {currentState === STATUS.GET_EMAIL_MOBILE
+                      ? "Hi My Friend. Please Enter Your User Name, Email Or Phone Number"
+                      : currentState === STATUS.OTP_CHECKING
+                      ? "Enter The Code Sent To You"
+                      : currentState === STATUS.PASSWORD_CHECKING
+                      ? "Enter Your Password"
+                      : null}
+                  </Typography>
+                </Grid>
+              </Hidden>
               <Grid
                 container
                 direction={"column"}
@@ -212,7 +208,7 @@ const Signup = () => {
                   borderRadius: "24px",
                 }}
               >
-                <Hidden smUp>
+                <Hidden smUp={true}>
                   <Grid container justifyContent={"flex-end"}>
                     <IconButton
                       sx={{
@@ -230,52 +226,49 @@ const Signup = () => {
                     <SignInSignUpButtons />
                   </Grid>
                 )}
-                <Grid
-                  container
-                  direction={"column"}
-                  sx={{ display: { sm: "none", xs: "flex" } }}
-                >
-                  <Typography
-                    variant="h2"
-                    sx={{ color: "#000000", fontWeight: "normal" }}
-                  >
-                    Login
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{
-                      mt: 1,
-                      mb: 3,
-                      color: "black",
-                      fontSize: "15px",
-                      fontFamily: "Saira",
-                    }}
-                  >
-                    Welcome To Neighbors Hub! You can sign in here.
-                  </Typography>
-                </Grid>
+                <Hidden smUp>
+                  <Grid container direction={"column"}>
+                    <Typography
+                      variant="h2"
+                      sx={{ color: "#000000", fontWeight: "normal" }}
+                    >
+                      Login
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        mt: 1,
+                        mb: 3,
+                        color: "black",
+                        fontSize: "15px",
+                        fontFamily: "Saira",
+                      }}
+                    >
+                      Welcome To Neighbors Hub! You can sign in here.
+                    </Typography>
+                  </Grid>
+                </Hidden>
                 {state[currentState]}{" "}
               </Grid>
             </Grid>
           </Grid>
-          {/* <Hidden lgDown> */}
-          <Grid
-            item
-            container
-            lg={6}
-            justifyContent={"flex-end"}
-            sx={{
-              // p: 2,
-              // backgroundSize: "cover",
-              // aspectRatio: 2,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              display: { lg: "flex", xs: "none" },
-            }}
-          >
-            <img src={LoginImage.src} style={{ maxWidth: "100%" }} />
-          </Grid>
-          {/* </Hidden> */}
+          <Hidden lgDown>
+            <Grid
+              item
+              container
+              lg={6}
+              justifyContent={"flex-end"}
+              sx={{
+                // p: 2,
+                // backgroundSize: "cover",
+                // aspectRatio: 2,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+              }}
+            >
+              <img src={LoginImage.src} style={{ maxWidth: "100%" }} />
+            </Grid>
+          </Hidden>
         </Card>
       </Container>
     </Grid>
