@@ -1,6 +1,6 @@
 import ProfileNavigation from "components/profile/profileNavigation";
 import Grid from "@mui/material/Grid";
-import Header from "components/header";
+import Header from "components/header/Header";
 import Container from "@mui/material/Container";
 
 const DesktopVersionWithNavigationAndHeader = ({ children }) => {

@@ -23,7 +23,7 @@ import Address from "components/profile/addresses/addresses";
 import { authSelector } from "store/slices/authSlices";
 import NavigationBar from "components/navigationBar/navigationBar";
 import Hidden from "@mui/material/Hidden";
-import SubHeader from "components/header/subHeader";
+import ResponsiveSubHeader from "components/header/responsiveSubHeader";
 import ResponsiveHeader from "components/header/ResponsiveHeader";
 
 const AddNewPost = ({ open, handleClose }) => {

@@ -1,6 +1,6 @@
 "use client";
 import Container from "@mui/material/Container";
-import SubHeader from "components/header/subHeader";
+import ResponsiveSubHeader from "components/header/responsiveSubHeader";
 import Grid from "@mui/material/Grid";
 
 const AppLayout = ({ children }) => {
@@ -16,7 +16,7 @@ const AppLayout = ({ children }) => {
       item
       xs
     >
-      <SubHeader title={"Post"} backPath={"/app"} />
+      <ResponsiveSubHeader title={"Post"} backPath={"/app"} />
       <Grid
         container
         justifyContent={"flex-start"}

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import SubHeader from "components/header/subHeader";
+import ResponsiveSubHeader from "components/header/responsiveSubHeader";
 import TextField from "components/inputs/textfiled";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
@@ -47,7 +47,7 @@ const Addresses = () => {
     </DesktopVersionWithNavigationAndHeader>
   ) : (
     <Grid container direction={"column"} item xs>
-      <SubHeader title={"Your Addresses"} backPath={"/app/profile"}>
+      <ResponsiveSubHeader title={"Your Addresses"} backPath={"/app/profile"}>
         <Button
           sx={{
             height: "33px",
@@ -61,7 +61,7 @@ const Addresses = () => {
         >
           Add New
         </Button>
-      </SubHeader>
+      </ResponsiveSubHeader>
       <Grid container sx={{ px: 2, mb: 2 }}>
         <TextField
           InputProps={{

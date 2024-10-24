@@ -13,7 +13,7 @@ import Grid from "@mui/material/Grid";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Woman from "assets/images/woman.jpg";
-import Header from "components/header";
+import Header from "components/header/Header";
 import Container from "@mui/material/Container";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";

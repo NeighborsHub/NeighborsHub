@@ -1,5 +1,5 @@
 "use client";
-import Header from "components/header";
+import Header from "components/header/Header";
 import PostHeader from "components/header/postHeader";
 import Post from "components/posts/post";
 import Grid from "@mui/material/Grid";

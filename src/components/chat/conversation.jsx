@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { myInfoSelector } from "store/slices/userSlices";
 import { useEffect, useRef, useState } from "react";
 import { useInputHandler } from "hooks/useInputHandler";
-import SubHeader from "components/header/subHeader";
+import ResponsiveSubHeader from "components/header/responsiveSubHeader";
 
 const Conversation = ({ conversationId, handleSetData, data }) => {
   const socket = useContext(SocketContext);
@@ -64,7 +64,7 @@ const Conversation = ({ conversationId, handleSetData, data }) => {
 
   return (
     <Grid container direction="column" sx={{ position: "relative" }} item xs>
-      <SubHeader handleBack={() => handleSetData(null)} title={data.name} />
+      <ResponsiveSubHeader handleBack={() => handleSetData(null)} title={data.name} />
       <ConversationMessages
         ref={messageListRef}
         isInView={isInView}

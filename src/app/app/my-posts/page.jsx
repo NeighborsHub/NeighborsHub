@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import { getMyPostsAction } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import SubHeader from "components/header/subHeader";
+import ResponsiveSubHeader from "components/header/responsiveSubHeader";
 const MyPosts = () => {
   const posts = useSelector(myPostsSelector);
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const MyPosts = () => {
 
   return (
     <Grid container direction={"column"} item xs>
-      <SubHeader title={"Milad Seyf"} backPath={"/app/"} />
+      <ResponsiveSubHeader title={"Milad Seyf"} backPath={"/app/"} />
 
       <Grid
         container

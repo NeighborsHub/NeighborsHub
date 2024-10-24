@@ -1,6 +1,6 @@
 "use client";
 import Grid from "@mui/material/Grid";
-import SubHeader from "components/header/subHeader";
+import ResponsiveSubHeader from "components/header/responsiveSubHeader";
 import TextField from "components/inputs/bootstrapInput";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
@@ -10,7 +10,7 @@ import EditIcon from "assets/svgs/Edit.svg";
 const EmailEdit = () => {
   return (
     <Grid container direction={"column"} item xs>
-      <SubHeader title={"Verify Your Email"} backPath={"/app/profile/contact-data"} />
+      <ResponsiveSubHeader title={"Verify Your Email"} backPath={"/app/profile/contact-data"} />
       <Grid
         container
         direction={"column"}

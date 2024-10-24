@@ -1,6 +1,6 @@
 "use client";
 import Grid from "@mui/material/Grid";
-import SubHeader from "components/header/subHeader";
+import ResponsiveSubHeader from "components/header/responsiveSubHeader";
 import TextField from "components/inputs/bootstrapInput";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
@@ -83,7 +83,7 @@ const ContactData = () => {
     </DesktopVersionWithNavigationAndHeader>
   ) : (
     <Grid container direction={"column"} item xs>
-      <SubHeader title={"Contact Data"} backPath={"/app/profile"} />
+      <ResponsiveSubHeader title={"Contact Data"} backPath={"/app/profile"} />
       <Grid
         container
         direction={"column"}

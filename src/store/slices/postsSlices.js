@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const defaultFilters = {
-  distance: [0, 500000],
+  distance: [],
   categories: [],
+  is_seen: undefined,
 };
 
 const initialState = {

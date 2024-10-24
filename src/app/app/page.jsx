@@ -17,11 +17,11 @@ import {
 import { postsSelector } from "store/slices/postsSlices";
 import { authSelector } from "store/slices/authSlices";
 import { getUniqueLocationAction } from "store/actions/postsActions";
-import AppHeader from "components/header/appHeader";
+import SubHeader from "components/header/subHeader";
 import { useSearchParams } from "next/navigation";
 import NavigationBar from "components/navigationBar/navigationBar";
 import ResponsiveHeader from "components/header/ResponsiveHeader";
-import Header from "components/header";
+import Header from "components/header/Header";
 import DesktopListNavigations from "components/navigationBar/desktopListNavigations";
 import { useRouter } from "next/navigation";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -193,7 +193,7 @@ const App = () => {
       ) : (
         <>
           <Header />
-          <AppHeader
+          <SubHeader
             handleSearch={handleSearch}
             dialogFilters={dialogFilters}
           />

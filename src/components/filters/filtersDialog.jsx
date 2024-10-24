@@ -1,18 +1,13 @@
+import { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Modal from "components/modal/modal";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import TextField from "@mui/material/TextField";
-import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
-import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Slider from "@mui/material/Slider";
 import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import { getPostsAction } from "store/actions/postsActions";
 import { categoriesSelector } from "store/slices/postsSlices";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -36,11 +31,27 @@ const marks = [
   },
 ];
 
+const checkboxesDefaultValue = {
+  distance: false,
+  categories: false,
+  is_seen: false,
+};
+
 const FiltersDialog = ({ open, handleClose }) => {
   const dispatch = useDispatch();
   const categories = useSelector(categoriesSelector);
   const filters = useSelector(filtersSelector);
   const [state, setState] = useState(filters);
+  const [checkboxes, setCheckboxes] = useState(checkboxesDefaultValue);
+
+  useEffect(() => {
+    setState(filters);
+    setCheckboxes(() => ({
+      distance: Boolean(filters.distance.length),
+      categories: filters.categories.length,
+      is_seen: Boolean(filters.is_seen),
+    }));
+  }, [open]);
 
   const handleClear = () => {
     setState((prevState) => ({
@@ -50,6 +61,7 @@ const FiltersDialog = ({ open, handleClose }) => {
     handleClose();
 
     dispatch(updateFilters(defaultFilters));
+    setCheckboxes(checkboxesDefaultValue);
   };
 
   const handleSetDistance = (e, distance) => {
@@ -64,9 +76,7 @@ const FiltersDialog = ({ open, handleClose }) => {
     if (prevStatus) {
       setState((prevState) => ({
         ...prevState,
-        categories: prevState.categories.filter(
-          (item) => item !== name
-        ),
+        categories: prevState.categories.filter((item) => item !== name),
       }));
     } else {
       setState((prevState) => ({
@@ -84,38 +94,58 @@ const FiltersDialog = ({ open, handleClose }) => {
   };
 
   const handleSubmitFilters = () => {
-    dispatch(updateFilters(state));
+    const finalFilters = {
+      distance: [],
+      categories: [],
+      is_seen: undefined,
+    };
+    if (checkboxes.distance) finalFilters["distance"] = state.distance;
+    if (checkboxes.categories) finalFilters["categories"] = state.categories;
+    if (checkboxes.is_seen) finalFilters["is_seen"] = state.is_seen;
+
+    dispatch(updateFilters(finalFilters));
     handleClose();
+  };
+
+  const handleEnablingDistanceFilters = () =>
+    setCheckboxes((prev) => ({ ...prev, distance: true }));
+  const handleEnablingCategoriesFilters = () =>
+    setCheckboxes((prev) => ({ ...prev, categories: true }));
+  const handleEnablingSeenPostsFilters = () =>
+    setCheckboxes((prev) => ({ ...prev, is_seen: true }));
+
+  const distanceOnChange = (e) => {
+    if (!e.target.checked) {
+      setState((prev) => ({ ...prev, distance: [0, 1000] }));
+    }
+    setCheckboxes((prev) => ({ ...prev, distance: e.target.checked }));
+  };
+  const categoriesOnChange = (e) => {
+    if (!e.target.checked) {
+      setState((prev) => ({ ...prev, categories: [] }));
+    }
+    setCheckboxes((prev) => ({ ...prev, categories: e.target.checked }));
+  };
+  const is_seenOnChange = (e) => {
+    if (!e.target.checked) {
+      setState((prev) => ({ ...prev, is_seen: undefined }));
+    }
+    setCheckboxes((prev) => ({ ...prev, is_seen: e.target.checked }));
   };
 
   return (
     <Modal open={open} onClose={handleClose} width="sm">
       <Grid container direction={"column"}>
         <Typography variant="h6">FILTERS</Typography>
-        <Grid container direction={"column"} sx={{ px: 1, mt: 2 }}>
-          <Grid container justifyContent={"flex-start"} alignItems={"center"}>
-            <Typography
-              sx={{
-                fontSize: "11px",
-                fontFamily: "Saira",
-                color: "rgba(153, 153, 153, 1)",
-              }}
-            >
-              Distance
-            </Typography>
-            <Divider
-              sx={{
-                flex: 1,
-                ml: 2,
-                height: "1.5px",
-                backgroundColor: "rgba(217, 217, 217, 1)",
-              }}
-            />
-          </Grid>
+        <FilterSection
+          title={"Distance"}
+          checkboxValue={checkboxes.distance}
+          checkboxOnChange={distanceOnChange}
+        >
           <Grid sx={{ px: 4 }} container direction={"column"}>
             <Grid>
               <Chip
-                label={state.distance[0] + " M"}
+                label={state.distance[0] || 0 + " M"}
                 sx={{
                   mr: 1,
                   mb: 1,
@@ -123,10 +153,18 @@ const FiltersDialog = ({ open, handleClose }) => {
                   color: "black",
                   width: "auto",
                   fontFamily: "Saira",
+                  "&.Mui-disabled": {
+                    backgroundColor: "rgba(0, 0, 0, 0.12)",
+                  },
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 216, 22, 1)",
+                  },
                 }}
+                disabled={!checkboxes.distance}
               />
+
               <Chip
-                label={state.distance[1] + " M"}
+                label={state.distance[1] || 1000 + " M"}
                 sx={{
                   mr: 1,
                   mb: 1,
@@ -134,19 +172,27 @@ const FiltersDialog = ({ open, handleClose }) => {
                   color: "black",
                   width: "auto",
                   fontFamily: "Saira",
+                  "&.Mui-disabled": {
+                    backgroundColor: "rgba(0, 0, 0, 0.12)",
+                  },
                 }}
+                disabled={!checkboxes.distance}
               />
             </Grid>
             <Slider
-              value={state.distance}
+              onMouseDown={handleEnablingDistanceFilters}
+              // onClick={handleEnablingDistanceFilters}
+              value={state.distance.length ? state.distance : [0, 1000]}
               onChange={handleSetDistance}
               getAriaValueText={valuetext}
-              min={0}
-              max={10000}
+              min={marks[0].value}
+              max={marks[1].value}
               marks={marks}
               sx={{
                 "& .MuiSlider-track": {
-                  backgroundColor: "rgba(255, 216, 22, 1)",
+                  backgroundColor: checkboxes.distance
+                    ? "rgba(255, 216, 22, 1)"
+                    : "rgba(242, 242, 242, 1)",
                   height: "0.250rem",
                 },
                 "& .MuiSlider-thumb": {
@@ -155,27 +201,12 @@ const FiltersDialog = ({ open, handleClose }) => {
               }}
             />
           </Grid>
-        </Grid>
-        <Grid container direction={"column"} sx={{ mt: 2, px: 1 }}>
-          <Grid container justifyContent={"flex-start"} alignItems={"center"}>
-            <Typography
-              sx={{
-                fontSize: "11px",
-                fontFamily: "Saira",
-                color: "rgba(153, 153, 153, 1)",
-              }}
-            >
-              Categories
-            </Typography>
-            <Divider
-              sx={{
-                flex: 1,
-                ml: 2,
-                height: "1.5px",
-                backgroundColor: "rgba(217, 217, 217, 1)",
-              }}
-            />
-          </Grid>
+        </FilterSection>
+        <FilterSection
+          title={"Categories"}
+          checkboxValue={checkboxes.categories}
+          checkboxOnChange={categoriesOnChange}
+        >
           <Grid container sx={{ px: 4 }}>
             {categories.map((item) => {
               const isSelected = state.categories.find(
@@ -195,60 +226,18 @@ const FiltersDialog = ({ open, handleClose }) => {
                   }}
                   onClick={() => handleSelectCategories(item.internal_code)}
                   key={item.title}
+                  onMouseUp={handleEnablingCategoriesFilters}
                 />
               );
             })}
           </Grid>
-          {/* <Grid container>
-            <Grid
-              container
-              alignItems={"center"}
-              sx={{
-                border: "1px solid #DEDEDE",
-                
-                width: "auto",
-                borderRadius: "30px",
-                p: 0.5,
-              }}
-            >
-              <Chip
-                avatar={<Avatar alt="Natacha" />}
-                label="Avatar"
-                sx={{ mr: 1, backgroundColor: "" }}
-              />
-              <Chip
-                avatar={<Avatar alt="Natacha" />}
-                label="Avatar"
-                sx={{ mr: 1 }}
-              />
-              <IconButton disabled={!state.filters.location}>
-                <CloseIcon sx={{ color: "#7a7a7a" }} />
-              </IconButton>
-            </Grid>
-          </Grid> */}
-        </Grid>
-        <Grid container direction={"column"} sx={{ px: 1 }}>
-          <Grid container justifyContent={"flex-start"}>
-            <Grid container justifyContent={"flex-start"} alignItems={"center"}>
-              <Typography
-                sx={{
-                  fontSize: "11px",
-                  fontFamily: "Saira",
-                  color: "rgba(153, 153, 153, 1)",
-                }}
-              >
-                Seen/Unseen Posts
-              </Typography>
-              <Divider
-                sx={{
-                  flex: 1,
-                  ml: 2,
-                  height: "1.5px",
-                  backgroundColor: "rgba(217, 217, 217, 1)",
-                }}
-              />
-            </Grid>
-          </Grid>
+        </FilterSection>
+
+        <FilterSection
+          title={"Seen Posts"}
+          checkboxValue={checkboxes.is_seen}
+          checkboxOnChange={is_seenOnChange}
+        >
           <Grid sx={{ px: 4 }}>
             <Chip
               label={"Seen Posts"}
@@ -262,6 +251,7 @@ const FiltersDialog = ({ open, handleClose }) => {
                 fontFamily: "Saira",
               }}
               onClick={(e) => handleSeenMessage(true)}
+              onMouseUp={handleEnablingSeenPostsFilters}
             />
             <Chip
               label={"Unseen Posts"}
@@ -278,9 +268,10 @@ const FiltersDialog = ({ open, handleClose }) => {
                 },
               }}
               onClick={() => handleSeenMessage(false)}
+              onMouseUp={handleEnablingSeenPostsFilters}
             />
           </Grid>
-        </Grid>
+        </FilterSection>
         <Grid container sx={{ mt: 3 }}>
           <Grid container xs={6} sx={{ px: 0.5 }}>
             <Button
@@ -333,3 +324,46 @@ const FiltersDialog = ({ open, handleClose }) => {
 };
 
 export default FiltersDialog;
+
+const FilterSection = ({
+  children,
+  title,
+  checkboxValue,
+  checkboxOnChange,
+}) => {
+  return (
+    <Grid container direction={"column"} sx={{ px: 1, mt: 2 }}>
+      <Grid container justifyContent={"flex-start"} alignItems={"center"}>
+        <Checkbox
+          disableRipple
+          sx={{
+            color: "red!important",
+            "&.Mui-checked": {
+              color: "red!important",
+            },
+          }}
+          checked={checkboxValue}
+          onChange={checkboxOnChange}
+        />
+        <Typography
+          sx={{
+            fontSize: "11px",
+            fontFamily: "Saira",
+            color: "rgba(153, 153, 153, 1)",
+          }}
+        >
+          {title}
+        </Typography>
+        <Divider
+          sx={{
+            flex: 1,
+            ml: 2,
+            height: "1.5px",
+            backgroundColor: "rgba(217, 217, 217, 1)",
+          }}
+        />
+      </Grid>
+      {children}
+    </Grid>
+  );
+};

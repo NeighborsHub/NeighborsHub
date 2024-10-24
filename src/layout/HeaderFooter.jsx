@@ -1,5 +1,5 @@
 import Container from "@mui/material/Container";
-import Header from "components/header";
+import Header from "components/header/Header";
 import Grid from "@mui/material/Grid";
 
 const HeaderFooter = ({ children }) => {

@@ -6,7 +6,7 @@ import { myInfoSelector } from "store/slices/userSlices";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
-import SubHeader from "components/header/subHeader";
+import ResponsiveSubHeader from "components/header/responsiveSubHeader";
 import ProfileNavigation from "components/profile/profileNavigation";
 
 const ResponsiveProfile = () => {
@@ -21,7 +21,7 @@ const ResponsiveProfile = () => {
       xs
       sx={{ overflow: "hidden", backgroundColor: "white!important" }}
     >
-      <SubHeader title={"Profile"} backPath={"/app"} />
+      <ResponsiveSubHeader title={"Profile"} backPath={"/app"} />
       <Grid
         container
         direction="column"

@@ -23,7 +23,7 @@ import Address from "components/profile/addresses/addresses";
 import { authSelector } from "store/slices/authSlices";
 import NavigationBar from "components/navigationBar/navigationBar";
 import Hidden from "@mui/material/Hidden";
-import SubHeader from "components/header/subHeader";
+import ResponsiveSubHeader from "components/header/responsiveSubHeader";
 import InputLabel from "@mui/material/InputLabel";
 import Drawer from "components/drawer/drawer";
 import CustomListItem from "app/app/profile/addresses/customListItem";

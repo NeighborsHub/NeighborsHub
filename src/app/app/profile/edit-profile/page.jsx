@@ -10,7 +10,7 @@ import TextField from "components/inputs/bootstrapInput";
 import InputLabel from "@mui/material/InputLabel";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
-import SubHeader from "components/header/subHeader";
+import ResponsiveSubHeader from "components/header/responsiveSubHeader";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import DesktopVersionWithNavigationAndHeader from "components/profile/desktopVersionWithNavigationAndHeader";
@@ -144,7 +144,7 @@ const EditProfile = () => {
       xs
       sx={{ backgroundColor: "white!important", boxSizing: "border-box" }}
     >
-      <SubHeader title={"User Information"} backPath={"/app/profile"} />
+      <ResponsiveSubHeader title={"User Information"} backPath={"/app/profile"} />
       <Grid
         container
         direction={"column"}
