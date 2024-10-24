@@ -22,11 +22,16 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
     "state"
   );
 
-  // const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-
   const handleSelectItem = (index, path) => {
     router.push(`/app?state=${path}`);
   };
+
+  console.log(
+    window?.location?.href,
+    pathname,
+    searchParams.toString(),
+    "ttttttttttttttttttttttttttttt"
+  );
   return (
     <Grid
       container
@@ -45,12 +50,16 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
       flexDirection={"row-reverse"}
     >
       <Icon
-        icon={currentState === "map" || pathname === "/app/" ? MapColored : Map}
+        icon={
+          currentState === "map" || pathname + "?" + searchParams === "/app/"
+            ? MapColored
+            : Map
+        }
         text={"map"}
         onClick={handleSelectItem}
         index={0}
         path={"map"}
-        isSelected={currentState === "map" || pathname === "/app/"}
+        isSelected={currentState === "map" || pathname + "?" + searchParams === "/app/"}
       />
       {isAuth && (
         <Icon

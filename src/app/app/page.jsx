@@ -274,7 +274,7 @@ const App = () => {
               <ChatList isFullWidth />
             ) : currentState === "notifications" ? (
               <Notifications />
-            ) : currentState === "add-new-posts" ? (
+            ) : currentState === "add-new-post" ? (
               <AddNewPost />
             ) : currentState === "conversation" ? (
               <Converstion />
