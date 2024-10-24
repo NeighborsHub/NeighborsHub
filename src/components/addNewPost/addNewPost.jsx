@@ -128,8 +128,6 @@ const AddNewPost = ({ open, handleClose }) => {
       )}
       <Hidden mdUp>
         <Grid container direction={"column"} item xs>
-          <ResponsiveHeader />
-
           <Grid
             container
             justifyContent={"center"}
@@ -198,7 +196,6 @@ const AddNewPost = ({ open, handleClose }) => {
           </Grid>
         </Grid>
       </Hidden>
-      <NavigationBar />
     </Grid>
   );
 };

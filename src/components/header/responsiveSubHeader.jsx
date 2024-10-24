@@ -32,7 +32,7 @@ const ResponsiveSubHeader = ({
       sx={{
         backgroundColor: "white!important",
         px: 2,
-        height: "65px",
+        height: "50px",
         boxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.1)",
         zIndex: "1000",
         // mb: 2,
