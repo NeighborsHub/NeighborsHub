@@ -282,7 +282,7 @@ const App = () => {
           </Grid>
         )}
       </Grid>
-      {isMobile && (
+      {isMobile && currentState !== "conversation" && (
         <NavigationBar onChange={handleChangeTab} currentValue={tabValue} />
       )}
     </Grid>
