@@ -18,7 +18,9 @@ const ChatsList = ({}) => {
   const router = useRouter();
 
   const handleItemClicked = (data) => {
-    router.push("/app?state=conversation");
+    router.push(
+      `/app?state=conversation&conversationId=${data.room_id}&postId=${data.post}`
+    );
   };
 
   useEffect(() => {

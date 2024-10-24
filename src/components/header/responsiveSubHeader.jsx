@@ -13,7 +13,12 @@ import { useRouter } from "next/navigation";
 import { logoutAction } from "store/actions/authActions";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const ResponsiveSubHeader = ({ title, backPath, children, handleBack }) => {
+const ResponsiveSubHeader = ({
+  title = "",
+  backPath,
+  children,
+  handleBack,
+}) => {
   const router = useRouter();
 
   const handlePushToPreviousPage = () => {

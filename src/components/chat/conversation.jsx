@@ -10,8 +10,9 @@ import { myInfoSelector } from "store/slices/userSlices";
 import { useEffect, useRef, useState } from "react";
 import { useInputHandler } from "hooks/useInputHandler";
 import ResponsiveSubHeader from "components/header/responsiveSubHeader";
+import { useSearchParams } from "next/navigation";
 
-const Conversation = ({ conversationId, handleSetData, data }) => {
+const Conversation = () => {
   const socket = useContext(SocketContext);
   // const userId = data.userId;
   const myInfo = useSelector(myInfoSelector);
@@ -19,6 +20,11 @@ const Conversation = ({ conversationId, handleSetData, data }) => {
   const [isInView, setIsInView] = useState(true);
   const messageListRef = useRef();
   const message = useInputHandler("");
+  const searchParams = useSearchParams();
+  const conversationId = new URLSearchParams(searchParams.toString()).get(
+    "conversationId"
+  );
+  const postId = new URLSearchParams(searchParams.toString()).get("postId");
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -36,7 +42,7 @@ const Conversation = ({ conversationId, handleSetData, data }) => {
         message: message.value,
         user: myInfo.id,
         room_id: tempConversationId,
-        post_id: postId,
+        post_id: postId !== "null" ? postId : undefined,
       })
     );
     message.onChange({ target: { value: "" } });
@@ -64,12 +70,12 @@ const Conversation = ({ conversationId, handleSetData, data }) => {
 
   return (
     <Grid container direction="column" sx={{ position: "relative" }} item xs>
-      <ResponsiveSubHeader handleBack={() => handleSetData(null)} title={data.name} />
+      <ResponsiveSubHeader backPath={"/app/?state=chats"} />
       <ConversationMessages
         ref={messageListRef}
         isInView={isInView}
         scrollToBottom={scrollToBottom}
-        conversationId={data.room_id}
+        conversationId={conversationId}
       />
       <ConversationInput
         handleSendMessage={handleSendMessage}

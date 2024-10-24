@@ -26,12 +26,6 @@ const NavigationBar = ({ onChange = () => {}, currentValue = null }) => {
     router.push(`/app?state=${path}`);
   };
 
-  console.log(
-    window?.location?.href,
-    pathname,
-    searchParams.toString(),
-    "ttttttttttttttttttttttttttttt"
-  );
   return (
     <Grid
       container
