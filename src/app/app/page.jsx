@@ -17,7 +17,7 @@ import {
 import { postsSelector } from "store/slices/postsSlices";
 import { authSelector } from "store/slices/authSlices";
 import { getUniqueLocationAction } from "store/actions/postsActions";
-import SubHeader from "components/header/subHeader";
+import FiltersHeader from "components/header/filtersHeader";
 import { useSearchParams } from "next/navigation";
 import NavigationBar from "components/navigationBar/navigationBar";
 import ResponsiveHeader from "components/header/ResponsiveHeader";
@@ -31,6 +31,7 @@ import Notifications from "components/notifications/notifications";
 import Converstion from "components/chat/conversation";
 import { filtersSelector } from "store/slices/postsSlices";
 import Button from "@mui/material/Button";
+import ResponsiveFiltersHeader from "components/header/responsiveFiltersHeader";
 
 let controller;
 
@@ -189,11 +190,19 @@ const App = () => {
     >
       {/* /////////////////////////////////////// Desktop ////////////////////////////////// */}
       {isMobile ? (
-        <ResponsiveHeader />
+        <>
+          <ResponsiveHeader />
+          {(currentState === "map" || currentState === "posts") && (
+            <ResponsiveFiltersHeader
+              handleSearch={handleSearch}
+              dialogFilters={dialogFilters}
+            />
+          )}
+        </>
       ) : (
         <>
           <Header />
-          <SubHeader
+          <FiltersHeader
             handleSearch={handleSearch}
             dialogFilters={dialogFilters}
           />

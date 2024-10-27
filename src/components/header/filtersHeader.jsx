@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { filtersSelector, updateFilters } from "store/slices/postsSlices";
 import { horizontalDrag } from "utils/horizontalDrag";
-const SubHeader = ({ handleSearch = () => {}, dialogFilters }) => {
+const FiltersHeader = ({ handleSearch = () => {}, dialogFilters }) => {
   const dispatch = useDispatch();
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const search = useInputHandler("");
@@ -173,7 +173,7 @@ const SubHeader = ({ handleSearch = () => {}, dialogFilters }) => {
   );
 };
 
-export default SubHeader;
+export default FiltersHeader;
 
 const FilterChip = ({ text, onClick }) => {
   return (
