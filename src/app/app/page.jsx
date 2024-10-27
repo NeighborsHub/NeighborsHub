@@ -29,8 +29,8 @@ import { useTheme } from "@mui/material/styles";
 import AddNewPost from "components/addNewPost/addNewPost";
 import Notifications from "components/notifications/notifications";
 import Converstion from "components/chat/conversation";
-
 import { filtersSelector } from "store/slices/postsSlices";
+import Button from "@mui/material/Button";
 
 let controller;
 
@@ -217,6 +217,22 @@ const App = () => {
                 longBounds={longBounds}
               />
             )}
+            <Button
+              sx={{
+                backgroundColor: "#FFD816",
+                color: "black!important",
+                width: "170px",
+                position: "absolute",
+                bottom: "20px",
+                right: "20px",
+                zIndex: 10,
+                "&:hover": {
+                  backgroundColor: "#FFD816",
+                },
+              }}
+            >
+              ADD NEW POST
+            </Button>
           </Grid>
         )}
         {isAuthenticated && (

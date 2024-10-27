@@ -179,9 +179,10 @@ const FiltersDialog = ({ open, handleClose }) => {
                 disabled={!checkboxes.distance}
               />
             </Grid>
+
             <Slider
+              onTouchStart={handleEnablingDistanceFilters}
               onMouseDown={handleEnablingDistanceFilters}
-              // onClick={handleEnablingDistanceFilters}
               value={state.distance.length ? state.distance : [0, 1000]}
               onChange={handleSetDistance}
               getAriaValueText={valuetext}

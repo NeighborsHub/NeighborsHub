@@ -15,7 +15,7 @@ const CustomListItem = ({ data, setDrawerOpen, children, onClick }) => {
       <ListItem
         secondaryAction={
           <IconButton edge="end" aria-label="delete" sx={{ width: "70px" }}>
-            <MoreVertIcon onClick={(e) => setDrawerOpen(true, e)} />
+            <MoreVertIcon onClick={(e) => setDrawerOpen(true, e, data)} />
           </IconButton>
         }
         sx={{

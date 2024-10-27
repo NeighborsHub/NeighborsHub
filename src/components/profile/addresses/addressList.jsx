@@ -29,14 +29,17 @@ const AddressList = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  const handleListItemClick = async (item) => {
+  const handleListItemClick = async () => {
     dispatch(startLoading());
 
-    const result = await Apis.address.updateAddress({
-      is_main_address: true,
-      id: item.id,
-    });
+    const result = await Apis.address
+      .updateAddress({
+        is_main_address: true,
+        id: selectedItem.id,
+      })
+      .finally(() => setAnchorEl(null));
     if (result) {
       dispatch(updateMyAddress(result.address));
       enqueueSnackbar("Default Address Changed", { variant: "success" });
@@ -87,8 +90,9 @@ const AddressList = () => {
     },
   ];
 
-  const handleOpenMenu = (_, event) => {
+  const handleOpenMenu = (_, event, selectedItem) => {
     setAnchorEl(event.currentTarget);
+    setSelectedItem(selectedItem);
   };
 
   return (

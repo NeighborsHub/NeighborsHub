@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import { MAP_API_KEY } from "constants";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import MarkerIcon from "assets/svgs/Location-red.svg";
-import MyMarkerIcon from "assets/svgs/Location-red.svg";
+import MyMarkerIcon from "assets/svgs/MyLocation.svg";
 
 let addedCordinates = [];
 
@@ -142,7 +142,7 @@ export default function Map({
       el.className = "marker";
       el.style.display = "block";
       el.style.padding = "0";
-      el.style.fill= '#16b2ff'
+      el.style.fill = "#16b2ff";
 
       const marker = new maplibregl.Marker({ element: el })
         .setLngLat(myCordinate)
@@ -171,8 +171,8 @@ export default function Map({
       var el = document.createElement("div");
       el.style.backgroundImage = `url(${MarkerIcon.src})`;
       // const el = <img src={MarkerIcon.src} />;
-      el.style.width = "40px";
-      el.style.height = "50px";
+      el.style.width = "34px";
+      el.style.height = "40px";
       el.className = "marker";
       el.style.display = "block";
       el.style.padding = "0";
