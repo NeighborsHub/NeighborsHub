@@ -28,9 +28,9 @@ const ResponsiveFiltersHeader = ({
   let filters = useSelector(filtersSelector);
   const filtersContainerRef = useRef();
 
-  useEffect(() => {
-    horizontalDrag(filtersContainerRef.current);
-  }, []);
+  // useEffect(() => {
+  //   horizontalDrag(filtersContainerRef.current);
+  // }, []);
 
   const orderedFilters = [
     ...filters.categories,
@@ -168,6 +168,7 @@ const FilterChip = ({ text, onClick }) => {
         fontFamily: "Saira",
         borderRadius: "10px",
         height: "32px",
+        direction: "ltr",
       }}
       icon={
         <IconButton>

@@ -133,27 +133,6 @@ export default function Map({
     // scale.setUnit("metric");
   }, []);
 
-  useEffect(() => {
-    if (myCordinate[0]) {
-      var el = document.createElement("div");
-      el.style.backgroundImage = `url(${MyMarkerIcon.src})`;
-      el.style.width = "34px";
-      el.style.height = "40px";
-      el.className = "marker";
-      el.style.display = "block";
-      el.style.padding = "0";
-      el.style.fill = "#16b2ff";
-
-      const marker = new maplibregl.Marker({ element: el })
-        .setLngLat(myCordinate)
-        .addTo(map.current);
-      handleMyMarkerClicked &&
-        marker.getElement().addEventListener("click", () => {
-          handleMyMarkerClicked();
-        });
-    }
-  }, [myCordinate[0]]);
-
   // useEffect(() => {
   //   map.current.flyTo({ center, zoom: 14 });
   // }, [center[0], center[1]]);
@@ -191,6 +170,27 @@ export default function Map({
       // }
     });
   }, [locations]);
+
+  useEffect(() => {
+    if (myCordinate[0]) {
+      var el = document.createElement("div");
+      el.style.backgroundImage = `url(${MyMarkerIcon.src})`;
+      el.style.width = "24px";
+      el.style.height = "28px";
+      el.className = "marker";
+      el.style.display = "block";
+      el.style.padding = "0";
+      el.style.fill = "#16b2ff";
+
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat(myCordinate)
+        .addTo(map.current);
+      handleMyMarkerClicked &&
+        marker.getElement().addEventListener("click", () => {
+          handleMyMarkerClicked();
+        });
+    }
+  }, [myCordinate[0]]);
 
   return (
     <Grid container className="map-wrap">

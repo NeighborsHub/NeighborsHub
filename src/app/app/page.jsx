@@ -209,40 +209,15 @@ const App = () => {
         </>
       )}
       <Grid container justifyContent={"center"} item xs>
-        {!isMobile && (
-          <Grid
-            sx={{ overflowY: "auto", position: "relative" }}
-            container
-            item
-            xs
-          >
-            {!loading && (
-              <MapTab
-                filters={dialogFilters}
-                handleBounds={handleBounds}
-                search={search}
-                handleChangeTab={handleChangeTab}
-                latBounds={latBounds}
-                longBounds={longBounds}
-              />
-            )}
-            <Button
-              sx={{
-                backgroundColor: "#FFD816",
-                color: "black!important",
-                width: "170px",
-                position: "absolute",
-                bottom: "20px",
-                right: "20px",
-                zIndex: 10,
-                "&:hover": {
-                  backgroundColor: "#FFD816",
-                },
-              }}
-            >
-              ADD NEW POST
-            </Button>
-          </Grid>
+        {!isMobile && !loading && (
+          <MapTab
+            filters={dialogFilters}
+            handleBounds={handleBounds}
+            search={search}
+            handleChangeTab={handleChangeTab}
+            latBounds={latBounds}
+            longBounds={longBounds}
+          />
         )}
         {isAuthenticated && (
           <Grid
