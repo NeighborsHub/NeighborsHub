@@ -209,15 +209,24 @@ const App = () => {
         </>
       )}
       <Grid container justifyContent={"center"} item xs>
-        {!isMobile && !loading && (
-          <MapTab
-            filters={dialogFilters}
-            handleBounds={handleBounds}
-            search={search}
-            handleChangeTab={handleChangeTab}
-            latBounds={latBounds}
-            longBounds={longBounds}
-          />
+        {!isMobile && (
+          <Grid
+            sx={{ overflowY: "auto", position: "relative" }}
+            container
+            item
+            xs
+          >
+            {!loading && (
+              <MapTab
+                filters={dialogFilters}
+                handleBounds={handleBounds}
+                search={search}
+                handleChangeTab={handleChangeTab}
+                latBounds={latBounds}
+                longBounds={longBounds}
+              />
+            )}
+          </Grid>
         )}
         {isAuthenticated && (
           <Grid

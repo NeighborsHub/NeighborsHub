@@ -46,7 +46,7 @@ const AxiosInterceptor = ({ children }) => {
       } else {
         if (!error.config.withoutSnack) {
           const errorMessage =
-            error.response?.data?.message || "Connection to Server Failed";
+            error.response?.data?.message || "Problem Connecting To The Server";
           snackActions.error(errorMessage);
         }
       }

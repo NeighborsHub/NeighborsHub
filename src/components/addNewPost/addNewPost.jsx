@@ -126,76 +126,74 @@ const AddNewPost = ({ open, handleClose }) => {
           )}
         </Grid>
       )}
-      <Hidden mdUp>
-        <Grid container direction={"column"} item xs>
+      <Grid container direction={"column"} item xs>
+        <Grid
+          container
+          justifyContent={"center"}
+          sx={{ flex: 1, overflowY: "auto", px: 2, mt: 2 }}
+          id="appPostLists"
+          item
+          xs
+        >
           <Grid
             container
-            justifyContent={"center"}
-            sx={{ flex: 1, overflowY: "auto", px: 2, mt: 2 }}
-            id="appPostLists"
-            item
-            xs
+            direction={"column"}
+            sx={{
+              filter: isAuth ? "" : "blur(4px)",
+              border: "1px solid #E5E5E5",
+              p: 2,
+              borderRadius: "12px",
+            }}
           >
             <Grid
               container
-              direction={"column"}
-              sx={{
-                filter: isAuth ? "" : "blur(4px)",
-                border: "1px solid #E5E5E5",
-                p: 2,
-                borderRadius: "12px",
-              }}
+              justifyContent={"center"}
+              alignItems={"center"}
+              sx={{ mb: 2 }}
             >
-              <Grid
-                container
-                justifyContent={"center"}
-                alignItems={"center"}
-                sx={{ mb: 2 }}
-              >
-                <FileUploaderList
-                  files={files}
-                  handleAddFileToList={handleAddFileToList}
-                  handleRemoveFromList={handleRemoveFromList}
-                />
-              </Grid>
-              <TextField {...title} label="Title" />
-              <TextField
-                {...description}
-                multiline
-                minRows={3}
-                sx={{ mt: 2 }}
-                label="Description"
+              <FileUploaderList
+                files={files}
+                handleAddFileToList={handleAddFileToList}
+                handleRemoveFromList={handleRemoveFromList}
               />
-              <TextField
-                multiline
-                sx={{ mt: 2, cursor: "pointer" }}
-                label="Address"
-                onClick={() => setAddressListModalOpen(true)}
-                value={selectedAddress?.street}
-              />
-              <Button
-                sx={{
-                  mt: 2,
-                  borderRadius: "10px",
-                  height: "47px",
-                  fontSize: "15px",
+            </Grid>
+            <TextField {...title} label="Title" />
+            <TextField
+              {...description}
+              multiline
+              minRows={3}
+              sx={{ mt: 2 }}
+              label="Description"
+            />
+            <TextField
+              multiline
+              sx={{ mt: 2, cursor: "pointer" }}
+              label="Address"
+              onClick={() => setAddressListModalOpen(true)}
+              value={selectedAddress?.street}
+            />
+            <Button
+              sx={{
+                mt: 2,
+                borderRadius: "10px",
+                height: "47px",
+                fontSize: "15px",
+                backgroundColor: "#FFD816",
+                color: "black!important",
+                "&:hover": {
                   backgroundColor: "#FFD816",
                   color: "black!important",
-                  "&:hover": {
-                    backgroundColor: "#FFD816",
-                    color: "black!important",
-                  },
-                }}
-                fullWidth
-                type="submit"
-                name="passwordLogin"
-              >
-                Submit
-              </Button>
-            </Grid>
+                },
+              }}
+              fullWidth
+              type="submit"
+              name="passwordLogin"
+            >
+              Submit
+            </Button>
           </Grid>
         </Grid>
-      </Hidden>
+      </Grid>
     </Grid>
   );
 };
