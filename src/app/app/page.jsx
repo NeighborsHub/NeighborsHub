@@ -60,12 +60,14 @@ const App = () => {
   const router = useRouter();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  console.log(isMobile, "tttttttttttttttt");
+
   useEffect(() => {
-    setLoading(true);
     setTimeout(() => {
-      dispatch(getMyAddressesAction()).finally(() => setLoading(false));
-      dispatch(getCategoriesAction());
-      dispatch(myInfoAction());
+      dispatch(myInfoAction()).then(() => {
+        dispatch(getMyAddressesAction());
+        dispatch(getCategoriesAction());
+      });
     }, 500);
   }, []);
 

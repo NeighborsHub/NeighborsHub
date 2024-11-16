@@ -41,7 +41,10 @@ export const myInfoAction = () => async (dispatch) => {
       dispatch(setMyInfo(res.user));
       dispatch(authenticated(true));
     })
-    .catch(() => dispatch(authenticated(false)));
+    .catch(() => {
+      dispatch(authenticated(false));
+      throw new Error("");
+    });
 };
 
 export const sendOtpToEmailAction = (data) => async (dispatch) => {
